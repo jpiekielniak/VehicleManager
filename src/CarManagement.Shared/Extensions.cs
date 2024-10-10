@@ -1,3 +1,8 @@
+using CarManagement.Shared.Auth;
+using CarManagement.Shared.Auth.Context;
+using CarManagement.Shared.Auth.Middlewares;
+using CarManagement.Shared.Validation;
+
 namespace CarManagement.Shared;
 
 public static class Extensions
@@ -30,6 +35,20 @@ public static class Extensions
             });
 
 
+        services.AddScoped<IAuthManager, AuthManager>();
+        services.AddHttpClient();
+        services.AddSingleton<IContextFactory, ContextFactory>();
+        services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        services.AddTransient(sp => sp.GetRequiredService<IContextFactory>().Create());
+
         return services;
+    }
+
+    public static WebApplication UseMiddlewares(this WebApplication app)
+    {
+        app.UseMiddleware<ValidationExceptionMiddleware>();
+        app.UseMiddleware<TokenExpirationMiddleware>();
+
+        return app;
     }
 }
