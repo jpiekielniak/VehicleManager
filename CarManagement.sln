@@ -1,0 +1,21 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarManagement.Api", "src\CarManagement.Api\CarManagement.Api.csproj", "{17E50789-DFD6-474D-AECF-280ADFBADEB2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{75B00CA7-4B76-4AC8-B09F-E43391D05E92}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{17E50789-DFD6-474D-AECF-280ADFBADEB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17E50789-DFD6-474D-AECF-280ADFBADEB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17E50789-DFD6-474D-AECF-280ADFBADEB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17E50789-DFD6-474D-AECF-280ADFBADEB2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{17E50789-DFD6-474D-AECF-280ADFBADEB2} = {75B00CA7-4B76-4AC8-B09F-E43391D05E92}
+	EndGlobalSection
+EndGlobal
