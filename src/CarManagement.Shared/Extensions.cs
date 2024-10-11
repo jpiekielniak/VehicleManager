@@ -1,4 +1,5 @@
 using CarManagement.Shared.Auth;
+using CarManagement.Shared.Hash;
 using CarManagement.Shared.Middlewares.Exceptions;
 using CarManagement.Shared.Middlewares.Tokens;
 using CarManagement.Shared.Validation;
@@ -12,9 +13,9 @@ public static class Extensions
     {
         services.AddAuthOptions(configuration);
         services.AddPolicy();
-        services.AddValidators(Assembly.GetExecutingAssembly());
 
         services.AddScoped<IAuthManager, AuthManager>();
+        services.AddScoped<IPasswordHasher, PasswordHasher>();
 
         return services;
     }

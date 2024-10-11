@@ -12,52 +12,43 @@ public class ExceptionMiddleware(RequestDelegate next)
         }
         catch (Exception ex)
         {
-            await HandleExceptionAsync(context, ex);
+            await HandleExceptionAsync(ex, context);
         }
     }
 
-    private static Task HandleExceptionAsync(HttpContext context, Exception exception)
+    private static Task HandleExceptionAsync(Exception exception, HttpContext context)
     {
         return exception switch
         {
-            CarManagementException ex => GetExceptionResponse(context, ex),
-            ValidationException ex => GetExceptionResponse(context, ex),
-            _ => GetExceptionResponse(context)
+            CarManagementException ex => SetResponseAsync(ex, context),
+            ValidationException ex => SetResponseAsync(ex, context),
+            _ => SetInternalServerErrorResponse(context)
         };
     }
 
-
-    private static async Task GetExceptionResponse(HttpContext context, CarManagementException exception)
-        => await SetResponseAsync(context, HttpStatusCode.BadRequest, exception.Message);
-
-    private static async Task GetExceptionResponse(HttpContext context, ValidationException ex)
+    private static async Task SetResponseAsync<T>(T ex, HttpContext context)
+        where T : Exception
     {
-        var error = ex.Errors
-            .Select(q => new
-            {
-                message = q.ErrorMessage
-            })
-            .FirstOrDefault();
+        var errorMessage = ex is ValidationException validationException
+            ? validationException.Errors.FirstOrDefault()?.ErrorMessage
+            : ex.Message;
 
-        await SetResponseAsync(context, HttpStatusCode.BadRequest, error);
+        var error = new Error(errorMessage);
+        var response = new ErrorsResponse(error);
+
+        context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+        await context.Response.WriteAsJsonAsync(response.Error);
     }
 
-    private static async Task GetExceptionResponse(HttpContext context)
+    private static async Task SetInternalServerErrorResponse(HttpContext context)
     {
-        var message = new
-        {
-            message = "There was an error."
-        };
+        var error = new Error(
+            "An error occurred while processing your request"
+        );
 
-        await SetResponseAsync(context, HttpStatusCode.InternalServerError, message);
-    }
+        var response = new ErrorsResponse(error);
 
-    private static async Task SetResponseAsync(HttpContext context, HttpStatusCode statusCode, object message)
-    {
-        context.Response.StatusCode = (int)statusCode;
-        context.Response.ContentType = "application/json";
-
-        var jsonResponse = JsonSerializer.Serialize(message);
-        await context.Response.WriteAsync(jsonResponse);
+        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+        await context.Response.WriteAsJsonAsync(response.Error);
     }
 }

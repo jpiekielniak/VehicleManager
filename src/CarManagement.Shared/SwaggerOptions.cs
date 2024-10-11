@@ -1,4 +1,4 @@
-[assembly: InternalsVisibleTo("AnswerSeek.Api")]
+[assembly: InternalsVisibleTo("CarManagement.Api")]
 
 namespace CarManagement.Shared;
 

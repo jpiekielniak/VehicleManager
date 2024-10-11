@@ -1,12 +1,12 @@
 namespace CarManagement.Core.Users.Entities.Builders;
 
-internal sealed class UserBuilder
+public sealed class UserBuilder
 {
     private readonly User _user = User.Create();
 
     public User Build() => _user;
 
-    public UserBuilder WithUserName(string userName)
+    public UserBuilder WithUsername(string userName)
     {
         _user.Username = userName;
         return this;

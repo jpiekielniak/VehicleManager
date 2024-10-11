@@ -15,3 +15,4 @@ global using System.Text.Json;
 global using System.Reflection;
 global using Microsoft.AspNetCore.Routing;
 global using Microsoft.AspNetCore.Builder;
+global using System.Collections.Concurrent;

@@ -8,5 +8,6 @@ internal sealed class RoleRepository(CarManagementDbContext dbContext) : IRoleRe
     private readonly DbSet<Role> _roles = dbContext.Roles;
 
     public async Task<Role> GetAsync(string role, CancellationToken cancellationToken)
-        => await _roles.FirstOrDefaultAsync(r => r.Name == role, cancellationToken);
+        => await _roles
+            .FirstOrDefaultAsync(r => r.Name == role, cancellationToken);
 }
