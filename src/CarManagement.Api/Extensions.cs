@@ -10,7 +10,10 @@ internal static class Extensions
     internal static IServiceCollection LoadLayers(this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+        services.AddMediatR(
+            cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly())
+        );
+
         services.AddApplication();
         services.AddCore();
         services.AddInfrastructure(configuration);

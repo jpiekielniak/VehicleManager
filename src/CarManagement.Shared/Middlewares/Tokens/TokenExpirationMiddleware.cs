@@ -1,6 +1,6 @@
-using CarManagement.Shared.Results;
+using CarManagement.Shared.Middlewares.Tokens.Exceptions;
 
-namespace CarManagement.Shared.Auth.Middlewares;
+namespace CarManagement.Shared.Middlewares.Tokens;
 
 public class TokenExpirationMiddleware(RequestDelegate next)
 {
@@ -26,18 +26,14 @@ public class TokenExpirationMiddleware(RequestDelegate next)
 
                     if (expirationDate < DateTime.UtcNow)
                     {
-                        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                        var error = new Error("TokenExpired", "Token has expired");
-                        await context.Response.WriteAsJsonAsync(error);
-                        return;
+                        throw new TokenExpiredException();
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                var error = new Error("InvalidToken", $"Invalid token: {ex.Message}");
-                await context.Response.WriteAsJsonAsync(error);
+                await context.Response.WriteAsJsonAsync(new { message = "Invalid token" });
                 return;
             }
         }
