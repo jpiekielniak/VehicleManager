@@ -30,6 +30,7 @@ internal sealed class SignUpCommandHandler(
             .WithEmail(command.Email)
             .WithUsername(command.Username)
             .WithPassword(hashedPassword)
+            .WithPhoneNumber(command.PhoneNumber)
             .WithRole(role)
             .Build();
 
