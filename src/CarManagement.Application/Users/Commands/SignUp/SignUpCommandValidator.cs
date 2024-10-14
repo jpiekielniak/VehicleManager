@@ -29,23 +29,25 @@ internal sealed class SignUpCommandValidator
             .NotNull().WithMessage("Username cannot be null")
             .MaximumLength(150).WithMessage("Username must be at most 150 characters long");
 
-        RuleFor(x => x.Email)
-            .CustomAsync(async (email, context, cancellationToken) =>
-            {
-                var userExists = await userRepository
-                    .AnyAsync(
-                        x => x.Email == email,
-                        cancellationToken
-                    );
+        RuleFor(x => x.PhoneNumber)
+            .NotEmpty().WithMessage("Phone number cannot be empty")
+            .NotNull().WithMessage("Phone number cannot be null")
+            .Matches(@"^\d{9}$").WithMessage("Phone number must be 9 digits long");
 
-                if (userExists)
-                {
-                    throw new EmailAlreadyExistsException(email);
-                }
-            });
+        RuleFor(x => x.Email)
+            .MustAsync(async (email, cancellationToken) =>
+            {
+                var userExists = await userRepository.AnyAsync(
+                    x => x.Email == email,
+                    cancellationToken
+                );
+
+                return !userExists;
+            })
+            .WithMessage("Email already exists");
 
         RuleFor(x => x.Username)
-            .CustomAsync(async (userName, context, cancellationToken) =>
+            .MustAsync(async (userName, cancellationToken) =>
             {
                 var userExists = await userRepository
                     .AnyAsync(
@@ -53,10 +55,7 @@ internal sealed class SignUpCommandValidator
                         cancellationToken
                     );
 
-                if (userExists)
-                {
-                    throw new UsernameAlreadyExistsExceptions(userName);
-                }
-            });
+                return !userExists;
+            }).WithMessage("Username already exists");
     }
 }

@@ -44,6 +44,6 @@ public class SignUpEndpointTests(CarManagementTestFactory factory) : EndpointTes
         // Assert
         var error = response.Content.ReadFromJsonAsync<Error>().Result;
         response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
-        error?.Message.ShouldBe($"User with email {email} already exists");
+        error?.Message.ShouldBe("Email already exists");
     }
 }
