@@ -1,5 +1,6 @@
 using CarManagement.Core.Users.Entities;
 using CarManagement.Infrastructure.EF;
+using CarManagement.Shared.Hash;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,6 +11,7 @@ public abstract class EndpointTests : IClassFixture<CarManagementTestFactory>, I
     private readonly IServiceScope _scope;
     protected readonly HttpClient Client;
     protected readonly CarManagementDbContext DbContext;
+    protected readonly IPasswordHasher PasswordHasher;
     protected readonly Role Role = Role.Create("User");
 
     protected EndpointTests(CarManagementTestFactory factory)
@@ -18,6 +20,7 @@ public abstract class EndpointTests : IClassFixture<CarManagementTestFactory>, I
 
         Client = factory.CreateClient();
         DbContext = _scope.ServiceProvider.GetRequiredService<CarManagementDbContext>();
+        PasswordHasher = _scope.ServiceProvider.GetRequiredService<IPasswordHasher>();
     }
 
     public async Task InitializeAsync()

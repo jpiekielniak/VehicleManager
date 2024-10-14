@@ -1,3 +1,4 @@
+using CarManagement.Api.Endpoints.Users;
 using CarManagement.Application.Users.Commands.SignUp;
 using CarManagement.Core.Users.Entities.Builders;
 using CarManagement.Shared.Middlewares.Exceptions;
@@ -13,7 +14,7 @@ public class SignUpEndpointTests(CarManagementTestFactory factory) : EndpointTes
         var command = new SignUpCommand("car.managment@test.com", "carmanagment", "123456789", "password", "password");
 
         // Act
-        var response = await Client.PostAsJsonAsync("/api/v1/users/sign-up", command);
+        var response = await Client.PostAsJsonAsync(UserEndpoints.SignUp, command);
 
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.Created);
@@ -38,7 +39,7 @@ public class SignUpEndpointTests(CarManagementTestFactory factory) : EndpointTes
         var command = new SignUpCommand(email, "carmanagmenttest", "123456789", "password", "password");
 
         // Act
-        var response = await Client.PostAsJsonAsync("/api/v1/users/sign-up", command);
+        var response = await Client.PostAsJsonAsync(UserEndpoints.SignUp, command);
 
         // Assert
         var error = response.Content.ReadFromJsonAsync<Error>().Result;
