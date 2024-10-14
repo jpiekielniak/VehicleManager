@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CarManagement.Infrastructure.EF.Migrations
 {
     [DbContext(typeof(CarManagementDbContext))]
-    [Migration("20241011124339_Initial")]
+    [Migration("20241013093903_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -40,6 +40,9 @@ namespace CarManagement.Infrastructure.EF.Migrations
                         .HasColumnType("character varying(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Roles", (string)null);
                 });
@@ -75,7 +78,13 @@ namespace CarManagement.Infrastructure.EF.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.HasIndex("RoleId");
+
+                    b.HasIndex("Username")
+                        .IsUnique();
 
                     b.ToTable("Users", (string)null);
                 });

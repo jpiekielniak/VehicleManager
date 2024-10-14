@@ -1,6 +1,6 @@
 using CarManagement.Core.Users.Entities;
 
-namespace CarManagement.Test.Unit.Users.Entities.Builders.TestData.Valid;
+namespace CarManagement.Tests.Unit.Users.Entities.Builders.TestData.Valid;
 
 public class UserBuilderValidTestData : TheoryData<string, string, string, string, Role>
 {

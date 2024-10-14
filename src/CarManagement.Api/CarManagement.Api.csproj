@@ -3,6 +3,7 @@
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
     <ItemGroup>
@@ -18,5 +19,10 @@
       <ProjectReference Include="..\CarManagement.Infrastructure\CarManagement.Infrastructure.csproj" />
       <ProjectReference Include="..\CarManagement.Shared\CarManagement.Shared.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="CarManagement.Test.Integration" />
+    </ItemGroup>
+
 
 </Project>

@@ -1,8 +1,10 @@
 using CarManagement.Core.Users.Repositories;
 using CarManagement.Infrastructure.EF;
+using CarManagement.Infrastructure.EF.Initializer;
 using CarManagement.Infrastructure.EF.Users.Repositories;
 
 [assembly: InternalsVisibleTo("CarManagement.Api")]
+[assembly: InternalsVisibleTo("CarManagement.Tests.Integration")]
 
 namespace CarManagement.Infrastructure;
 
@@ -27,6 +29,7 @@ internal static class Extensions
 
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IRoleRepository, RoleRepository>();
+        services.AddHostedService<MigrationInitializer>();
 
         return services;
     }

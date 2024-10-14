@@ -1,9 +1,9 @@
 using CarManagement.Core.Users.Entities;
 using CarManagement.Core.Users.Entities.Builders;
-using CarManagement.Test.Unit.Users.Entities.Builders.TestData.Invalid;
-using CarManagement.Test.Unit.Users.Entities.Builders.TestData.Valid;
+using CarManagement.Tests.Unit.Users.Entities.Builders.TestData.Invalid;
+using CarManagement.Tests.Unit.Users.Entities.Builders.TestData.Valid;
 
-namespace CarManagement.Test.Unit.Users.Entities.Builders;
+namespace CarManagement.Tests.Unit.Users.Entities.Builders;
 
 public class UserBuilderTests
 {

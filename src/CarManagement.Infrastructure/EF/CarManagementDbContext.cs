@@ -2,7 +2,7 @@ using CarManagement.Core.Users.Entities;
 
 namespace CarManagement.Infrastructure.EF;
 
-internal sealed class CarManagementDbContext(DbContextOptions<CarManagementDbContext> options)
+public sealed class CarManagementDbContext(DbContextOptions<CarManagementDbContext> options)
     : DbContext(options)
 {
     public DbSet<User> Users { get; init; }

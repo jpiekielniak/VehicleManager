@@ -10,4 +10,13 @@ internal sealed class RoleRepository(CarManagementDbContext dbContext) : IRoleRe
     public async Task<Role> GetAsync(string role, CancellationToken cancellationToken)
         => await _roles
             .FirstOrDefaultAsync(r => r.Name == role, cancellationToken);
+
+    public async Task AddAsync(Role role, CancellationToken cancellationToken)
+    {
+        await _roles.AddAsync(role, cancellationToken);
+        await SaveChangesAsync(cancellationToken);
+    }
+
+    private async Task SaveChangesAsync(CancellationToken cancellationToken)
+        => await dbContext.SaveChangesAsync(cancellationToken);
 }

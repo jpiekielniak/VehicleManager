@@ -1,3 +1,4 @@
+using CarManagement.Core.Users.Exceptions.Users;
 using CarManagement.Core.Users.Repositories;
 
 namespace CarManagement.Application.Users.Commands.SignUp;
@@ -29,7 +30,7 @@ internal sealed class SignUpCommandValidator
             .MaximumLength(150).WithMessage("Username must be at most 150 characters long");
 
         RuleFor(x => x.Email)
-            .MustAsync(async (email, cancellationToken) =>
+            .CustomAsync(async (email, context, cancellationToken) =>
             {
                 var userExists = await userRepository
                     .AnyAsync(
@@ -37,11 +38,14 @@ internal sealed class SignUpCommandValidator
                         cancellationToken
                     );
 
-                return !userExists;
-            }).WithMessage("User with this email already exists");
+                if (userExists)
+                {
+                    throw new EmailAlreadyExistsException(email);
+                }
+            });
 
         RuleFor(x => x.Username)
-            .MustAsync(async (userName, cancellationToken) =>
+            .CustomAsync(async (userName, context, cancellationToken) =>
             {
                 var userExists = await userRepository
                     .AnyAsync(
@@ -49,7 +53,10 @@ internal sealed class SignUpCommandValidator
                         cancellationToken
                     );
 
-                return !userExists;
-            }).WithMessage("User with this username already exists");
+                if (userExists)
+                {
+                    throw new UsernameAlreadyExistsExceptions(userName);
+                }
+            });
     }
 }

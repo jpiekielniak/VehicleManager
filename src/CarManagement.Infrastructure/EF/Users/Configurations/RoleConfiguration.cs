@@ -10,6 +10,9 @@ internal sealed class RoleConfiguration : IEntityTypeConfiguration<Role>
     {
         builder.HasKey(r => r.Id);
 
+        builder.HasIndex(r => r.Name)
+            .IsUnique();
+
         builder.Property(r => r.Name)
             .IsRequired()
             .HasMaxLength(50);
