@@ -1,11 +1,10 @@
 using CarManagement.Application.Users.Commands.SignIn;
 using CarManagement.Core.Users.Entities;
-using CarManagement.Core.Users.Entities.Builders;
 using CarManagement.Core.Users.Exceptions.Users;
 using CarManagement.Core.Users.Repositories;
 using CarManagement.Shared.Auth;
 using CarManagement.Shared.Hash;
-using CarManagement.Tests.Unit.Users.Helpers;
+using CarManagement.Tests.Unit.Users.Factories;
 
 namespace CarManagement.Tests.Unit.Users.Handlers.Commands.SignIn;
 
@@ -15,7 +14,7 @@ public class SignInCommandHandlerTests
     public async Task given_non_existing_user_should_throw_user_not_found_exception()
     {
         //arrange
-        var command = CreateCommand();
+        var command = _factory.CreateSignInCommand();
         _userRepository
             .GetByEmailAsync(command.Email, Arg.Any<CancellationToken>())
             .ReturnsNull();
@@ -33,9 +32,8 @@ public class SignInCommandHandlerTests
     public async Task given_invalid_password_should_throw_invalid_password_exception()
     {
         //arrange
-        var command = CreateCommand();
-        var role = CreateRole();
-        var user = CreateUser(role);
+        var command = _factory.CreateSignInCommand();
+        var user = _factory.CreateUser();
         _userRepository
             .GetByEmailAsync(command.Email, Arg.Any<CancellationToken>())
             .Returns(user);
@@ -56,16 +54,15 @@ public class SignInCommandHandlerTests
     public async Task given_valid_data_should_return_sign_in_response()
     {
         //arrange
-        var command = CreateCommand();
-        var role = CreateRole();
-        var user = CreateUser(role);
-        var token = JwtHelper.CreateToken(user.Id.ToString(), role.Name);
+        var command = _factory.CreateSignInCommand();
+        var user = _factory.CreateUser();
+        var token = _factory.CreateToken(user.Id, user.Role.Name);
         _userRepository
             .GetByEmailAsync(command.Email, Arg.Any<CancellationToken>())
             .Returns(user);
         _passwordHasher.VerifyHashedPassword(command.Password, user.Password)
             .Returns(true);
-        _authManager.GenerateToken(user.Id, role.Name)
+        _authManager.GenerateToken(user.Id, user.Role.Name)
             .Returns(token);
 
         //act
@@ -79,24 +76,12 @@ public class SignInCommandHandlerTests
         _authManager.Received(1).GenerateToken(user.Id, user.Role.Name);
     }
 
-    private static SignInCommand CreateCommand()
-        => new("car.management@test.com", "password");
-
-    private static Role CreateRole() => Role.Create("User");
-
-    private static User CreateUser(Role role) => new UserBuilder()
-        .WithEmail("car.management@test.com")
-        .WithUsername("carmanagement")
-        .WithPhoneNumber("123456789")
-        .WithPassword("password")
-        .WithRole(role)
-        .Build();
-
 
     private readonly IRequestHandler<SignInCommand, SignInResponse> _handler;
     private readonly IUserRepository _userRepository;
     private readonly IPasswordHasher _passwordHasher;
     private readonly IAuthManager _authManager;
+    private readonly UserTestFactory _factory = new();
 
     public SignInCommandHandlerTests()
     {

@@ -1,4 +1,5 @@
 using CarManagement.Application.Users.Commands.SignIn;
+using CarManagement.Tests.Unit.Users.Factories;
 
 namespace CarManagement.Tests.Unit.Users.Validators.SignIn;
 
@@ -8,7 +9,7 @@ public class SignInCommandValidatorTests
     public void validate_sign_in_command_with_valid_data_should_return_no_errors()
     {
         //arrange
-        var command = new SignInCommand("car.management@test.com", "password");
+        var command = _factory.CreateSignInCommand();
 
         //act
         var result = _validator.Validate(command);
@@ -49,4 +50,5 @@ public class SignInCommandValidatorTests
     }
 
     private readonly IValidator<SignInCommand> _validator = new SignInCommandValidator();
+    private readonly UserTestFactory _factory = new();
 }

@@ -3,6 +3,7 @@ using CarManagement.Core.Users.Entities;
 using CarManagement.Core.Users.Exceptions.Roles;
 using CarManagement.Core.Users.Repositories;
 using CarManagement.Shared.Hash;
+using CarManagement.Tests.Unit.Users.Factories;
 
 namespace CarManagement.Tests.Unit.Users.Handlers.Commands.SignUp;
 
@@ -12,7 +13,7 @@ public class SignUpCommandHandlerTests
     public async Task given_non_existing_role_when_handle_should_throw_role_not_found_exception()
     {
         //arrange
-        var command = CreateCommand();
+        var command = _factory.CreateSignUpCommand();
 
         _roleRepository
             .GetAsync(Arg.Any<string>(), Arg.Any<CancellationToken>())
@@ -24,16 +25,17 @@ public class SignUpCommandHandlerTests
         //assert
         exception.ShouldBeOfType<RoleNotFoundException>();
         await _userRepository.DidNotReceive().AddAsync(Arg.Any<User>(), Arg.Any<CancellationToken>());
-        await _roleRepository.Received(1).GetAsync(Role.Name, Arg.Any<CancellationToken>());
+        await _roleRepository.Received(1).GetAsync(Arg.Any<string>(), Arg.Any<CancellationToken>());
     }
 
     [Fact]
     public async Task given_valid_data_when_handle_should_add_user()
     {
         //arrange
-        var command = CreateCommand();
+        var command = _factory.CreateSignUpCommand();
+        var role = _factory.CreateRole();
         _roleRepository.GetAsync(Arg.Any<string>(), Arg.Any<CancellationToken>())
-            .Returns(Role);
+            .Returns(role);
         _passwordHasher.HashPassword(Arg.Any<string>()).Returns(command.Password);
 
         //act
@@ -45,20 +47,11 @@ public class SignUpCommandHandlerTests
         await _roleRepository.Received(1).GetAsync(Arg.Any<string>(), Arg.Any<CancellationToken>());
     }
 
-    private static SignUpCommand CreateCommand() => new(
-        "car.management@test.com",
-        "car.management.",
-        "123456789",
-        "password",
-        "password"
-    );
-
-    private static Role Role => Role.Create("User");
-
     private readonly IRequestHandler<SignUpCommand> _handler;
     private readonly IUserRepository _userRepository;
     private readonly IRoleRepository _roleRepository;
     private readonly IPasswordHasher _passwordHasher;
+    private readonly UserTestFactory _factory = new();
 
     public SignUpCommandHandlerTests()
     {
