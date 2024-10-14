@@ -1,6 +1,6 @@
 namespace CarManagement.Application.Users.Commands.SignUp;
 
-public record SignUpCommand(
+internal record SignUpCommand(
     string Email,
     string Username,
     string PhoneNumber,

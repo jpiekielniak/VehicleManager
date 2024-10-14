@@ -23,7 +23,7 @@ internal static class Extensions
         return services;
     }
 
-    public static IEndpointRouteBuilder MapEndpoints(this IEndpointRouteBuilder endpoints)
+    public static IEndpointRouteBuilder MapEndpoints(this IEndpointRouteBuilder endpoint)
     {
         var endpointDefinitions = Assembly.GetExecutingAssembly()
             .GetTypes()
@@ -33,9 +33,9 @@ internal static class Extensions
 
         foreach (var endpointDefinition in endpointDefinitions)
         {
-            endpointDefinition.DefineEndpoints(endpoints);
+            endpointDefinition.DefineEndpoint(endpoint);
         }
 
-        return endpoints;
+        return endpoint;
     }
 }

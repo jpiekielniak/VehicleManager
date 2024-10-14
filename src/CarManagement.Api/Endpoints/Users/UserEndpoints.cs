@@ -3,7 +3,7 @@ namespace CarManagement.Api.Endpoints.Users;
 public static class UserEndpoints
 {
     public static string Users => "Users";
-    public static string BasePath => $"{RootPath.BasePath}/{Users.ToLowerInvariant()}";
-    public static string SignUp => $"{RootPath.BasePath}/users/sign-up";
-    public static string SignIn => $"{RootPath.BasePath}/users/sign-in";
+    public static string SignUp => $"{BasePath}/sign-up";
+    public static string SignIn => $"{BasePath}/sign-in";
+    private static string BasePath => $"{RootPath.BasePath}/{Users.ToLowerInvariant()}";
 }

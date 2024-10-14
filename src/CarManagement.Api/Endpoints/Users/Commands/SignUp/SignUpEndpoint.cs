@@ -6,9 +6,9 @@ namespace CarManagement.Api.Endpoints.Users.Commands.SignUp;
 
 internal sealed class SignUpEndpoint : IEndpointDefinition
 {
-    public void DefineEndpoints(IEndpointRouteBuilder endpoints)
+    public void DefineEndpoint(IEndpointRouteBuilder endpoint)
     {
-        endpoints.MapPost(UserEndpoints.SignUp, async (
+        endpoint.MapPost(UserEndpoints.SignUp, async (
                 [FromBody] SignUpCommand command,
                 [FromServices] IMediator mediator,
                 CancellationToken cancellationToken
