@@ -11,6 +11,7 @@
     
     <ItemGroup>
         <InternalsVisibleTo Include="CarManagement.Test.Integration"/>
+        <InternalsVisibleTo Include="CarManagement.Tests.Unit"/>
     </ItemGroup>
 
 </Project>

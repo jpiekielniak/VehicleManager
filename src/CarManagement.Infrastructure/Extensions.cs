@@ -4,7 +4,7 @@ using CarManagement.Infrastructure.EF.Initializer;
 using CarManagement.Infrastructure.EF.Users.Repositories;
 
 [assembly: InternalsVisibleTo("CarManagement.Api")]
-[assembly: InternalsVisibleTo("CarManagement.Tests.Integration")]
+[assembly: InternalsVisibleTo("CarManagement.Test.Integration")]
 
 namespace CarManagement.Infrastructure;
 

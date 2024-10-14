@@ -33,7 +33,6 @@ public class AuthManager(IConfiguration configuration) : IAuthManager
         return new JsonWebToken
         {
             AccessToken = token,
-            RefreshToken = string.Empty,
             Expires = expires,
             Id = userId.ToString(),
             Role = role
