@@ -1,4 +1,5 @@
 using CarManagement.Shared.Auth;
+using CarManagement.Shared.Auth.Context;
 using CarManagement.Shared.Hash;
 using CarManagement.Shared.Middlewares.Exceptions;
 using CarManagement.Shared.Middlewares.Tokens;
@@ -16,6 +17,8 @@ public static class Extensions
 
         services.AddScoped<IAuthManager, AuthManager>();
         services.AddScoped<IPasswordHasher, PasswordHasher>();
+        services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        services.AddTransient<IContext, Context>();
 
         return services;
     }

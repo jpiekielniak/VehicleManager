@@ -18,14 +18,14 @@ internal sealed class SignInCommandHandler(
 
         if (user is null)
         {
-            throw new UserNotFoundException(command.Email);
+            throw new InvalidCredentialsException();
         }
 
         var isValidPassword = passwordHasher.VerifyHashedPassword(command.Password, user.Password);
 
         if (!isValidPassword)
         {
-            throw new InvalidPasswordException();
+            throw new InvalidCredentialsException();
         }
 
         var jwt = authManager.GenerateToken(user.Id, user.Role.Name);
