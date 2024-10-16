@@ -1,4 +1,5 @@
 using CarManagement.Core.Users.Entities;
+using CarManagement.Core.Vehicles.Entities;
 
 namespace CarManagement.Infrastructure.EF;
 
@@ -7,6 +8,9 @@ public sealed class CarManagementDbContext(DbContextOptions<CarManagementDbConte
 {
     public DbSet<User> Users { get; init; }
     public DbSet<Role> Roles { get; init; }
+    public DbSet<Vehicle> Vehicles { get; init; }
+    public DbSet<Car> Cars { get; init; }
+    public DbSet<Motorcycle> Motorcycles { get; init; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

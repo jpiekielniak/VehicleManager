@@ -1,3 +1,5 @@
+using CarManagement.Core.Vehicles.Entities;
+
 namespace CarManagement.Core.Users.Entities;
 
 public sealed class User
@@ -10,6 +12,7 @@ public sealed class User
     public Guid RoleId { get; init; }
     public Role Role { get; set; }
     public DateTimeOffset CreatedAt { get; init; } = DateTimeOffset.UtcNow;
+    public ICollection<Vehicle> Vehicles { get; set; } = [];
 
     private User()
     {

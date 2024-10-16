@@ -31,9 +31,15 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
             .IsRequired();
 
         builder
-            .HasOne(u => u.Role)
-            .WithMany(r => r.Users)
-            .HasForeignKey(u => u.RoleId);
+            .HasOne(user => user.Role)
+            .WithMany(role => role.Users)
+            .HasForeignKey(user => user.RoleId);
+
+        builder
+            .HasMany(user => user.Vehicles)
+            .WithOne(vehicle => vehicle.User)
+            .OnDelete(DeleteBehavior.Cascade);
+
 
         builder.ToTable(TableName);
     }
