@@ -23,7 +23,7 @@ public class SignInCommandHandlerTests
         var exception = await Record.ExceptionAsync(() => _handler.Handle(command, CancellationToken.None));
 
         //assert
-        exception.ShouldBeOfType<UserNotFoundException>();
+        exception.ShouldBeOfType<InvalidCredentialsException>();
         await _userRepository.Received(1).GetByEmailAsync(command.Email, Arg.Any<CancellationToken>());
         await _userRepository.AddAsync(Arg.Any<User>(), Arg.Any<CancellationToken>());
     }
@@ -44,7 +44,7 @@ public class SignInCommandHandlerTests
         var exception = await Record.ExceptionAsync(() => _handler.Handle(command, CancellationToken.None));
 
         //assert
-        exception.ShouldBeOfType<InvalidPasswordException>();
+        exception.ShouldBeOfType<InvalidCredentialsException>();
         await _userRepository.Received(1).GetByEmailAsync(command.Email, Arg.Any<CancellationToken>());
         _passwordHasher.Received(1).VerifyHashedPassword(command.Password, user.Password);
     }

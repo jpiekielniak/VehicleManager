@@ -1,4 +1,3 @@
-using CarManagement.Core.Users.Exceptions.Users;
 using CarManagement.Core.Users.Repositories;
 
 namespace CarManagement.Application.Users.Commands.SignUp;
@@ -30,9 +29,9 @@ internal sealed class SignUpCommandValidator
             .MaximumLength(150).WithMessage("Username must be at most 150 characters long");
 
         RuleFor(x => x.PhoneNumber)
+            .Must((user, phoneNumber) => IsValidPhoneNumber(phoneNumber))
             .NotEmpty().WithMessage("Phone number cannot be empty")
-            .NotNull().WithMessage("Phone number cannot be null")
-            .Matches(@"^\d{9}$").WithMessage("Phone number must be 9 digits long");
+            .NotNull().WithMessage("Phone number cannot be null");
 
         RuleFor(x => x.Email)
             .MustAsync(async (email, cancellationToken) =>
@@ -57,5 +56,13 @@ internal sealed class SignUpCommandValidator
 
                 return !userExists;
             }).WithMessage("Username already exists");
+    }
+
+    private static bool IsValidPhoneNumber(string phoneNumber)
+    {
+        var phoneNumberUtil = PhoneNumberUtil.GetInstance();
+        var numberProto = phoneNumberUtil.Parse(phoneNumber, "PL");
+
+        return phoneNumberUtil.IsValidNumber(numberProto);
     }
 }
