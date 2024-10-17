@@ -3,7 +3,7 @@ using CarManagement.Core.Vehicles.Entities.Enums;
 
 namespace CarManagement.Core.Vehicles.Entities;
 
-public class Vehicle
+public sealed class Vehicle
 {
     public Guid Id { get; set; } = Guid.NewGuid();
     public string Brand { get; set; } = default!;
@@ -17,9 +17,14 @@ public class Vehicle
     public User User { get; set; }
 
     public int EnginePower { get; set; }
+    public GearboxType GearboxType { get; set; }
     public VehicleType VehicleType { get; set; }
 
     public DateTimeOffset CreatedAt { get; init; } = DateTimeOffset.UtcNow;
+
+    public Guid ServiceBookId { get; set; }
+    public ServiceBook ServiceBook { get; set; } = default!;
+    public List<Insurance> Insurances { get; set; } = [];
 
     private Vehicle()
     {

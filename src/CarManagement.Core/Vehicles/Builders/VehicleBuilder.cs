@@ -1,10 +1,11 @@
+using CarManagement.Core.Vehicles.Entities;
 using CarManagement.Core.Vehicles.Entities.Enums;
 
-namespace CarManagement.Core.Vehicles.Entities.Builders;
+namespace CarManagement.Core.Vehicles.Builders;
 
 public class VehicleBuilder
 {
-    private Vehicle _vehicle => Vehicle.Create();
+    private readonly Vehicle _vehicle = Vehicle.Create();
     public Vehicle Build() => _vehicle;
 
     public VehicleBuilder WithBrand(string brand)
@@ -81,6 +82,13 @@ public class VehicleBuilder
         }
 
         _vehicle.VehicleType = vehicleType;
+        return this;
+    }
+
+    public VehicleBuilder WithServiceBook(ServiceBook serviceBook)
+    {
+        ArgumentNullException.ThrowIfNull(serviceBook);
+        _vehicle.ServiceBook = serviceBook;
         return this;
     }
 }

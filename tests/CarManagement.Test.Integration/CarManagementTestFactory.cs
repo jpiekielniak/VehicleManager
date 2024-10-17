@@ -8,7 +8,7 @@ using Testcontainers.PostgreSql;
 
 namespace CarManagement.Test.Integration;
 
-public class CarManagementTestFactory : WebApplicationFactory<Program>, IAsyncLifetime
+public class CarManagementTestFactory : WebApplicationFactory<Api.Program>, IAsyncLifetime
 {
     private readonly PostgreSqlContainer _container = new PostgreSqlBuilder()
         .WithImage("postgres:latest")

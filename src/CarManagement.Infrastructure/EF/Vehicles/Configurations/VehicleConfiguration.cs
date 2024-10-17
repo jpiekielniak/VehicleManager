@@ -45,9 +45,25 @@ internal sealed class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
         builder.Property(v => v.EngineCapacity)
             .IsRequired();
 
+        builder.Property(v => v.GearboxType)
+            .HasConversion<string>()
+            .IsRequired();
+
         builder.Property(v => v.VehicleType)
             .HasConversion<string>()
             .IsRequired();
+
+        builder
+            .HasOne(vehicle => vehicle.ServiceBook)
+            .WithOne(serviceBook => serviceBook.Vehicle)
+            .HasForeignKey<ServiceBook>(serviceBook => serviceBook.VehicleId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder
+            .HasMany(vehicle => vehicle.Insurances)
+            .WithOne(insurance => insurance.Vehicle)
+            .HasForeignKey(vehicle => vehicle.VehicleId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.ToTable(TableName);
     }
