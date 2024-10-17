@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CarManagement.Infrastructure.EF.Migrations
 {
     /// <inheritdoc />
-    public partial class Vehicle : Migration
+    public partial class AddedVehicles : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -25,17 +25,8 @@ namespace CarManagement.Infrastructure.EF.Migrations
                     FuelType = table.Column<string>(type: "text", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     EnginePower = table.Column<int>(type: "integer", nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    Discriminator = table.Column<string>(type: "character varying(13)", maxLength: 13, nullable: false),
-                    NumberOfDoors = table.Column<int>(type: "integer", nullable: true),
-                    BodyType = table.Column<int>(type: "integer", nullable: true),
-                    GearboxType = table.Column<int>(type: "integer", nullable: true),
-                    MotorcycleType = table.Column<int>(type: "integer", nullable: true),
-                    SuspensionType = table.Column<int>(type: "integer", nullable: true),
-                    DriveType = table.Column<int>(type: "integer", nullable: true),
-                    NumberOfCylinders = table.Column<int>(type: "integer", nullable: true),
-                    NumberOfGears = table.Column<int>(type: "integer", nullable: true),
-                    CoolingSystem = table.Column<int>(type: "integer", nullable: true)
+                    VehicleType = table.Column<string>(type: "text", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {

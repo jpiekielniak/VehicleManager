@@ -1,4 +1,3 @@
-using CarManagement.Core.Vehicles.Entities;
 using CarManagement.Core.Vehicles.Entities.Factories;
 
 [assembly: InternalsVisibleTo("CarManagement.Api")]

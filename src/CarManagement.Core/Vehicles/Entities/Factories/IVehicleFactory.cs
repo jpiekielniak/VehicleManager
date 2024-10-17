@@ -4,7 +4,7 @@ namespace CarManagement.Core.Vehicles.Entities.Factories;
 
 public interface IVehicleFactory
 {
-    T CreateVehicle<T>(
+    Vehicle CreateVehicle(
         string brand,
         string model,
         int year,
@@ -13,5 +13,7 @@ public interface IVehicleFactory
         double engineCapacity,
         int enginePower,
         FuelType fuelType,
-        Guid userId) where T : Vehicle, new();
+        Guid userId,
+        VehicleType vehicleType
+    );
 }

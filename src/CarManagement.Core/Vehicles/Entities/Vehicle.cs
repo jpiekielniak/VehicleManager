@@ -1,10 +1,9 @@
 using CarManagement.Core.Users.Entities;
 using CarManagement.Core.Vehicles.Entities.Enums;
-using DriveType = CarManagement.Core.Vehicles.Entities.Enums.DriveType;
 
 namespace CarManagement.Core.Vehicles.Entities;
 
-public abstract class Vehicle
+public class Vehicle
 {
     public Guid Id { get; set; } = Guid.NewGuid();
     public string Brand { get; set; } = default!;
@@ -18,6 +17,13 @@ public abstract class Vehicle
     public User User { get; set; }
 
     public int EnginePower { get; set; }
+    public VehicleType VehicleType { get; set; }
 
     public DateTimeOffset CreatedAt { get; init; } = DateTimeOffset.UtcNow;
+
+    private Vehicle()
+    {
+    }
+
+    public static Vehicle Create() => new();
 }

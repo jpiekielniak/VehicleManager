@@ -100,11 +100,6 @@ namespace CarManagement.Infrastructure.EF.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("character varying(13)");
-
                     b.Property<double>("EngineCapacity")
                         .HasColumnType("double precision");
 
@@ -133,6 +128,10 @@ namespace CarManagement.Infrastructure.EF.Migrations
                         .HasMaxLength(17)
                         .HasColumnType("character varying(17)");
 
+                    b.Property<string>("VehicleType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int>("Year")
                         .HasColumnType("integer");
 
@@ -147,51 +146,6 @@ namespace CarManagement.Infrastructure.EF.Migrations
                         .IsUnique();
 
                     b.ToTable("Vehicles", (string)null);
-
-                    b.HasDiscriminator().HasValue("Vehicle");
-
-                    b.UseTphMappingStrategy();
-                });
-
-            modelBuilder.Entity("CarManagement.Core.Vehicles.Entities.Car", b =>
-                {
-                    b.HasBaseType("CarManagement.Core.Vehicles.Entities.Vehicle");
-
-                    b.Property<int>("BodyType")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("GearboxType")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("NumberOfDoors")
-                        .HasColumnType("integer");
-
-                    b.HasDiscriminator().HasValue("Car");
-                });
-
-            modelBuilder.Entity("CarManagement.Core.Vehicles.Entities.Motorcycle", b =>
-                {
-                    b.HasBaseType("CarManagement.Core.Vehicles.Entities.Vehicle");
-
-                    b.Property<int?>("CoolingSystem")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("DriveType")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("MotorcycleType")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("NumberOfCylinders")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("NumberOfGears")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("SuspensionType")
-                        .HasColumnType("integer");
-
-                    b.HasDiscriminator().HasValue("Motorcycle");
                 });
 
             modelBuilder.Entity("CarManagement.Core.Users.Entities.User", b =>

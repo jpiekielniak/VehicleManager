@@ -2,75 +2,85 @@ using CarManagement.Core.Vehicles.Entities.Enums;
 
 namespace CarManagement.Core.Vehicles.Entities.Builders;
 
-public class VehicleBuilder<T> where T : Vehicle, new()
+public class VehicleBuilder
 {
-    protected T Vehicle = new();
+    private Vehicle _vehicle => Vehicle.Create();
+    public Vehicle Build() => _vehicle;
 
-    public VehicleBuilder<T> WithBrand(string brand)
+    public VehicleBuilder WithBrand(string brand)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(brand);
-        Vehicle.Brand = brand;
+        _vehicle.Brand = brand;
         return this;
     }
 
-    public VehicleBuilder<T> WithModel(string model)
+    public VehicleBuilder WithModel(string model)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(model);
-        Vehicle.Model = model;
+        _vehicle.Model = model;
         return this;
     }
 
-    public VehicleBuilder<T> WithYear(int year)
+    public VehicleBuilder WithYear(int year)
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(year);
-        Vehicle.Year = year;
+        _vehicle.Year = year;
         return this;
     }
 
-    public VehicleBuilder<T> WithLicensePlate(string licensePlate)
+    public VehicleBuilder WithLicensePlate(string licensePlate)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(licensePlate);
-        Vehicle.LicensePlate = licensePlate;
+        _vehicle.LicensePlate = licensePlate;
         return this;
     }
 
-    public VehicleBuilder<T> WithVIN(string vin)
+    public VehicleBuilder WithVIN(string vin)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(vin);
-        Vehicle.VIN = vin;
+        _vehicle.VIN = vin;
         return this;
     }
 
-    public VehicleBuilder<T> WithEngineCapacity(double engineCapacity)
+    public VehicleBuilder WithEngineCapacity(double engineCapacity)
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(engineCapacity);
-        Vehicle.EngineCapacity = engineCapacity;
+        _vehicle.EngineCapacity = engineCapacity;
         return this;
     }
 
-    public VehicleBuilder<T> WithEnginePower(int enginePower)
+    public VehicleBuilder WithEnginePower(int enginePower)
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(enginePower);
-        Vehicle.EnginePower = enginePower;
+        _vehicle.EnginePower = enginePower;
         return this;
     }
 
-    public VehicleBuilder<T> WithFuelType(FuelType fuelType)
+    public VehicleBuilder WithFuelType(FuelType fuelType)
     {
         if (!Enum.IsDefined(typeof(FuelType), fuelType))
         {
             throw new ArgumentException("Invalid fuel type.");
         }
 
-        Vehicle.FuelType = fuelType;
+        _vehicle.FuelType = fuelType;
         return this;
     }
 
-    public VehicleBuilder<T> WithOwner(Guid userId)
+    public VehicleBuilder WithOwner(Guid userId)
     {
-        Vehicle.UserId = userId;
+        _vehicle.UserId = userId;
         return this;
     }
 
-    public T Build() => Vehicle;
+    public VehicleBuilder WithVehicleType(VehicleType vehicleType)
+    {
+        if (!Enum.IsDefined(typeof(VehicleType), vehicleType))
+        {
+            throw new ArgumentException("Invalid vehicle type.");
+        }
+
+        _vehicle.VehicleType = vehicleType;
+        return this;
+    }
 }

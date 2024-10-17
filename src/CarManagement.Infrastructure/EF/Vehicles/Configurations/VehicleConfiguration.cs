@@ -45,6 +45,10 @@ internal sealed class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
         builder.Property(v => v.EngineCapacity)
             .IsRequired();
 
+        builder.Property(v => v.VehicleType)
+            .HasConversion<string>()
+            .IsRequired();
+
         builder.ToTable(TableName);
     }
 }

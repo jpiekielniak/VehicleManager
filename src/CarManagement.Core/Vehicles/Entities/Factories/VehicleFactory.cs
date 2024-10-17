@@ -4,9 +4,9 @@ using DriveType = CarManagement.Core.Vehicles.Entities.Enums.DriveType;
 
 namespace CarManagement.Core.Vehicles.Entities.Factories;
 
-public class VehicleFactory : IVehicleFactory
+internal sealed class VehicleFactory : IVehicleFactory
 {
-    public T CreateVehicle<T>(
+    public Vehicle CreateVehicle(
         string brand,
         string model,
         int year,
@@ -15,10 +15,11 @@ public class VehicleFactory : IVehicleFactory
         double engineCapacity,
         int enginePower,
         FuelType fuelType,
-        Guid userId
-    ) where T : Vehicle, new()
+        Guid userId,
+        VehicleType vehicleType
+    )
     {
-        var builder = new VehicleBuilder<T>()
+        var builder = new VehicleBuilder()
             .WithBrand(brand)
             .WithModel(model)
             .WithYear(year)
@@ -27,7 +28,8 @@ public class VehicleFactory : IVehicleFactory
             .WithEngineCapacity(engineCapacity)
             .WithEnginePower(enginePower)
             .WithFuelType(fuelType)
-            .WithOwner(userId);
+            .WithOwner(userId)
+            .WithVehicleType(vehicleType);
 
         return builder.Build();
     }
