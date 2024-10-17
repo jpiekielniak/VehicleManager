@@ -4,14 +4,14 @@ namespace CarManagement.Tests.Unit.Vehicles.Entities.Builders;
 
 public sealed class VehicleBuilderParams
 {
-    public string Brand { get; set; }
-    public string Model { get; set; }
-    public int Year { get; set; }
-    public double EngineCapacity { get; set; }
-    public int EnginePower { get; set; }
-    public string LicensePlate { get; set; }
-    public string VIN { get; set; }
-    public FuelType FuelType { get; set; }
-    public GearboxType GearboxType { get; set; }
-    public VehicleType VehicleType { get; set; }
+    public string Brand { get; init; }
+    public string Model { get; init; }
+    public int Year { get; init; }
+    public double EngineCapacity { get; init; }
+    public int EnginePower { get; init; }
+    public string LicensePlate { get; init; }
+    public string VIN { get; init; }
+    public FuelType FuelType { get; init; }
+    public GearboxType GearboxType { get; init; }
+    public VehicleType VehicleType { get; init; }
 }
