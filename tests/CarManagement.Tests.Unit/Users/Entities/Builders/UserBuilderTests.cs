@@ -9,17 +9,12 @@ public class UserBuilderTests
 {
     [Theory]
     [ClassData(typeof(UserBuilderValidTestData))]
-    public void given_valid_data_to_builder_should_build_user_success(string userName, string email,
-        string phoneNumber, string password, Role role)
+    public void given_valid_data_to_builder_should_build_user_success(
+        UserBuilderParams userBuilderParams
+    )
     {
         //act
-        var user = new UserBuilder()
-            .WithUsername(userName)
-            .WithPhoneNumber(phoneNumber)
-            .WithEmail(email)
-            .WithPassword(password)
-            .WithRole(role)
-            .Build();
+        var user = Act(userBuilderParams);
 
         //assert
         user.ShouldNotBeNull();
@@ -28,22 +23,24 @@ public class UserBuilderTests
 
     [Theory]
     [ClassData(typeof(UserBuilderInvalidTestData))]
-    public void given_invalid_data_to_builder_should_build_user_fail(string userName, string email,
-        string phoneNumber, string password, Role role)
+    public void given_invalid_data_to_builder_should_build_user_fail(
+        UserBuilderParams userBuilderParams
+    )
     {
         //act
-        var exception = Record.Exception(
-            () => new UserBuilder()
-                .WithUsername(userName)
-                .WithPhoneNumber(phoneNumber)
-                .WithEmail(email)
-                .WithPassword(password)
-                .WithRole(role)
-                .Build()
-        );
+        var exception = Record.Exception(() => Act(userBuilderParams));
 
         //assert
         exception.ShouldNotBeNull();
         exception.ShouldBeAssignableTo<ArgumentException>();
     }
+
+    private static User Act(UserBuilderParams userBuilderParams)
+        => new UserBuilder()
+            .WithUsername(userBuilderParams.Username)
+            .WithPhoneNumber(userBuilderParams.PhoneNumber)
+            .WithEmail(userBuilderParams.Email)
+            .WithPassword(userBuilderParams.Password)
+            .WithRole(userBuilderParams.Role)
+            .Build();
 }
