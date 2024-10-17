@@ -1,10 +1,4 @@
 using CarManagement.Infrastructure.EF;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.AspNetCore.TestHost;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Testcontainers.PostgreSql;
 
 namespace CarManagement.Test.Integration;
 
@@ -15,6 +9,7 @@ public class CarManagementTestFactory : WebApplicationFactory<Api.Program>, IAsy
         .WithDatabase("car_management_test")
         .WithUsername("postgres")
         .WithPassword("postgres")
+        .WithName($"car_management_test_{Guid.NewGuid()}")
         .Build();
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -37,13 +32,7 @@ public class CarManagementTestFactory : WebApplicationFactory<Api.Program>, IAsy
         });
     }
 
-    public Task InitializeAsync()
-    {
-        return _container.StartAsync();
-    }
+    public Task InitializeAsync() => _container.StartAsync();
 
-    public new  Task DisposeAsync()
-    {
-        return _container.StopAsync();
-    }
+    public new Task DisposeAsync() => _container.StopAsync();
 }
