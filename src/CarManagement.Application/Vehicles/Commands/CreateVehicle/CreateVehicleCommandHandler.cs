@@ -37,6 +37,7 @@ internal sealed class CreateVehicleCommandHandler(
             .WithLicensePlate(command.LicensePlate)
             .WithVehicleType(command.VehicleType)
             .WithFuelType(command.FuelType)
+            .WithGearboxType(command.GearboxType)
             .WithOwner(command.UserId)
             .WithServiceBook(ServiceBook.Create())
             .Build();

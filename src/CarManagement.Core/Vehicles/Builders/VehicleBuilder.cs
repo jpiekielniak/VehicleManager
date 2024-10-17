@@ -85,6 +85,17 @@ public class VehicleBuilder
         return this;
     }
 
+    public VehicleBuilder WithGearboxType(GearboxType gearboxType)
+    {
+        if (!Enum.IsDefined(typeof(GearboxType), gearboxType))
+        {
+            throw new ArgumentException("Invalid gearbox type.");
+        }
+
+        _vehicle.GearboxType = gearboxType;
+        return this;
+    }
+
     public VehicleBuilder WithServiceBook(ServiceBook serviceBook)
     {
         ArgumentNullException.ThrowIfNull(serviceBook);
