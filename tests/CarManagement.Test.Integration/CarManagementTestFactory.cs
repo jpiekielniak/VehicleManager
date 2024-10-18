@@ -2,7 +2,7 @@ using CarManagement.Infrastructure.EF;
 
 namespace CarManagement.Test.Integration;
 
-public class CarManagementTestFactory : WebApplicationFactory<Api.Program>, IAsyncLifetime
+public class CarManagementTestFactory : WebApplicationFactory<Program>, IAsyncLifetime
 {
     private readonly PostgreSqlContainer _container = new PostgreSqlBuilder()
         .WithImage("postgres:latest")
