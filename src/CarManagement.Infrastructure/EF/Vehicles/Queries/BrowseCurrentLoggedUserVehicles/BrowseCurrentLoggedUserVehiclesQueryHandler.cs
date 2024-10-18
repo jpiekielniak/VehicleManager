@@ -33,11 +33,10 @@ internal sealed class BrowseCurrentLoggedUserVehiclesQueryHandler(
 
         var sieveResult = await sieveProcessor
             .Apply(query.SieveModel, vehicles)
+            .Select(v => new VehicleDto(v.Id, v.Brand, v.Model, v.LicensePlate))
             .ToListAsync(cancellationToken);
 
-        var totalCount = await sieveProcessor
-            .Apply(query.SieveModel, vehicles, applyPagination: false, applySorting: false)
-            .CountAsync(cancellationToken);
+        var totalCount = sieveResult.Count;
 
         var result = new PaginationResult<VehicleDto>(
             sieveResult,

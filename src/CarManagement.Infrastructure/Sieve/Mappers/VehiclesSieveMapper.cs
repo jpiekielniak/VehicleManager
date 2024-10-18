@@ -11,19 +11,15 @@ internal sealed class VehiclesSieveMapper : ISieveConfiguration
             .CanSort()
             .HasName("brand");
 
-        mapper.Property<Vehicle>(v => v.CreatedAt)
+        mapper.Property<Vehicle>(v => v.EnginePower)
             .CanFilter()
             .CanSort()
-            .HasName("createdAt");
-
+            .HasName("enginePower");
+        
         mapper.Property<Vehicle>(v => v.EngineCapacity)
             .CanFilter()
             .CanSort()
             .HasName("engineCapacity");
 
-        mapper.Property<Vehicle>(v => v.EnginePower)
-            .CanFilter()
-            .CanSort()
-            .HasName("enginePower");
     }
 }

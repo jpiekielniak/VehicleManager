@@ -26,9 +26,7 @@ app.UseHttpsRedirection();
 
 app.Run();
 
-namespace CarManagement.Api
+
+public partial class Program
 {
-    public partial class Program
-    {
-    }
 }

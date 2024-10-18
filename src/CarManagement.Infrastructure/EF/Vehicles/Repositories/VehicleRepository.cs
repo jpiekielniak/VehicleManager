@@ -22,10 +22,8 @@ internal sealed class VehicleRepository(CarManagementDbContext dbContext) : IVeh
             .AsNoTracking()
             .FirstOrDefaultAsync(v => v.Id == vehicleId, cancellationToken);
 
-    public async Task<IQueryable<VehicleDto>> GetVehiclesByUserId(Guid userId, CancellationToken cancellationToken)
+    public async Task<IQueryable<Vehicle>> GetVehiclesByUserId(Guid userId, CancellationToken cancellationToken)
         => _vehicles
             .AsNoTracking()
-            .Where(v => v.UserId == userId)
-            .Select(v => new VehicleDto(v.Id, v.Brand, v.Model, v.LicensePlate))
-            .AsQueryable();
+            .Where(v => v.UserId == userId);
 }
