@@ -16,7 +16,7 @@ internal sealed class CreateVehicleEndpoint : IEndpointDefinition
             ) =>
             {
                 var response = await mediator.Send(command, cancellationToken);
-                return Results.Created($"{VehicleEndpoints.Vehicles}/{response.VehicleId}", response);
+                return Results.Created($"{VehicleEndpoints.BasePath}/{response.VehicleId}", response);
             })
             .RequireAuthorization(AuthorizationPolicies.UserPolicy)
             .WithOpenApi(operation => new OpenApiOperation(operation)
