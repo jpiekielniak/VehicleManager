@@ -15,4 +15,9 @@ internal sealed class VehicleRepository(CarManagementDbContext dbContext) : IVeh
 
     public async Task SaveChangesAsync(CancellationToken cancellationToken)
         => await dbContext.SaveChangesAsync(cancellationToken);
+
+    public async Task<Vehicle> GetAsync(Guid vehicleId, CancellationToken cancellationToken)
+        => await _vehicles
+            .AsNoTracking()
+            .FirstOrDefaultAsync(v => v.Id == vehicleId, cancellationToken);
 }

@@ -22,11 +22,11 @@ namespace CarManagement.Infrastructure.EF.Migrations
                     LicensePlate = table.Column<string>(type: "character varying(9)", maxLength: 9, nullable: false),
                     VIN = table.Column<string>(type: "character varying(17)", maxLength: 17, nullable: false),
                     EngineCapacity = table.Column<double>(type: "double precision", nullable: false),
-                    FuelType = table.Column<string>(type: "text", nullable: false),
+                    FuelType = table.Column<int>(type: "integer", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     EnginePower = table.Column<int>(type: "integer", nullable: false),
-                    GearboxType = table.Column<string>(type: "text", nullable: false),
-                    VehicleType = table.Column<string>(type: "text", nullable: false),
+                    GearboxType = table.Column<int>(type: "integer", nullable: false),
+                    VehicleType = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     ServiceBookId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
@@ -89,7 +89,7 @@ namespace CarManagement.Infrastructure.EF.Migrations
                     ServiceBookId = table.Column<Guid>(type: "uuid", nullable: false),
                     ScheduledDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     PerformDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    InspectionType = table.Column<string>(type: "text", nullable: false)
+                    InspectionType = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {

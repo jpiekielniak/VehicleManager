@@ -39,18 +39,15 @@ internal sealed class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
             .IsRequired();
 
         builder.Property(v => v.FuelType)
-            .HasConversion<string>()
             .IsRequired();
 
         builder.Property(v => v.EngineCapacity)
             .IsRequired();
 
         builder.Property(v => v.GearboxType)
-            .HasConversion<string>()
             .IsRequired();
 
         builder.Property(v => v.VehicleType)
-            .HasConversion<string>()
             .IsRequired();
 
         builder

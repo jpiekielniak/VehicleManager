@@ -1,8 +1,6 @@
 using CarManagement.Core.Users.Entities;
 using CarManagement.Infrastructure.EF;
 using CarManagement.Shared.Hash;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace CarManagement.Test.Integration.Endpoints;
 

@@ -115,9 +115,8 @@ namespace CarManagement.Infrastructure.EF.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("InspectionType")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("InspectionType")
+                        .HasColumnType("integer");
 
                     b.Property<DateTimeOffset?>("PerformDate")
                         .HasColumnType("timestamp with time zone");
@@ -229,13 +228,11 @@ namespace CarManagement.Infrastructure.EF.Migrations
                     b.Property<int>("EnginePower")
                         .HasColumnType("integer");
 
-                    b.Property<string>("FuelType")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("FuelType")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("GearboxType")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("GearboxType")
+                        .HasColumnType("integer");
 
                     b.Property<string>("LicensePlate")
                         .IsRequired()
@@ -258,9 +255,8 @@ namespace CarManagement.Infrastructure.EF.Migrations
                         .HasMaxLength(17)
                         .HasColumnType("character varying(17)");
 
-                    b.Property<string>("VehicleType")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("VehicleType")
+                        .HasColumnType("integer");
 
                     b.Property<int>("Year")
                         .HasColumnType("integer");

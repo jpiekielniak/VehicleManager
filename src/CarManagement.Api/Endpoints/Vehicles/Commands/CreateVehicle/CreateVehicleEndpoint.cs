@@ -1,4 +1,3 @@
-using CarManagement.Application.Users.Commands.SignIn;
 using CarManagement.Application.Vehicles.Commands.CreateVehicle;
 using CarManagement.Shared.Auth.Policies;
 using CarManagement.Shared.Endpoints;
@@ -22,7 +21,7 @@ internal sealed class CreateVehicleEndpoint : IEndpointDefinition
             .RequireAuthorization(AuthorizationPolicies.UserPolicy)
             .WithOpenApi(operation => new OpenApiOperation(operation)
             {
-                Summary = "This endpoint creates a new vehicle"
+                Summary = "This endpoint allows users to create a new vehicle"
             })
             .WithTags(VehicleEndpoints.Vehicles)
             .Produces<CreateVehicleResponse>(StatusCodes.Status201Created)

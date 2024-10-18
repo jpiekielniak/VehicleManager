@@ -1,3 +1,5 @@
+using ValidationException = FluentValidation.ValidationException;
+
 namespace CarManagement.Shared.Validation;
 
 public class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators)

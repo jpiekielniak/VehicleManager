@@ -1,6 +1,5 @@
 using CarManagement.Core.Vehicles.Builders;
 using CarManagement.Core.Vehicles.Entities;
-using CarManagement.Tests.Unit.Vehicles.Entities.Builders.TestData;
 using CarManagement.Tests.Unit.Vehicles.Entities.Builders.TestData.Invalid;
 using CarManagement.Tests.Unit.Vehicles.Entities.Builders.TestData.Valid;
 

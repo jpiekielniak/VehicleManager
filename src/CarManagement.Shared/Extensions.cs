@@ -3,7 +3,6 @@ using CarManagement.Shared.Auth.Context;
 using CarManagement.Shared.Hash;
 using CarManagement.Shared.Middlewares.Exceptions;
 using CarManagement.Shared.Middlewares.Tokens;
-using CarManagement.Shared.Validation;
 
 namespace CarManagement.Shared;
 

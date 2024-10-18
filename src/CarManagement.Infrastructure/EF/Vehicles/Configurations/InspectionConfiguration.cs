@@ -16,7 +16,6 @@ internal sealed class InspectionConfiguration : IEntityTypeConfiguration<Inspect
         builder.Property(i => i.PerformDate);
 
         builder.Property(i => i.InspectionType)
-            .HasConversion<string>()
             .IsRequired();
 
         builder.ToTable(TableName);

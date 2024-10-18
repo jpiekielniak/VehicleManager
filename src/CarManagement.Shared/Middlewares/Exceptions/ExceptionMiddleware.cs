@@ -1,4 +1,5 @@
 using CarManagement.Shared.Exceptions;
+using ValidationException = FluentValidation.ValidationException;
 
 namespace CarManagement.Shared.Middlewares.Exceptions;
 
