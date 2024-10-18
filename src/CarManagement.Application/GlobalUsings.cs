@@ -4,3 +4,4 @@ global using Microsoft.Extensions.DependencyInjection;
 global using MediatR;
 global using FluentValidation;
 global using PhoneNumbers;
+global using Sieve.Models;

@@ -2,7 +2,7 @@ using CarManagement.Core.Users.Repositories;
 
 namespace CarManagement.Application.Vehicles.Commands.CreateVehicle;
 
-public class CreateVehicleCommandValidator : AbstractValidator<CreateVehicleCommand>
+internal sealed class CreateVehicleCommandValidator : AbstractValidator<CreateVehicleCommand>
 {
     public CreateVehicleCommandValidator(IUserRepository userRepository)
     {

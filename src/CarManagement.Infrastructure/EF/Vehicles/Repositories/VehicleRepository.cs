@@ -1,5 +1,6 @@
 using CarManagement.Core.Vehicles.Entities;
 using CarManagement.Core.Vehicles.Repositories;
+using CarManagement.Core.Vehicles.Repositories.DTO;
 
 namespace CarManagement.Infrastructure.EF.Vehicles.Repositories;
 
@@ -20,4 +21,11 @@ internal sealed class VehicleRepository(CarManagementDbContext dbContext) : IVeh
         => await _vehicles
             .AsNoTracking()
             .FirstOrDefaultAsync(v => v.Id == vehicleId, cancellationToken);
+
+    public async Task<IQueryable<VehicleDto>> GetVehiclesByUserId(Guid userId, CancellationToken cancellationToken)
+        => _vehicles
+            .AsNoTracking()
+            .Where(v => v.UserId == userId)
+            .Select(v => new VehicleDto(v.Id, v.Brand, v.Model, v.LicensePlate))
+            .AsQueryable();
 }

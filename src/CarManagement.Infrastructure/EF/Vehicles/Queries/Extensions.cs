@@ -1,5 +1,6 @@
 using CarManagement.Application.Vehicles.Queries.GetVehicle.DTO;
 using CarManagement.Core.Vehicles.Entities;
+using CarManagement.Core.Vehicles.Repositories.DTO;
 using CarManagement.Shared.Enums;
 
 namespace CarManagement.Infrastructure.EF.Vehicles.Queries;
@@ -21,5 +22,13 @@ public static class Extensions
             vehicle.VehicleType.GetDescription(),
             vehicle.CreatedAt,
             vehicle.ServiceBookId
+        );
+
+    public static VehicleDto AsDto(this Vehicle vehicle)
+        => new(
+            vehicle.Id,
+            vehicle.Brand,
+            vehicle.Model,
+            vehicle.LicensePlate
         );
 }

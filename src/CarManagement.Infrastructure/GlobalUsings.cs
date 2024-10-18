@@ -7,4 +7,6 @@ global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 global using System.Linq.Expressions;
 global using Microsoft.Extensions.Hosting;
 global using MediatR;
-global using Microsoft.OpenApi.Extensions;
+global using Sieve.Services;
+global using Microsoft.Extensions.Options;
+global using Sieve.Models;
