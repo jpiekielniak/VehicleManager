@@ -9,7 +9,7 @@ internal sealed class CreateVehicleEndpoint : IEndpointDefinition
 {
     public void DefineEndpoint(IEndpointRouteBuilder endpoint)
     {
-        endpoint.MapPost(VehicleEndpoints.Vehicles, async (
+        endpoint.MapPost(VehicleEndpoints.BasePath, async (
                 [FromBody] CreateVehicleCommand command,
                 [FromServices] IMediator mediator,
                 CancellationToken cancellationToken
