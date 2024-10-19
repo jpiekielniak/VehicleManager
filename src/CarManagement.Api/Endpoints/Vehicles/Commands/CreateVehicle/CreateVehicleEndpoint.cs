@@ -1,5 +1,4 @@
 using CarManagement.Application.Vehicles.Commands.CreateVehicle;
-using CarManagement.Shared.Auth.Policies;
 using CarManagement.Shared.Endpoints;
 using CarManagement.Shared.Middlewares.Exceptions;
 
@@ -18,7 +17,7 @@ internal sealed class CreateVehicleEndpoint : IEndpointDefinition
                 var response = await mediator.Send(command, cancellationToken);
                 return Results.Created($"{VehicleEndpoints.BasePath}/{response.VehicleId}", response);
             })
-            .RequireAuthorization(AuthorizationPolicies.UserPolicy)
+            .RequireAuthorization()
             .WithOpenApi(operation => new OpenApiOperation(operation)
             {
                 Summary = "This endpoint allows users to create a new vehicle"

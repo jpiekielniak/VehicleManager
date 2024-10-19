@@ -1,6 +1,5 @@
 using CarManagement.Application.Vehicles.Queries.BrowseCurrentLoggedUserVehicles;
 using CarManagement.Core.Vehicles.Repositories.DTO;
-using CarManagement.Shared.Auth.Policies;
 using CarManagement.Shared.Endpoints;
 using CarManagement.Shared.Middlewares.Exceptions;
 using CarManagement.Shared.Pagination;
@@ -20,7 +19,7 @@ internal sealed class BrowseCurrentLoggedUserVehiclesEndpoint : IEndpointDefinit
                 var result = await mediator.Send(query, cancellationToken);
                 return result;
             })
-            .RequireAuthorization(AuthorizationPolicies.UserPolicy)
+            .RequireAuthorization()
             .WithOpenApi(operation => new OpenApiOperation(operation)
             {
                 Summary = "This endpoint allows you to browse the vehicles of the current logged user."

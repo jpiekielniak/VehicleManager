@@ -12,7 +12,6 @@ public static class Extensions
         IConfiguration configuration)
     {
         services.AddAuthOptions(configuration);
-        services.AddPolicy();
 
         services.AddScoped<IAuthManager, AuthManager>();
         services.AddScoped<IPasswordHasher, PasswordHasher>();

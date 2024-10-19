@@ -1,5 +1,4 @@
 using CarManagement.Application.Vehicles.Commands.DeleteVehicle;
-using CarManagement.Shared.Auth.Policies;
 using CarManagement.Shared.Endpoints;
 using CarManagement.Shared.Middlewares.Exceptions;
 
@@ -19,7 +18,7 @@ internal sealed class DeleteVehicleEndpoint : IEndpointDefinition
                 await mediator.Send(command, cancellationToken);
                 return Results.NoContent();
             })
-            .RequireAuthorization(AuthorizationPolicies.UserPolicy)
+            .RequireAuthorization()
             .WithOpenApi(operation => new OpenApiOperation(operation)
             {
                 Summary = "This endpoint allows users to delete a vehicle by its id"

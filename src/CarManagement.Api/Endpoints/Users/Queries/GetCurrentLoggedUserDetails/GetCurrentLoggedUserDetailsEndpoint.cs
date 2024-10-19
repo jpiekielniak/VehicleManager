@@ -1,6 +1,5 @@
 using CarManagement.Application.Users.Queries.GetCurrentLoggedUserDetails;
 using CarManagement.Application.Users.Queries.GetCurrentLoggedUserDetails.DTO;
-using CarManagement.Shared.Auth.Policies;
 using CarManagement.Shared.Endpoints;
 using CarManagement.Shared.Middlewares.Exceptions;
 
@@ -19,7 +18,7 @@ internal sealed class GetCurrentLoggedUserDetailsEndpoint : IEndpointDefinition
                 );
                 return Results.Ok(result);
             })
-            .RequireAuthorization(AuthorizationPolicies.UserPolicy)
+            .RequireAuthorization()
             .WithTags(UserEndpoints.Users)
             .WithOpenApi(operation => new OpenApiOperation(operation)
             {

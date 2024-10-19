@@ -10,7 +10,6 @@ builder.Services.AddSwagger();
 builder.Services.LoadLayers(builder.Configuration);
 
 builder.Services.AddAuthorization();
-builder.Services.AddPolicy();
 
 var app = builder.Build();
 
