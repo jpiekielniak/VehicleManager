@@ -11,8 +11,8 @@ internal sealed class VehicleRepository(CarManagementDbContext dbContext) : IVeh
     public async Task AddAsync(Vehicle vehicle, CancellationToken cancellationToken)
         => await _vehicles.AddAsync(vehicle, cancellationToken);
 
-    public async Task<bool> ExistsAsync(string vin, Guid userId, CancellationToken cancellationToken)
-        => await _vehicles.AnyAsync(v => v.VIN == vin && v.UserId == userId, cancellationToken);
+    public async Task<bool> ExistsAsync(Expression<Func<Vehicle, bool>> predicate, CancellationToken cancellationToken)
+        => await _vehicles.AnyAsync(predicate, cancellationToken);
 
     public async Task SaveChangesAsync(CancellationToken cancellationToken)
         => await dbContext.SaveChangesAsync(cancellationToken);
@@ -29,4 +29,16 @@ internal sealed class VehicleRepository(CarManagementDbContext dbContext) : IVeh
 
     public Task DeleteAsync(Vehicle vehicle, CancellationToken cancellationToken)
         => Task.FromResult(_vehicles.Remove(vehicle));
+
+    public Task UpdateAsync(Vehicle vehicle, CancellationToken cancellationToken)
+        => Task.FromResult(_vehicles.Update(vehicle));
+
+    public async Task<bool> ExistsWithLicensePlateAsync(string licensePlate, Guid vehicleId,
+        CancellationToken cancellationToken)
+        => await _vehicles
+            .AnyAsync(v => v.LicensePlate == licensePlate && v.Id != vehicleId, cancellationToken);
+
+    public async Task<bool> ExistsWithVinAsync(string vin, Guid vehicleId, CancellationToken cancellationToken)
+        => await _vehicles
+            .AnyAsync(v => v.VIN == vin && v.Id != vehicleId, cancellationToken);
 }

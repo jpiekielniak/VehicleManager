@@ -3,57 +3,60 @@ using CarManagement.Core.Vehicles.Entities.Enums;
 
 namespace CarManagement.Core.Vehicles.Builders;
 
-public class VehicleBuilder
+public class VehicleBuilder(Vehicle vehicle)
 {
-    private readonly Vehicle _vehicle = Vehicle.Create();
-    public Vehicle Build() => _vehicle;
+    public Vehicle Build() => vehicle;
+
+    public VehicleBuilder() : this(Vehicle.Create())
+    {
+    }
 
     public VehicleBuilder WithBrand(string brand)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(brand);
-        _vehicle.Brand = brand;
+        vehicle.Brand = brand;
         return this;
     }
 
     public VehicleBuilder WithModel(string model)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(model);
-        _vehicle.Model = model;
+        vehicle.Model = model;
         return this;
     }
 
     public VehicleBuilder WithYear(int year)
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(year);
-        _vehicle.Year = year;
+        vehicle.Year = year;
         return this;
     }
 
     public VehicleBuilder WithLicensePlate(string licensePlate)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(licensePlate);
-        _vehicle.LicensePlate = licensePlate;
+        vehicle.LicensePlate = licensePlate;
         return this;
     }
 
     public VehicleBuilder WithVIN(string vin)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(vin);
-        _vehicle.VIN = vin;
+        vehicle.VIN = vin;
         return this;
     }
 
     public VehicleBuilder WithEngineCapacity(double engineCapacity)
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(engineCapacity);
-        _vehicle.EngineCapacity = engineCapacity;
+        vehicle.EngineCapacity = engineCapacity;
         return this;
     }
 
     public VehicleBuilder WithEnginePower(int enginePower)
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(enginePower);
-        _vehicle.EnginePower = enginePower;
+        vehicle.EnginePower = enginePower;
         return this;
     }
 
@@ -64,13 +67,13 @@ public class VehicleBuilder
             throw new ArgumentException("Invalid fuel type.");
         }
 
-        _vehicle.FuelType = fuelType;
+        vehicle.FuelType = fuelType;
         return this;
     }
 
     public VehicleBuilder WithOwner(Guid userId)
     {
-        _vehicle.UserId = userId;
+        vehicle.UserId = userId;
         return this;
     }
 
@@ -81,7 +84,7 @@ public class VehicleBuilder
             throw new ArgumentException("Invalid vehicle type.");
         }
 
-        _vehicle.VehicleType = vehicleType;
+        vehicle.VehicleType = vehicleType;
         return this;
     }
 
@@ -92,14 +95,14 @@ public class VehicleBuilder
             throw new ArgumentException("Invalid gearbox type.");
         }
 
-        _vehicle.GearboxType = gearboxType;
+        vehicle.GearboxType = gearboxType;
         return this;
     }
 
     public VehicleBuilder WithServiceBook(ServiceBook serviceBook)
     {
         ArgumentNullException.ThrowIfNull(serviceBook);
-        _vehicle.ServiceBook = serviceBook;
+        vehicle.ServiceBook = serviceBook;
         return this;
     }
 }
