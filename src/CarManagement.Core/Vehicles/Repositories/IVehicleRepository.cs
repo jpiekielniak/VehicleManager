@@ -11,6 +11,4 @@ public interface IVehicleRepository
     Task<IQueryable<Vehicle>> GetVehiclesByUserId(Guid userId, CancellationToken cancellationToken);
     Task DeleteAsync(Vehicle vehicle, CancellationToken cancellationToken);
     Task UpdateAsync(Vehicle vehicle, CancellationToken cancellationToken);
-    Task<bool> ExistsWithLicensePlateAsync(string licensePlate, Guid vehicleId, CancellationToken cancellationToken);
-    Task<bool> ExistsWithVinAsync(string vin, Guid vehicleId, CancellationToken cancellationToken);
 }

@@ -1,6 +1,5 @@
 using CarManagement.Api;
 using CarManagement.Shared;
-using CarManagement.Shared.Auth;
 
 var builder = WebApplication.CreateBuilder(args);
 

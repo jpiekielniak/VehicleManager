@@ -1,5 +1,6 @@
 using CarManagement.Application.Vehicles.Commands.DeleteVehicle;
 using CarManagement.Core.Vehicles.Exceptions;
+using CarManagement.Core.Vehicles.Exceptions.Vehicles;
 using CarManagement.Core.Vehicles.Repositories;
 using CarManagement.Shared.Auth.Context;
 using CarManagement.Tests.Unit.Vehicles.Factories;

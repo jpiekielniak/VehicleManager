@@ -3,6 +3,7 @@ using CarManagement.Application.Vehicles.Queries.GetVehicle.DTO;
 using CarManagement.Core.Users.Exceptions.Users;
 using CarManagement.Core.Users.Repositories;
 using CarManagement.Core.Vehicles.Exceptions;
+using CarManagement.Core.Vehicles.Exceptions.Vehicles;
 using CarManagement.Core.Vehicles.Repositories;
 using CarManagement.Shared.Auth.Context;
 
