@@ -9,4 +9,5 @@ public interface IVehicleRepository
     Task SaveChangesAsync(CancellationToken cancellationToken);
     Task<Vehicle> GetAsync(Guid vehicleId, CancellationToken cancellationToken);
     Task<IQueryable<Vehicle>> GetVehiclesByUserId(Guid userId, CancellationToken cancellationToken);
+    Task DeleteAsync(Vehicle vehicle, CancellationToken cancellationToken);
 }
