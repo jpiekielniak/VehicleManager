@@ -1,8 +1,10 @@
 using CarManagement.Application.Vehicles.Commands.CreateVehicle;
+using CarManagement.Core.Users.Entities;
+using CarManagement.Core.Users.Exceptions.Users;
+using CarManagement.Core.Users.Repositories;
 using CarManagement.Core.Vehicles.Entities;
 using CarManagement.Core.Vehicles.Exceptions;
 using CarManagement.Core.Vehicles.Repositories;
-using CarManagement.Shared.Auth;
 using CarManagement.Shared.Auth.Context;
 using CarManagement.Tests.Unit.Vehicles.Factories;
 
@@ -15,9 +17,12 @@ public class CreateVehicleCommandHandlerTests
     {
         // Arrange
         var command = _factory.CreateVehicleCommand();
-        _vehicleRepository.ExistsAsync(command.Vin, command.UserId, Arg.Any<CancellationToken>())
+        var userId = Guid.NewGuid();
+        _vehicleRepository.ExistsAsync(command.Vin, userId, Arg.Any<CancellationToken>())
             .Returns(false);
-        _context.Id.Returns(command.UserId);
+        _userRepository.AnyAsync(Arg.Any<Expression<Func<User, bool>>>(), Arg.Any<CancellationToken>())
+            .Returns(true);
+        _context.Id.Returns(userId);
 
         // Act
         var response = await _handler.Handle(command, CancellationToken.None);
@@ -35,14 +40,17 @@ public class CreateVehicleCommandHandlerTests
     {
         // Arrange
         var command = _factory.CreateVehicleCommand();
-        _context.Id.Returns(Guid.NewGuid());
+        var userId = Guid.NewGuid();
+        _userRepository.AnyAsync(Arg.Any<Expression<Func<User, bool>>>(), Arg.Any<CancellationToken>())
+            .Returns(false);
+        _context.Id.Returns(userId);
 
         // Act
         var exception = await Record.ExceptionAsync(() => _handler.Handle(command, CancellationToken.None));
 
         // Assert
         exception.ShouldNotBeNull();
-        exception.ShouldBeOfType<AccessForbiddenException>();
+        exception.ShouldBeOfType<UserNotFoundException>();
         await _vehicleRepository.DidNotReceive().AddAsync(Arg.Any<Vehicle>(), Arg.Any<CancellationToken>());
         await _vehicleRepository.DidNotReceive().SaveChangesAsync(Arg.Any<CancellationToken>());
     }
@@ -52,9 +60,12 @@ public class CreateVehicleCommandHandlerTests
     {
         // Arrange
         var command = _factory.CreateVehicleCommand();
-        _vehicleRepository.ExistsAsync(command.Vin, command.UserId, Arg.Any<CancellationToken>())
+        var userId = Guid.NewGuid();
+        _vehicleRepository.ExistsAsync(command.Vin, userId, Arg.Any<CancellationToken>())
             .Returns(true);
-        _context.Id.Returns(command.UserId);
+        _userRepository.AnyAsync(Arg.Any<Expression<Func<User, bool>>>(), Arg.Any<CancellationToken>())
+            .Returns(true);
+        _context.Id.Returns(userId);
 
         // Act
         var exception = await Record.ExceptionAsync(() => _handler.Handle(command, CancellationToken.None));
@@ -68,16 +79,19 @@ public class CreateVehicleCommandHandlerTests
 
     private readonly IRequestHandler<CreateVehicleCommand, CreateVehicleResponse> _handler;
     private readonly IVehicleRepository _vehicleRepository;
+    private readonly IUserRepository _userRepository;
     private readonly IContext _context;
     private readonly VehicleTestFactory _factory = new();
 
     public CreateVehicleCommandHandlerTests()
     {
         _vehicleRepository = Substitute.For<IVehicleRepository>();
+        _userRepository = Substitute.For<IUserRepository>();
         _context = Substitute.For<IContext>();
 
         _handler = new CreateVehicleCommandHandler(
             _vehicleRepository,
+            _userRepository,
             _context
         );
     }

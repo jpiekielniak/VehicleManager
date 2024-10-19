@@ -19,8 +19,7 @@ public class VehicleTestFactory
             138,
             FuelType.Diesel,
             GearboxType.Manual,
-            VehicleType.Car,
-            Guid.NewGuid()
+            VehicleType.Car
         );
 
     public Vehicle CreateVehicle()

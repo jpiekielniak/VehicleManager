@@ -1,10 +1,9 @@
-using CarManagement.Core.Users.Repositories;
 
 namespace CarManagement.Application.Vehicles.Commands.CreateVehicle;
 
 internal sealed class CreateVehicleCommandValidator : AbstractValidator<CreateVehicleCommand>
 {
-    public CreateVehicleCommandValidator(IUserRepository userRepository)
+    public CreateVehicleCommandValidator()
     {
         RuleFor(x => x.Brand)
             .NotEmpty()
@@ -36,16 +35,6 @@ internal sealed class CreateVehicleCommandValidator : AbstractValidator<CreateVe
 
         RuleFor(x => x.VehicleType)
             .IsInEnum();
-
-        RuleFor(x => x.UserId)
-            .MustAsync(async (userId, cancellationToken) =>
-            {
-                var userExists = await userRepository.AnyAsync(
-                    u => u.Id == userId,
-                    cancellationToken
-                );
-                return userExists;
-            })
-            .WithMessage("User does not exist");
+        
     }
 }

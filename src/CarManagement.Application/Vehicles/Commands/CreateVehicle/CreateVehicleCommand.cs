@@ -12,6 +12,5 @@ public record CreateVehicleCommand(
     int EnginePower,
     FuelType FuelType,
     GearboxType GearboxType,
-    VehicleType VehicleType,
-    Guid UserId
+    VehicleType VehicleType
 ) : IRequest<CreateVehicleResponse>;
