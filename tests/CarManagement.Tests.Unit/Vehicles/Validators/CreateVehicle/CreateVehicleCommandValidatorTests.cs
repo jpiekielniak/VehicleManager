@@ -1,5 +1,4 @@
 using CarManagement.Application.Vehicles.Commands.CreateVehicle;
-using CarManagement.Core.Vehicles.Repositories;
 using CarManagement.Tests.Unit.Vehicles.Factories;
 
 namespace CarManagement.Tests.Unit.Vehicles.Validators.CreateVehicle;
@@ -11,10 +10,6 @@ public class CreateVehicleCommandValidatorTests
     {
         //arrange
         var command = _factory.CreateVehicleCommand();
-        _vehicleRepository.ExistsWithVinAsync(Arg.Any<string>(), Arg.Any<Guid>(), Arg.Any<CancellationToken>())
-            .Returns(true);
-        _vehicleRepository.ExistsWithLicensePlateAsync(Arg.Any<string>(), Arg.Any<Guid>(), Arg.Any<CancellationToken>())
-            .Returns(true);
 
         //act
         var result = await _validator.TestValidateAsync(command);
@@ -23,13 +18,6 @@ public class CreateVehicleCommandValidatorTests
         result.ShouldNotHaveAnyValidationErrors();
     }
 
-    private readonly IVehicleRepository _vehicleRepository;
-    private readonly IValidator<CreateVehicleCommand> _validator;
+    private readonly IValidator<CreateVehicleCommand> _validator = new InlineValidator<CreateVehicleCommand>();
     private readonly VehicleTestFactory _factory = new();
-
-    public CreateVehicleCommandValidatorTests()
-    {
-        _vehicleRepository = Substitute.For<IVehicleRepository>();
-        _validator = new CreateVehicleCommandValidator(_vehicleRepository);
-    }
 }

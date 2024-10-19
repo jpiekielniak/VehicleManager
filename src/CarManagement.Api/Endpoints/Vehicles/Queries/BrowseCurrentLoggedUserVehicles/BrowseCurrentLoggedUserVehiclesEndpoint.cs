@@ -1,5 +1,5 @@
 using CarManagement.Application.Vehicles.Queries.BrowseCurrentLoggedUserVehicles;
-using CarManagement.Core.Vehicles.Repositories.DTO;
+using CarManagement.Application.Vehicles.Queries.BrowseCurrentLoggedUserVehicles.DTO;
 using CarManagement.Shared.Endpoints;
 using CarManagement.Shared.Middlewares.Exceptions;
 using CarManagement.Shared.Pagination;

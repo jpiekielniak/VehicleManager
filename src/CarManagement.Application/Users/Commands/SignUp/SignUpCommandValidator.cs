@@ -18,15 +18,15 @@ internal sealed class SignUpCommandValidator
             .MinimumLength(8).WithMessage("Password must be at least 8 characters long")
             .MaximumLength(16).WithMessage("Password must be at most 16 characters long");
 
-        RuleFor(x => x.ConfirmPassword)
-            .NotEmpty().WithMessage("Confirm password cannot be empty")
-            .NotNull().WithMessage("Confirm password cannot be null")
-            .Equal(x => x.Password).WithMessage("Confirm password must be equal to password");
-
-        RuleFor(x => x.Username)
-            .NotEmpty().WithMessage("Username cannot be empty")
-            .NotNull().WithMessage("Username cannot be null")
-            .MaximumLength(150).WithMessage("Username must be at most 150 characters long");
+        RuleFor(x => x.FirstName)
+            .NotEmpty().WithMessage("Firstname cannot be empty")
+            .NotNull().WithMessage("Firstname cannot be null")
+            .MaximumLength(150).WithMessage("Firstname must be at most 150 characters long");
+        
+        RuleFor(x => x.LastName)
+            .NotEmpty().WithMessage("Lastname cannot be empty")
+            .NotNull().WithMessage("Lastname cannot be null")
+            .MaximumLength(150).WithMessage("Lastname must be at most 150 characters long");
 
         RuleFor(x => x.PhoneNumber)
             .Must((user, phoneNumber) => IsValidPhoneNumber(phoneNumber))
@@ -44,18 +44,7 @@ internal sealed class SignUpCommandValidator
                 return !userExists;
             })
             .WithMessage("Email already exists");
-
-        RuleFor(x => x.Username)
-            .MustAsync(async (userName, cancellationToken) =>
-            {
-                var userExists = await userRepository
-                    .AnyAsync(
-                        x => x.Username == userName,
-                        cancellationToken
-                    );
-
-                return !userExists;
-            }).WithMessage("Username already exists");
+       
     }
 
     private static bool IsValidPhoneNumber(string phoneNumber)

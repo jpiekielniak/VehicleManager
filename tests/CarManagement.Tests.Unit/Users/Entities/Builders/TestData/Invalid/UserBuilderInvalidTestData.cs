@@ -12,7 +12,8 @@ internal class UserBuilderInvalidTestData : TheoryData<UserBuilderParams>
 
         Add(new UserBuilderParams
         {
-            Username = "",
+            FirstName = "",
+            LastName = "",
             Email = "",
             Password = "",
             PhoneNumber = "",
@@ -21,7 +22,8 @@ internal class UserBuilderInvalidTestData : TheoryData<UserBuilderParams>
 
         Add(new UserBuilderParams
         {
-            Username = "username",
+            FirstName = "Firstname",
+            LastName = "LastName",
             Email = "",
             Password = "",
             PhoneNumber = "",
@@ -30,7 +32,8 @@ internal class UserBuilderInvalidTestData : TheoryData<UserBuilderParams>
 
         Add(new UserBuilderParams
         {
-            Username = "username",
+            FirstName = "Firstname",
+            LastName = "LastName",
             Email = "email",
             Password = "",
             PhoneNumber = "",
@@ -39,7 +42,8 @@ internal class UserBuilderInvalidTestData : TheoryData<UserBuilderParams>
 
         Add(new UserBuilderParams
         {
-            Username = "     ",
+            FirstName = "      ",
+            LastName = "LastName",
             Email = "email",
             Password = "password",
             PhoneNumber = "123456789",

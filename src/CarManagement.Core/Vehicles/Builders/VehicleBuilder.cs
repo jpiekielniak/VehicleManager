@@ -103,6 +103,7 @@ public class VehicleBuilder(Vehicle vehicle)
     {
         ArgumentNullException.ThrowIfNull(serviceBook);
         vehicle.ServiceBook = serviceBook;
+        vehicle.ServiceBookId = serviceBook.Id;
         return this;
     }
 }

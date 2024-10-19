@@ -20,17 +20,11 @@ internal sealed class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
 
         builder.Property(v => v.Year)
             .IsRequired();
-
-        builder.HasIndex(v => v.LicensePlate)
-            .IsUnique();
-
+        
         builder.Property(v => v.LicensePlate)
             .IsRequired()
             .HasMaxLength(9);
-
-        builder.HasIndex(v => v.VIN)
-            .IsUnique();
-
+        
         builder.Property(v => v.VIN)
             .IsRequired()
             .HasMaxLength(17);

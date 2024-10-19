@@ -28,7 +28,8 @@ internal sealed class SignUpCommandHandler(
 
         var user = new UserBuilder()
             .WithEmail(command.Email)
-            .WithUsername(command.Username)
+            .WithFirstName(command.FirstName)
+            .WithLastName(command.LastName)
             .WithPassword(hashedPassword)
             .WithPhoneNumber(command.PhoneNumber)
             .WithRole(role)

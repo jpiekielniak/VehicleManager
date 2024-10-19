@@ -2,8 +2,8 @@ namespace CarManagement.Application.Users.Commands.SignUp;
 
 internal record SignUpCommand(
     string Email,
-    string Username,
+    string FirstName,
+    string LastName,
     string PhoneNumber,
-    string Password,
-    string ConfirmPassword
+    string Password
 ) : IRequest;

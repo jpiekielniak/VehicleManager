@@ -6,13 +6,6 @@ public sealed class UserBuilder
 
     public User Build() => _user;
 
-    public UserBuilder WithUsername(string userName)
-    {
-        ArgumentException.ThrowIfNullOrWhiteSpace(userName);
-        _user.Username = userName;
-        return this;
-    }
-
     public UserBuilder WithEmail(string email)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(email);
@@ -38,6 +31,20 @@ public sealed class UserBuilder
     {
         ArgumentNullException.ThrowIfNull(role);
         _user.Role = role;
+        return this;
+    }
+
+    public UserBuilder WithFirstName(string firstName)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(firstName);
+        _user.FirstName = firstName;
+        return this;
+    }
+
+    public UserBuilder WithLastName(string lastName)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(lastName);
+        _user.LastName = lastName;
         return this;
     }
 }

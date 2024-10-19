@@ -11,7 +11,13 @@ public class SignUpEndpointTests(CarManagementTestFactory factory) : EndpointTes
     public async Task post_sign_up_with_valid_data_should_return_201()
     {
         // Arrange
-        var command = new SignUpCommand("car.managment@test.com", "carmanagment", "123456789", "password", "password");
+        var command = new SignUpCommand(
+            "car.managment@test.com",
+            "Jakub",
+            "Piekielniak",
+            "512839855",
+            "password"
+        );
 
         // Act
         var response = await Client.PostAsJsonAsync(UserEndpoints.SignUp, command);
@@ -26,17 +32,24 @@ public class SignUpEndpointTests(CarManagementTestFactory factory) : EndpointTes
         // Arrange
         const string email = "car.managment@test.com";
         var user = new UserBuilder()
-            .WithUsername("carmanagment")
+            .WithFirstName("Jakub")
+            .WithLastName("Piekielniak")
             .WithEmail("car.managment@test.com")
             .WithPassword("password")
             .WithRole(Role)
-            .WithPhoneNumber("123456789")
+            .WithPhoneNumber("512839855")
             .Build();
 
         await DbContext.Users.AddAsync(user);
         await DbContext.SaveChangesAsync();
 
-        var command = new SignUpCommand(email, "carmanagmenttest", "123456789", "password", "password");
+        var command = new SignUpCommand(
+            email,
+            "Jakub",
+            "Piekielniak",
+            "512839855",
+            "password"
+        );
 
         // Act
         var response = await Client.PostAsJsonAsync(UserEndpoints.SignUp, command);

@@ -5,7 +5,7 @@ namespace CarManagement.Application.Vehicles.Commands.ChangeVehicleInformation;
 internal sealed class ChangeVehicleInformationCommandValidator
     : AbstractValidator<ChangeVehicleInformationCommand>
 {
-    public ChangeVehicleInformationCommandValidator(IVehicleRepository vehicleRepository)
+    public ChangeVehicleInformationCommandValidator()
     {
         RuleFor(x => x.Brand)
             .NotEmpty()
@@ -20,22 +20,11 @@ internal sealed class ChangeVehicleInformationCommandValidator
 
         RuleFor(x => x.LicensePlate)
             .NotEmpty()
-            .MaximumLength(10)
-            .MustAsync(async (command, context, cancellationToken) =>
-                !await vehicleRepository.ExistsWithLicensePlateAsync(command.LicensePlate, command.VehicleId,
-                    cancellationToken)
-            )
-            .WithMessage(command =>
-                $"The license plate '{command.LicensePlate}' is already in use by another vehicle");
+            .MaximumLength(10);
 
         RuleFor(x => x.Vin)
             .NotEmpty()
-            .MaximumLength(17)
-            .MustAsync(async (command, context, cancellationToken) =>
-                !await vehicleRepository.ExistsWithVinAsync(command.Vin, command.VehicleId,
-                    cancellationToken)
-            )
-            .WithMessage(command => $"The VIN '{command.Vin}' is already in use by another vehicle");
+            .MaximumLength(17);
 
         RuleFor(x => x.EngineCapacity)
             .InclusiveBetween(0, 10000);

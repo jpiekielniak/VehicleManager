@@ -4,7 +4,7 @@ using CarManagement.Core.Users.Repositories;
 using CarManagement.Core.Vehicles.Repositories;
 using CarManagement.Shared.Auth.Context;
 using CarManagement.Shared.Pagination;
-using VehicleDto = CarManagement.Core.Vehicles.Repositories.DTO.VehicleDto;
+using VehicleDto = CarManagement.Application.Vehicles.Queries.BrowseCurrentLoggedUserVehicles.DTO.VehicleDto;
 
 namespace CarManagement.Infrastructure.EF.Vehicles.Queries.BrowseCurrentLoggedUserVehicles;
 

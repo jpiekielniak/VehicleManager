@@ -1,5 +1,6 @@
 using CarManagement.Core.Users.Entities;
 using CarManagement.Core.Vehicles.Entities;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace CarManagement.Infrastructure.EF;
 

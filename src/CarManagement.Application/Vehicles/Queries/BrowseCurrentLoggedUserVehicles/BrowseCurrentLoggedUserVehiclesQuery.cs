@@ -1,4 +1,4 @@
-using CarManagement.Core.Vehicles.Repositories.DTO;
+using CarManagement.Application.Vehicles.Queries.BrowseCurrentLoggedUserVehicles.DTO;
 using CarManagement.Shared.Pagination;
 
 namespace CarManagement.Application.Vehicles.Queries.BrowseCurrentLoggedUserVehicles;

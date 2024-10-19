@@ -18,9 +18,10 @@ public class SignInEndpointTests(CarManagementTestFactory factory) : EndpointTes
         var user = new UserBuilder()
             .WithEmail(email)
             .WithPassword(hashedPassword)
-            .WithUsername("carmanagement")
+            .WithFirstName("Jakub")
+            .WithLastName("Piekielniak")
             .WithRole(Role)
-            .WithPhoneNumber("123456789")
+            .WithPhoneNumber("512839855")
             .Build();
 
         await DbContext.Users.AddAsync(user);

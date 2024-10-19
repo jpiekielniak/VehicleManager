@@ -9,7 +9,8 @@ public static class Extensions
         => new(
             user.Id,
             user.Email,
-            user.Username,
+            user.FirstName,
+            user.LastName,
             user.PhoneNumber,
             user.CreatedAt
         );

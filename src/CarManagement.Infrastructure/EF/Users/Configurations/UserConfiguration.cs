@@ -17,10 +17,12 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
             .IsRequired()
             .HasMaxLength(100);
 
-        builder.HasIndex(u => u.Username)
-            .IsUnique();
-
-        builder.Property(u => u.Username)
+        
+        builder.Property(u => u.FirstName)
+            .IsRequired()
+            .HasMaxLength(150);
+        
+        builder.Property(u => u.LastName)
             .IsRequired()
             .HasMaxLength(150);
 

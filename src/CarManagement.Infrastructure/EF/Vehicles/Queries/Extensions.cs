@@ -1,6 +1,6 @@
+using CarManagement.Application.Vehicles.Queries.BrowseCurrentLoggedUserVehicles.DTO;
 using CarManagement.Application.Vehicles.Queries.GetVehicle.DTO;
 using CarManagement.Core.Vehicles.Entities;
-using CarManagement.Core.Vehicles.Repositories.DTO;
 using CarManagement.Shared.Enums;
 
 namespace CarManagement.Infrastructure.EF.Vehicles.Queries;

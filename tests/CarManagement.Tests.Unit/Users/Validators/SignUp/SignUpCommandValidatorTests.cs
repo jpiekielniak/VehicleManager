@@ -38,25 +38,7 @@ public class SignUpCommandValidatorTests
         result.ShouldHaveValidationErrorFor(x => x.Email)
             .WithErrorMessage("Email already exists");
     }
-
-    [Fact]
-    public async Task validate_sign_up_command_with_existing_username_should_return_error()
-    {
-        //arrange
-        var command = _factory.CreateSignUpCommand();
-        _userRepository.AnyAsync(Arg.Any<System.Linq.Expressions.Expression<Func<User, bool>>>(),
-                Arg.Any<CancellationToken>())
-            .Returns(true);
-
-        //act
-        var result = await _validator.TestValidateAsync(command);
-
-        //assert
-        result.IsValid.ShouldBeFalse();
-        result.ShouldHaveValidationErrorFor(x => x.Username)
-            .WithErrorMessage("Username already exists");
-    }
-
+    
     private readonly SignUpCommandValidator _validator;
     private readonly IUserRepository _userRepository;
     private readonly UserTestFactory _factory = new();

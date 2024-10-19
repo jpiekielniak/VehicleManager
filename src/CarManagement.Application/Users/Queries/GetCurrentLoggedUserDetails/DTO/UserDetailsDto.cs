@@ -3,7 +3,8 @@ namespace CarManagement.Application.Users.Queries.GetCurrentLoggedUserDetails.DT
 public record UserDetailsDto(
     Guid Id,
     string Email,
-    string UserName,
+    string FirstName,
+    string LastName,
     string PhoneNumber,
     DateTimeOffset CreatedAt
 );

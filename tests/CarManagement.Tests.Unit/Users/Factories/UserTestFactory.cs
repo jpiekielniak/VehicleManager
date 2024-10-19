@@ -14,9 +14,9 @@ public class UserTestFactory
 
     internal SignUpCommand CreateSignUpCommand() => new(
         "car.management@test.com",
-        "car.management.",
-        "123456789",
-        "password",
+        "Jakub",
+        "Piekielniak",
+        "512839855",
         "password"
     );
 
@@ -24,8 +24,9 @@ public class UserTestFactory
 
     internal User CreateUser() => new UserBuilder()
         .WithEmail("car.management@test.com")
-        .WithUsername("carmanagement")
-        .WithPhoneNumber("123456789")
+        .WithFirstName("Jakub")
+        .WithLastName("Piekielniak")
+        .WithPhoneNumber("512839855")
         .WithPassword("password")
         .WithRole(CreateRole())
         .Build();

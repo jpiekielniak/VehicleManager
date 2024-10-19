@@ -1,6 +1,5 @@
 using CarManagement.Core.Vehicles.Entities;
 using CarManagement.Core.Vehicles.Repositories;
-using CarManagement.Core.Vehicles.Repositories.DTO;
 
 namespace CarManagement.Infrastructure.EF.Vehicles.Repositories;
 

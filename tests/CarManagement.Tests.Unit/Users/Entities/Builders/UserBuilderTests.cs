@@ -37,7 +37,8 @@ public class UserBuilderTests
 
     private static User Act(UserBuilderParams userBuilderParams)
         => new UserBuilder()
-            .WithUsername(userBuilderParams.Username)
+            .WithFirstName(userBuilderParams.FirstName)
+            .WithLastName(userBuilderParams.LastName)
             .WithPhoneNumber(userBuilderParams.PhoneNumber)
             .WithEmail(userBuilderParams.Email)
             .WithPassword(userBuilderParams.Password)

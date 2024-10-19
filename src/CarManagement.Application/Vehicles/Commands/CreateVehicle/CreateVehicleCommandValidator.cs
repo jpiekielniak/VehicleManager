@@ -1,10 +1,9 @@
-using CarManagement.Core.Vehicles.Repositories;
 
 namespace CarManagement.Application.Vehicles.Commands.CreateVehicle;
 
 internal sealed class CreateVehicleCommandValidator : AbstractValidator<CreateVehicleCommand>
 {
-    public CreateVehicleCommandValidator(IVehicleRepository vehicleRepository)
+    public CreateVehicleCommandValidator()
     {
         RuleFor(x => x.Brand)
             .NotEmpty()
@@ -19,19 +18,12 @@ internal sealed class CreateVehicleCommandValidator : AbstractValidator<CreateVe
 
         RuleFor(x => x.LicensePlate)
             .NotEmpty()
-            .MaximumLength(10)
-            .MustAsync(async (command, context, cancellationToken) =>
-                !await vehicleRepository.ExistsAsync(
-                    v => v.LicensePlate == command.LicensePlate, cancellationToken)
-            ).WithMessage("Vehicle with this license plate already exists");
+            .MaximumLength(10);
 
         RuleFor(x => x.Vin)
             .NotEmpty()
-            .MaximumLength(17)
-            .MustAsync(async (command, context, cancellationToken) =>
-                !await vehicleRepository.ExistsAsync(
-                    v => v.VIN == command.Vin, cancellationToken)
-            ).WithMessage("Vehicle with this VIN already exists");
+            .MaximumLength(17);
+            
 
         RuleFor(x => x.EngineCapacity)
             .InclusiveBetween(0, 10000);
