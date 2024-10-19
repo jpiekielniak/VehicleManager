@@ -2,7 +2,6 @@ using CarManagement.Core.Users.Exceptions.Users;
 using CarManagement.Core.Users.Repositories;
 using CarManagement.Core.Vehicles.Builders;
 using CarManagement.Core.Vehicles.Entities;
-using CarManagement.Core.Vehicles.Exceptions;
 using CarManagement.Core.Vehicles.Repositories;
 using CarManagement.Shared.Auth.Context;
 
@@ -23,13 +22,6 @@ internal sealed class CreateVehicleCommandHandler(
         if (!userExists)
         {
             throw new UserNotFoundException(currentLoggedInUserId);
-        }
-
-        var vehicleExists = await vehicleRepository.ExistsAsync(command.Vin, currentLoggedInUserId, cancellationToken);
-
-        if (vehicleExists)
-        {
-            throw new VehicleAlreadyExistsException(command.Vin);
         }
 
         var vehicle = new VehicleBuilder()

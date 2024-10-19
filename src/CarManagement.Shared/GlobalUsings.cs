@@ -15,3 +15,5 @@ global using System.Reflection;
 global using Microsoft.AspNetCore.Routing;
 global using Microsoft.AspNetCore.Builder;
 global using System.ComponentModel.DataAnnotations;
+global using Microsoft.AspNetCore.Mvc.ModelBinding;
+

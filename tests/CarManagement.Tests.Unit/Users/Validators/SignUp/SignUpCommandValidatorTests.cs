@@ -27,7 +27,7 @@ public class SignUpCommandValidatorTests
         //arrange
         var command = _factory.CreateSignUpCommand();
         _userRepository
-            .AnyAsync(Arg.Any<System.Linq.Expressions.Expression<Func<User, bool>>>(), Arg.Any<CancellationToken>())
+            .AnyAsync(Arg.Any<Expression<Func<User, bool>>>(), Arg.Any<CancellationToken>())
             .Returns(true);
 
         //act 

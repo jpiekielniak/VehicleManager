@@ -3,7 +3,6 @@ using CarManagement.Core.Users.Entities;
 using CarManagement.Core.Users.Exceptions.Users;
 using CarManagement.Core.Users.Repositories;
 using CarManagement.Core.Vehicles.Entities;
-using CarManagement.Core.Vehicles.Exceptions;
 using CarManagement.Core.Vehicles.Repositories;
 using CarManagement.Shared.Auth.Context;
 using CarManagement.Tests.Unit.Vehicles.Factories;
@@ -18,7 +17,7 @@ public class CreateVehicleCommandHandlerTests
         // Arrange
         var command = _factory.CreateVehicleCommand();
         var userId = Guid.NewGuid();
-        _vehicleRepository.ExistsAsync(command.Vin, userId, Arg.Any<CancellationToken>())
+        _vehicleRepository.ExistsAsync(Arg.Any<Expression<Func<Vehicle, bool>>>(), Arg.Any<CancellationToken>())
             .Returns(false);
         _userRepository.AnyAsync(Arg.Any<Expression<Func<User, bool>>>(), Arg.Any<CancellationToken>())
             .Returns(true);
@@ -54,29 +53,7 @@ public class CreateVehicleCommandHandlerTests
         await _vehicleRepository.DidNotReceive().AddAsync(Arg.Any<Vehicle>(), Arg.Any<CancellationToken>());
         await _vehicleRepository.DidNotReceive().SaveChangesAsync(Arg.Any<CancellationToken>());
     }
-
-    [Fact]
-    public async Task given_existing_vehicle_should_throw_vehicle_already_exists_exception()
-    {
-        // Arrange
-        var command = _factory.CreateVehicleCommand();
-        var userId = Guid.NewGuid();
-        _vehicleRepository.ExistsAsync(command.Vin, userId, Arg.Any<CancellationToken>())
-            .Returns(true);
-        _userRepository.AnyAsync(Arg.Any<Expression<Func<User, bool>>>(), Arg.Any<CancellationToken>())
-            .Returns(true);
-        _context.Id.Returns(userId);
-
-        // Act
-        var exception = await Record.ExceptionAsync(() => _handler.Handle(command, CancellationToken.None));
-
-        // Assert
-        exception.ShouldNotBeNull();
-        exception.ShouldBeOfType<VehicleAlreadyExistsException>();
-        await _vehicleRepository.DidNotReceive().AddAsync(Arg.Any<Vehicle>(), Arg.Any<CancellationToken>());
-        await _vehicleRepository.DidNotReceive().SaveChangesAsync(Arg.Any<CancellationToken>());
-    }
-
+    
     private readonly IRequestHandler<CreateVehicleCommand, CreateVehicleResponse> _handler;
     private readonly IVehicleRepository _vehicleRepository;
     private readonly IUserRepository _userRepository;
