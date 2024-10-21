@@ -21,4 +21,6 @@ public sealed class ServiceBook
     public void RemoveInspection(Inspection inspection) => _inspections.Remove(inspection);
 
     public void AddService(Service service) => _services.Add(service);
+
+    public void RemoveService(Service service) => _services.Remove(service);
 }

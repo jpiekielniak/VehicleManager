@@ -4,6 +4,10 @@ internal sealed class DeleteInspectionCommandValidator : AbstractValidator<Delet
 {
     public DeleteInspectionCommandValidator()
     {
+        RuleFor(x => x.ServiceBookId)
+            .NotEmpty().WithMessage("ServiceBookId is required")
+            .NotNull().WithMessage("ServiceBookId is required");
+        
         RuleFor(x => x.InspectionId)
             .NotEmpty().WithMessage("InspectionId is required")
             .NotNull().WithMessage("InspectionId is required");
