@@ -1,28 +1,28 @@
-using VehicleManager.Application.ServiceBooks.Queries.BrowseInspections;
 using VehicleManager.Application.ServiceBooks.Queries.BrowseInspections.DTO;
+using VehicleManager.Application.ServiceBooks.Queries.BrowseServices;
 using VehicleManager.Shared.Endpoints;
 using VehicleManager.Shared.Middlewares.Exceptions;
 using VehicleManager.Shared.Pagination;
 
-namespace VehicleManager.Api.Endpoints.ServiceBooks.Queries.BrowseInspections;
+namespace VehicleManager.Api.Endpoints.ServiceBooks.Queries.BrowseServices;
 
-internal sealed class BrowseInspectionsEndpoint : IEndpointDefinition
+internal sealed class BrowseServicesEndpoint : IEndpointDefinition
 {
     public void DefineEndpoint(IEndpointRouteBuilder endpoint)
     {
-        endpoint.MapGet(ServiceBookEndpoints.Inspections, async (
+        endpoint.MapGet(ServiceBookEndpoints.Services, async (
                 [FromRoute(Name = "serviceBookId")] Guid serviceBookId,
                 [AsParameters] SieveModel sieveModel,
                 [FromServices] IMediator mediator,
                 CancellationToken cancellationToken) =>
             {
-                var query = new BrowseInspectionsQuery(serviceBookId, sieveModel);
+                var query = new BrowseServicesQuery(serviceBookId, sieveModel);
                 return await mediator.Send(query, cancellationToken);
             })
             .RequireAuthorization()
             .WithOpenApi(operation => new OpenApiOperation(operation)
             {
-                Summary = "This endpoint is used to browse inspections for a specific service book"
+                Summary = "This endpoint is used to browse services for a specific service book"
             })
             .WithTags(ServiceBookEndpoints.ServiceBooks)
             .Produces<PaginationResult<InspectionDto>>(StatusCodes.Status200OK)

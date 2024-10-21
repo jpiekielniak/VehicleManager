@@ -10,9 +10,9 @@ internal sealed class BrowseInspectionsQueryHandler(
     IServiceBookRepository serviceBookRepository,
     IInspectionRepository inspectionRepository,
     ISieveProcessor sieveProcessor)
-    : IRequestHandler<BrowseInspectionQuery, PaginationResult<InspectionDto>>
+    : IRequestHandler<BrowseInspectionsQuery, PaginationResult<InspectionDto>>
 {
-    public async Task<PaginationResult<InspectionDto>> Handle(BrowseInspectionQuery query,
+    public async Task<PaginationResult<InspectionDto>> Handle(BrowseInspectionsQuery query,
         CancellationToken cancellationToken)
     {
         var isServiceBookExists = await serviceBookRepository
