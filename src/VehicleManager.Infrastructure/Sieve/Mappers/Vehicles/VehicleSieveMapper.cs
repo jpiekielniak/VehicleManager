@@ -1,8 +1,8 @@
 using VehicleManager.Core.Vehicles.Entities;
 
-namespace VehicleManager.Infrastructure.Sieve.Mappers;
+namespace VehicleManager.Infrastructure.Sieve.Mappers.Vehicles;
 
-internal sealed class VehiclesSieveMapper : ISieveConfiguration
+internal sealed class VehicleSieveMapper : ISieveConfiguration
 {
     public void Configure(SievePropertyMapper mapper)
     {

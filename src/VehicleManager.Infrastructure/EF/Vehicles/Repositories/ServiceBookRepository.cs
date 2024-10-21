@@ -7,13 +7,23 @@ internal sealed class ServiceBookRepository(VehicleManagerDbContext dbContext) :
 {
     private readonly DbSet<ServiceBook> _serviceBooks = dbContext.Set<ServiceBook>();
 
-    public async Task<ServiceBook> GetAsync(Guid serviceBookId, CancellationToken cancellationToken)
-        => await _serviceBooks
+    public async Task<ServiceBook> GetAsync(Guid serviceBookId, CancellationToken cancellationToken,
+        bool asNoTracking = false)
+    {
+        var query = _serviceBooks
             .Include(sb => sb.Services)
             .ThenInclude(s => s.Costs)
             .Include(sb => sb.Inspections)
-            .AsSplitQuery()
-            .FirstOrDefaultAsync(sb => sb.Id == serviceBookId, cancellationToken);
+            .AsSplitQuery();
+
+        if (asNoTracking)
+        {
+            query = query.AsNoTracking();
+        }
+
+        return await query.FirstOrDefaultAsync(sb => sb.Id == serviceBookId, cancellationToken);
+    }
+
 
     public async Task UpdateAsync(ServiceBook serviceBook, CancellationToken cancellationToken)
     {
@@ -28,6 +38,8 @@ internal sealed class ServiceBookRepository(VehicleManagerDbContext dbContext) :
         await Task.FromResult(_serviceBooks.Update(serviceBook));
     }
 
+    public async Task<bool> ExistsAsync(Guid serviceBookId, CancellationToken cancellationToken)
+        => await _serviceBooks.AnyAsync(sb => sb.Id == serviceBookId, cancellationToken);
 
     public Task SaveChangesAsync(CancellationToken cancellationToken)
         => dbContext.SaveChangesAsync(cancellationToken);

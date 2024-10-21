@@ -34,6 +34,7 @@ internal static class Extensions
         services.AddScoped<IRoleRepository, RoleRepository>();
         services.AddScoped<IVehicleRepository, VehicleRepository>();
         services.AddScoped<IServiceBookRepository, ServiceBookRepository>();
+        services.AddScoped<IInspectionRepository, InspectionRepository>();
         services.AddScoped<ISieveProcessor, ApplicationSieveProcessor>();
         services.AddHostedService<MigrationInitializer>();
 
