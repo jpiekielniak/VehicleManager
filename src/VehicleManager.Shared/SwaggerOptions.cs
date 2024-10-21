@@ -11,7 +11,7 @@ internal static class SwaggerOptions
             swagger.CustomSchemaIds(x => x.FullName?.Replace("+", "."));
             swagger.SwaggerDoc("v1", new OpenApiInfo
             {
-                Title = "AnswerSeek API",
+                Title = "VehicleManager API",
                 Version = "v1"
             });
 
