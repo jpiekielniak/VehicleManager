@@ -24,6 +24,7 @@ internal sealed class BrowseInspectionsEndpoint : IEndpointDefinition
             {
                 Summary = "This endpoint is used to browse inspections for a specific service book"
             })
+            .WithTags(ServiceBookEndpoints.ServiceBooks)
             .Produces<PaginationResult<InspectionDto>>(StatusCodes.Status200OK)
             .Produces<Error>(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized);
