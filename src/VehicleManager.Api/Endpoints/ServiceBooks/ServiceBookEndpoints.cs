@@ -6,4 +6,5 @@ public class ServiceBookEndpoints
     public static string BasePath => $"{RootPath.BasePath}/{ServiceBooks.ToLowerInvariant()}";
     public static string Inspections => $"{BasePath}/{{serviceBookId:guid}}/inspections";
     public static string Inspection => $"{Inspections}/{{inspectionId:guid}}";
+    public static string Services => $"{BasePath}/{{serviceBookId:guid}}/services";
 }

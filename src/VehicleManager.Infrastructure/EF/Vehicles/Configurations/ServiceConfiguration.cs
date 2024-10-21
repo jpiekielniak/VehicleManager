@@ -17,7 +17,7 @@ internal sealed class ServiceConfiguration : IEntityTypeConfiguration<Service>
             .IsRequired();
 
         builder.Property(s => s.Description)
-            .IsRequired();
+            .IsRequired(false);
 
         builder
             .HasMany(service => service.Costs)

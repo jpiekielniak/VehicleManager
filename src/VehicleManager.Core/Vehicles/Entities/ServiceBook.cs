@@ -5,7 +5,8 @@ public sealed class ServiceBook
     public Guid Id { get; set; } = Guid.NewGuid();
     public Guid VehicleId { get; set; }
     public Vehicle Vehicle { get; set; } = default!;
-    public List<Service> Services { get; set; } = [];
+    public IEnumerable<Service> Services => _services;
+    private readonly HashSet<Service> _services = [];
     public IEnumerable<Inspection> Inspections => _inspections;
     private readonly HashSet<Inspection> _inspections = [];
 
@@ -18,4 +19,6 @@ public sealed class ServiceBook
     public void AddInspection(Inspection inspection) => _inspections.Add(inspection);
 
     public void RemoveInspection(Inspection inspection) => _inspections.Remove(inspection);
+
+    public void AddService(Service service) => _services.Add(service);
 }
