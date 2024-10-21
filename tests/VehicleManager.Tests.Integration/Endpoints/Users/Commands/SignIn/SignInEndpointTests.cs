@@ -1,6 +1,7 @@
 using VehicleManager.Api.Endpoints.Users;
 using VehicleManager.Application.Users.Commands.SignIn;
 using VehicleManager.Core.Users.Entities.Builders;
+using VehicleManager.Core.Users.Entities.Enums;
 using VehicleManager.Shared.Middlewares.Exceptions;
 
 namespace VehicleManager.Tests.Integration.Endpoints.Users.Commands.SignIn;
@@ -11,7 +12,7 @@ public class SignInEndpointTests(VehicleManagerTestFactory factory) : EndpointTe
     public async Task post_sign_in_with_valid_data_should_return_200_status_code()
     {
         //arrange
-        const string email = "car.managemenet@test.com";
+        const string email = "vehicle.manager@test.com";
         const string password = "passwordtest";
         var hashedPassword = PasswordHasher.HashPassword(password);
 
@@ -20,7 +21,7 @@ public class SignInEndpointTests(VehicleManagerTestFactory factory) : EndpointTe
             .WithPassword(hashedPassword)
             .WithFirstName("Jakub")
             .WithLastName("Piekielniak")
-            .WithRole(Role)
+            .WithRole(Role.User)
             .WithPhoneNumber("512839855")
             .Build();
 
@@ -38,7 +39,7 @@ public class SignInEndpointTests(VehicleManagerTestFactory factory) : EndpointTe
     }
 
     [Fact]
-    public async Task post_sign_in_with_invalid_data_should_return_400_status_code()
+    public async Task post_sign_in_with_non_existing_user_data_should_return_400_status_code()
     {
         //arrange
         var command = new SignInCommand("example@test.com", "examplePassword");

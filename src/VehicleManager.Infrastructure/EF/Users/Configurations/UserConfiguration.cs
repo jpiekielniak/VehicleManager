@@ -17,11 +17,11 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
             .IsRequired()
             .HasMaxLength(100);
 
-        
+
         builder.Property(u => u.FirstName)
             .IsRequired()
             .HasMaxLength(150);
-        
+
         builder.Property(u => u.LastName)
             .IsRequired()
             .HasMaxLength(150);
@@ -32,16 +32,13 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(u => u.CreatedAt)
             .IsRequired();
 
+        builder.Property(u => u.Role)
+            .IsRequired();
+
         builder
-            .HasOne(user => user.Role)
-            .WithMany(role => role.Users)
-            .HasForeignKey(user => user.RoleId);
-
-        // builder
-        //     .HasMany(user => user.Vehicles)
-        //     .WithOne(vehicle => vehicle.User)
-        //     .OnDelete(DeleteBehavior.Cascade);
-
+            .HasMany(user => user.Vehicles)
+            .WithOne(vehicle => vehicle.User)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.ToTable(TableName);
     }

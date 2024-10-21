@@ -56,13 +56,13 @@ public class SignInCommandHandlerTests
         //arrange
         var command = _factory.CreateSignInCommand();
         var user = _factory.CreateUser();
-        var token = _factory.CreateToken(user.Id, user.Role.Name);
+        var token = _factory.CreateToken(user.Id, user.Role.ToString());
         _userRepository
             .GetByEmailAsync(command.Email, Arg.Any<CancellationToken>())
             .Returns(user);
         _passwordHasher.VerifyHashedPassword(command.Password, user.Password)
             .Returns(true);
-        _authManager.GenerateToken(user.Id, user.Role.Name)
+        _authManager.GenerateToken(user.Id, user.Role.ToString())
             .Returns(token);
 
         //act
@@ -73,7 +73,7 @@ public class SignInCommandHandlerTests
         response.ShouldBeOfType<SignInResponse>();
         await _userRepository.Received(1).GetByEmailAsync(command.Email, Arg.Any<CancellationToken>());
         _passwordHasher.Received(1).VerifyHashedPassword(command.Password, user.Password);
-        _authManager.Received(1).GenerateToken(user.Id, user.Role.Name);
+        _authManager.Received(1).GenerateToken(user.Id, user.Role.ToString());
     }
 
 

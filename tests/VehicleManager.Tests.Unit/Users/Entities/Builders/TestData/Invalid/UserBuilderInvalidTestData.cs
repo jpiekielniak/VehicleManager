@@ -1,10 +1,10 @@
 using VehicleManager.Core.Users.Entities;
+using VehicleManager.Core.Users.Entities.Enums;
 
 namespace VehicleManager.Tests.Unit.Users.Entities.Builders.TestData.Invalid;
 
 internal class UserBuilderInvalidTestData : TheoryData<UserBuilderParams>
 {
-    private static Role Role => Role.Create("role");
 
     public UserBuilderInvalidTestData()
     {
@@ -17,7 +17,7 @@ internal class UserBuilderInvalidTestData : TheoryData<UserBuilderParams>
             Email = "",
             Password = "",
             PhoneNumber = "",
-            Role = null
+            Role = Role.User
         });
 
         Add(new UserBuilderParams
@@ -27,7 +27,7 @@ internal class UserBuilderInvalidTestData : TheoryData<UserBuilderParams>
             Email = "",
             Password = "",
             PhoneNumber = "",
-            Role = null
+            Role = Role.Admin
         });
 
         Add(new UserBuilderParams
@@ -37,7 +37,7 @@ internal class UserBuilderInvalidTestData : TheoryData<UserBuilderParams>
             Email = "email",
             Password = "",
             PhoneNumber = "",
-            Role = null
+            Role = Role.Admin
         });
 
         Add(new UserBuilderParams
@@ -47,7 +47,7 @@ internal class UserBuilderInvalidTestData : TheoryData<UserBuilderParams>
             Email = "email",
             Password = "password",
             PhoneNumber = "123456789",
-            Role = Role
+            Role = Role.User
         });
     }
 }

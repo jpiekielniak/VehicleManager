@@ -6,5 +6,6 @@ public record UserDetailsDto(
     string FirstName,
     string LastName,
     string PhoneNumber,
+    string Role,
     DateTimeOffset CreatedAt
 );

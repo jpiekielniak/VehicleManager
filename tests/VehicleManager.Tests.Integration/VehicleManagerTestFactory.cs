@@ -6,10 +6,10 @@ public class VehicleManagerTestFactory : WebApplicationFactory<Api.Program>, IAs
 {
     private readonly PostgreSqlContainer _container = new PostgreSqlBuilder()
         .WithImage("postgres:latest")
-        .WithDatabase("car_management_test")
+        .WithDatabase("vehicle_manager_test")
         .WithUsername("postgres")
         .WithPassword("postgres")
-        .WithName($"car_management_test_{Guid.NewGuid()}")
+        .WithName($"vehicle_manager_test_{Guid.NewGuid()}")
         .Build();
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)

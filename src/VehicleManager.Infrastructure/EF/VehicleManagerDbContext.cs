@@ -7,8 +7,6 @@ public sealed class VehicleManagerDbContext(DbContextOptions<VehicleManagerDbCon
     : DbContext(options)
 {
     public DbSet<User> Users { get; init; }
-
-    public DbSet<Role> Roles { get; init; }
     public DbSet<Vehicle> Vehicles { get; init; }
     public DbSet<ServiceBook> ServiceBooks { get; init; }
     public DbSet<Service> Services { get; init; }

@@ -14,12 +14,8 @@ internal sealed class SignInCommandHandler(
     public async Task<SignInResponse> Handle(SignInCommand command,
         CancellationToken cancellationToken)
     {
-        var user = await userRepository.GetByEmailAsync(command.Email, cancellationToken);
-
-        if (user is null)
-        {
-            throw new InvalidCredentialsException();
-        }
+        var user = await userRepository.GetByEmailAsync(command.Email, cancellationToken)
+                   ?? throw new InvalidCredentialsException();
 
         var isValidPassword = passwordHasher.VerifyHashedPassword(command.Password, user.Password);
 
@@ -28,7 +24,7 @@ internal sealed class SignInCommandHandler(
             throw new InvalidCredentialsException();
         }
 
-        var jwt = authManager.GenerateToken(user.Id, user.Role.Name);
+        var jwt = authManager.GenerateToken(user.Id, user.Role.ToString());
 
         return new SignInResponse(jwt.AccessToken, jwt.Expires);
     }

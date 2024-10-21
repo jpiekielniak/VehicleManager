@@ -1,6 +1,7 @@
 using VehicleManager.Api.Endpoints.Users;
 using VehicleManager.Application.Users.Commands.SignUp;
 using VehicleManager.Core.Users.Entities.Builders;
+using VehicleManager.Core.Users.Entities.Enums;
 using VehicleManager.Shared.Middlewares.Exceptions;
 
 namespace VehicleManager.Tests.Integration.Endpoints.Users.Commands.SignUp;
@@ -36,7 +37,7 @@ public class SignUpEndpointTests(VehicleManagerTestFactory factory) : EndpointTe
             .WithLastName("Piekielniak")
             .WithEmail("car.managment@test.com")
             .WithPassword("password")
-            .WithRole(Role)
+            .WithRole(Role.User)
             .WithPhoneNumber("512839855")
             .Build();
 

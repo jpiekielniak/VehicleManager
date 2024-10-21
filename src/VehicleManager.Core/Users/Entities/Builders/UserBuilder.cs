@@ -1,3 +1,5 @@
+using VehicleManager.Core.Users.Entities.Enums;
+
 namespace VehicleManager.Core.Users.Entities.Builders;
 
 public sealed class UserBuilder

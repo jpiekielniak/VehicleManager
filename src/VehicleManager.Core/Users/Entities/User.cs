@@ -1,3 +1,4 @@
+using VehicleManager.Core.Users.Entities.Enums;
 using VehicleManager.Core.Vehicles.Entities;
 
 namespace VehicleManager.Core.Users.Entities;
@@ -10,10 +11,10 @@ public sealed class User
     public string Email { get; set; }
     public string Password { get; set; }
     public string PhoneNumber { get; set; }
-    public Guid RoleId { get; init; }
     public Role Role { get; set; }
     public DateTimeOffset CreatedAt { get; init; } = DateTimeOffset.UtcNow;
-   // public ICollection<Vehicle> Vehicles { get; set; } = [];
+    public IEnumerable<Vehicle> Vehicles => _vehicles;
+    private readonly HashSet<Vehicle> _vehicles = [];
 
     private User()
     {

@@ -1,4 +1,4 @@
-using VehicleManager.Core.Users.Entities;
+using VehicleManager.Core.Users.Entities.Enums;
 
 namespace VehicleManager.Tests.Unit.Users.Entities.Builders;
 

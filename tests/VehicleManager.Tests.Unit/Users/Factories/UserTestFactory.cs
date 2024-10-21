@@ -2,6 +2,7 @@ using VehicleManager.Application.Users.Commands.SignIn;
 using VehicleManager.Application.Users.Commands.SignUp;
 using VehicleManager.Core.Users.Entities;
 using VehicleManager.Core.Users.Entities.Builders;
+using VehicleManager.Core.Users.Entities.Enums;
 using VehicleManager.Shared.Auth;
 using VehicleManager.Tests.Unit.Users.Helpers;
 
@@ -20,7 +21,6 @@ public class UserTestFactory
         "password"
     );
 
-    internal Role CreateRole() => Role.Create("User");
 
     internal User CreateUser() => new UserBuilder()
         .WithEmail("car.management@test.com")
@@ -28,7 +28,7 @@ public class UserTestFactory
         .WithLastName("Piekielniak")
         .WithPhoneNumber("512839855")
         .WithPassword("password")
-        .WithRole(CreateRole())
+        .WithRole(Role.User)
         .Build();
 
     internal JsonWebToken CreateToken(Guid userId, string role)
