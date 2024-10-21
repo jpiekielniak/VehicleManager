@@ -18,8 +18,8 @@ public static class Extensions
             vehicle.EngineCapacity,
             vehicle.FuelType.ToString(),
             vehicle.EnginePower,
-            vehicle.GearboxType.GetDescription(),
-            vehicle.VehicleType.GetDescription(),
+            vehicle.GearboxType.GetDisplay(),
+            vehicle.VehicleType.GetDisplay(),
             vehicle.CreatedAt,
             vehicle.ServiceBookId
         );

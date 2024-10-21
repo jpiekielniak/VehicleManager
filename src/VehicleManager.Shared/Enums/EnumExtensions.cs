@@ -2,7 +2,7 @@ namespace VehicleManager.Shared.Enums;
 
 public static class EnumExtensions
 {
-    public static string GetDescription(this Enum value)
+    public static string GetDisplay(this Enum value)
     {
         var fieldInfo = value.GetType().GetField(value.ToString());
 
