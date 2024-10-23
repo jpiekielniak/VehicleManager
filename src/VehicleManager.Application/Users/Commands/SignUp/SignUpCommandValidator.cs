@@ -18,21 +18,6 @@ internal sealed class SignUpCommandValidator
             .MinimumLength(8).WithMessage("Password must be at least 8 characters long")
             .MaximumLength(16).WithMessage("Password must be at most 16 characters long");
 
-        RuleFor(x => x.FirstName)
-            .NotEmpty().WithMessage("Firstname cannot be empty")
-            .NotNull().WithMessage("Firstname cannot be null")
-            .MaximumLength(150).WithMessage("Firstname must be at most 150 characters long");
-        
-        RuleFor(x => x.LastName)
-            .NotEmpty().WithMessage("Lastname cannot be empty")
-            .NotNull().WithMessage("Lastname cannot be null")
-            .MaximumLength(150).WithMessage("Lastname must be at most 150 characters long");
-
-        RuleFor(x => x.PhoneNumber)
-            .Must((user, phoneNumber) => IsValidPhoneNumber(phoneNumber))
-            .NotEmpty().WithMessage("Phone number cannot be empty")
-            .NotNull().WithMessage("Phone number cannot be null");
-
         RuleFor(x => x.Email)
             .MustAsync(async (email, cancellationToken) =>
             {
@@ -45,13 +30,5 @@ internal sealed class SignUpCommandValidator
             })
             .WithMessage("Email already exists");
        
-    }
-
-    private static bool IsValidPhoneNumber(string phoneNumber)
-    {
-        var phoneNumberUtil = PhoneNumberUtil.GetInstance();
-        var numberProto = phoneNumberUtil.Parse(phoneNumber, "PL");
-
-        return phoneNumberUtil.IsValidNumber(numberProto);
     }
 }
