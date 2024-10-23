@@ -10,24 +10,26 @@ namespace VehicleManager.Tests.Unit.Users.Factories;
 
 public class UserTestFactory
 {
+    private readonly Faker _faker = new();
+
     internal SignInCommand CreateSignInCommand()
-        => new("car.management@test.com", "password");
+        => new(
+            _faker.Internet.Email(),
+            _faker.Internet.Password()
+        );
 
     internal SignUpCommand CreateSignUpCommand() => new(
-        "car.management@test.com",
-        "Jakub",
-        "Piekielniak",
-        "512839855",
-        "password"
+        _faker.Internet.Email(),
+        _faker.Internet.Password()
     );
 
 
     internal User CreateUser() => new UserBuilder()
-        .WithEmail("car.management@test.com")
-        .WithFirstName("Jakub")
-        .WithLastName("Piekielniak")
-        .WithPhoneNumber("512839855")
-        .WithPassword("password")
+        .WithEmail(_faker.Internet.Email())
+        .WithFirstName(_faker.Person.FirstName)
+        .WithLastName(_faker.Person.LastName)
+        .WithPhoneNumber(_faker.Phone.PhoneNumber())
+        .WithPassword(_faker.Internet.Password())
         .WithRole(Role.User)
         .Build();
 

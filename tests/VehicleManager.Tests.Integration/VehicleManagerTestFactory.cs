@@ -5,7 +5,7 @@ namespace VehicleManager.Tests.Integration;
 public class VehicleManagerTestFactory : WebApplicationFactory<Api.Program>, IAsyncLifetime
 {
     private readonly PostgreSqlContainer _container = new PostgreSqlBuilder()
-        .WithImage("postgres:latest")
+        .WithImage("postgres:15-alpine")
         .WithDatabase("vehicle_manager_test")
         .WithUsername("postgres")
         .WithPassword("postgres")

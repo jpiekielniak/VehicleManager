@@ -6,3 +6,4 @@ global using NSubstitute.ReturnsExtensions;
 global using FluentValidation;
 global using FluentValidation.TestHelper;
 global using System.Linq.Expressions;
+global using Bogus;

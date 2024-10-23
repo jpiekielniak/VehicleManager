@@ -9,39 +9,44 @@ namespace VehicleManager.Tests.Unit.Vehicles.Factories;
 
 internal class VehicleTestFactory
 {
+    private readonly Faker _faker = new();
+
     internal CreateVehicleCommand CreateVehicleCommand()
         => new(
-            "brand",
-            "model",
-            2005,
-            "KTA94969",
-            "KA12586720KI435",
-            2.0,
-            138,
-            FuelType.Diesel,
-            GearboxType.Manual,
-            VehicleType.Car
+            _faker.Vehicle.Manufacturer(),
+            _faker.Vehicle.Model(),
+            _faker.Date.Random.Int(1980, 2024),
+            GenerateLicensePlate(),
+            _faker.Vehicle.Vin(),
+            double.Round(_faker.Random.Double(1.0, 5.4)),
+            _faker.Random.Int(60, 300),
+            _faker.PickRandom<FuelType>(),
+            _faker.PickRandom<GearboxType>(),
+            _faker.PickRandom<VehicleType>()
         );
 
     internal ChangeVehicleInformationCommand ChangeVehicleInformationCommand()
         => new(
-            "Peugeot",
-            "308 SW",
-            2015,
-            "KTA94969",
-            "VF3**************[VIN]",
-            1.6,
-            FuelType.Diesel,
-            120,
-            GearboxType.Manual,
-            VehicleType.Car
+            _faker.Vehicle.Manufacturer(),
+            _faker.Vehicle.Model(),
+            _faker.Date.Random.Int(1980, 2024),
+            GenerateLicensePlate(),
+            _faker.Vehicle.Vin(),
+            double.Round(_faker.Random.Double(1.0, 5.4)),
+            _faker.PickRandom<FuelType>(),
+            _faker.Random.Int(80, 300),
+            _faker.PickRandom<GearboxType>(),
+            _faker.PickRandom<VehicleType>()
         );
 
     public Vehicle CreateVehicle(Guid userId = default)
         => new VehicleBuilder()
-            .WithOwner(userId)
+            .WithOwner(userId == default ? Guid.NewGuid() : userId)
             .Build();
 
-    public DeleteVehicleCommand DeleteVehicleCommand()
-        => new(Guid.NewGuid());
+    public DeleteVehicleCommand DeleteVehicleCommand() => new(Guid.NewGuid());
+
+    private string GenerateLicensePlate()
+        => _faker.Random.String2(3, "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+           + _faker.Random.String2(5, "0123456789");
 }

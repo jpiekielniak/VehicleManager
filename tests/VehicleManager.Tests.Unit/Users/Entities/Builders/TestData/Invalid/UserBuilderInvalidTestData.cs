@@ -1,10 +1,10 @@
-using VehicleManager.Core.Users.Entities;
 using VehicleManager.Core.Users.Entities.Enums;
 
 namespace VehicleManager.Tests.Unit.Users.Entities.Builders.TestData.Invalid;
 
 internal class UserBuilderInvalidTestData : TheoryData<UserBuilderParams>
 {
+    private readonly Faker _faker = new();
 
     public UserBuilderInvalidTestData()
     {
@@ -22,8 +22,8 @@ internal class UserBuilderInvalidTestData : TheoryData<UserBuilderParams>
 
         Add(new UserBuilderParams
         {
-            FirstName = "Firstname",
-            LastName = "LastName",
+            FirstName = _faker.Person.FirstName,
+            LastName = _faker.Person.LastName,
             Email = "",
             Password = "",
             PhoneNumber = "",
@@ -32,9 +32,9 @@ internal class UserBuilderInvalidTestData : TheoryData<UserBuilderParams>
 
         Add(new UserBuilderParams
         {
-            FirstName = "Firstname",
-            LastName = "LastName",
-            Email = "email",
+            FirstName = _faker.Person.FirstName,
+            LastName = _faker.Person.LastName,
+            Email = _faker.Internet.Email(),
             Password = "",
             PhoneNumber = "",
             Role = Role.Admin
@@ -43,10 +43,10 @@ internal class UserBuilderInvalidTestData : TheoryData<UserBuilderParams>
         Add(new UserBuilderParams
         {
             FirstName = "      ",
-            LastName = "LastName",
-            Email = "email",
-            Password = "password",
-            PhoneNumber = "123456789",
+            LastName = _faker.Person.LastName,
+            Email = _faker.Internet.Email(),
+            Password = _faker.Internet.Password(),
+            PhoneNumber = _faker.Phone.PhoneNumber(),
             Role = Role.User
         });
     }

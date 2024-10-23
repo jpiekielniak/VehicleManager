@@ -1,7 +1,5 @@
 using VehicleManager.Api.Endpoints.Users;
 using VehicleManager.Application.Users.Commands.SignIn;
-using VehicleManager.Core.Users.Entities.Builders;
-using VehicleManager.Core.Users.Entities.Enums;
 using VehicleManager.Shared.Middlewares.Exceptions;
 
 namespace VehicleManager.Tests.Integration.Endpoints.Users.Commands.SignIn;
@@ -12,24 +10,13 @@ public class SignInEndpointTests(VehicleManagerTestFactory factory) : EndpointTe
     public async Task post_sign_in_with_valid_data_should_return_200_status_code()
     {
         //arrange
-        const string email = "vehicle.manager@test.com";
-        const string password = "passwordtest";
-        var hashedPassword = PasswordHasher.HashPassword(password);
-
-        var user = new UserBuilder()
-            .WithEmail(email)
-            .WithPassword(hashedPassword)
-            .WithFirstName("Jakub")
-            .WithLastName("Piekielniak")
-            .WithRole(Role.User)
-            .WithPhoneNumber("512839855")
-            .Build();
+        var command = _factory.CreateSignInCommand();
+        var hashedPassword = PasswordHasher.HashPassword(command.Password);
+        var user = _factory.CreateUser(command.Email, hashedPassword);
 
         await DbContext.Users.AddAsync(user);
         await DbContext.SaveChangesAsync();
-
-        var command = new SignInCommand(email, password);
-
+        
         //act
         var response = await Client.PostAsJsonAsync(UserEndpoints.SignIn, command);
 
@@ -42,7 +29,7 @@ public class SignInEndpointTests(VehicleManagerTestFactory factory) : EndpointTe
     public async Task post_sign_in_with_non_existing_user_data_should_return_400_status_code()
     {
         //arrange
-        var command = new SignInCommand("example@test.com", "examplePassword");
+        var command = _factory.CreateSignInCommand();
 
         //act
         var response = await Client.PostAsJsonAsync(UserEndpoints.SignIn, command);
@@ -51,4 +38,6 @@ public class SignInEndpointTests(VehicleManagerTestFactory factory) : EndpointTe
         response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
         await response.Content.ReadFromJsonAsync<Error>().ShouldNotBeNull();
     }
+
+    private readonly UserTestFactory _factory = new();
 }
