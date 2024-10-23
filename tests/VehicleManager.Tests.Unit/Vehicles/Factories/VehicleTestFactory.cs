@@ -1,3 +1,4 @@
+using VehicleManager.Application.Vehicles.Commands.ChangeVehicleInformation;
 using VehicleManager.Application.Vehicles.Commands.CreateVehicle;
 using VehicleManager.Application.Vehicles.Commands.DeleteVehicle;
 using VehicleManager.Core.Vehicles.Builders;
@@ -22,8 +23,24 @@ internal class VehicleTestFactory
             VehicleType.Car
         );
 
-    public Vehicle CreateVehicle()
-        => new VehicleBuilder().Build();
+    internal ChangeVehicleInformationCommand ChangeVehicleInformationCommand()
+        => new(
+            "Peugeot",
+            "308 SW",
+            2015,
+            "KTA94969",
+            "VF3**************[VIN]",
+            1.6,
+            FuelType.Diesel,
+            120,
+            GearboxType.Manual,
+            VehicleType.Car
+        );
+
+    public Vehicle CreateVehicle(Guid userId = default)
+        => new VehicleBuilder()
+            .WithOwner(userId)
+            .Build();
 
     public DeleteVehicleCommand DeleteVehicleCommand()
         => new(Guid.NewGuid());
