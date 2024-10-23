@@ -26,6 +26,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\src\VehicleManager.Application\VehicleManager.Application.csproj" />
       <ProjectReference Include="..\..\src\VehicleManager.Core\VehicleManager.Core.csproj" />
+      <ProjectReference Include="..\..\src\VehicleManager.Infrastructure\VehicleManager.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

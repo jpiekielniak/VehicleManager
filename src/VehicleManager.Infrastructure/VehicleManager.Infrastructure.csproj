@@ -15,4 +15,9 @@
         <PackageReference Include="Sieve" Version="2.5.5" />
     </ItemGroup>
 
+    <ItemGroup>
+        <InternalsVisibleTo Include="VehicleManager.Tests.Integration"/>
+        <InternalsVisibleTo Include="VehicleManager.Tests.Unit"/>
+    </ItemGroup>
+
 </Project>
