@@ -7,7 +7,7 @@ using VehicleManager.Tests.Unit.ServiceBook.Factories;
 
 namespace VehicleManager.Tests.Unit.ServiceBook.Handlers.Queries.GetInspection;
 
-public class GetInspectionQueryHandlerTests
+public class GetServiceQueryHandlerTests
 {
     private async Task<ServiceDetailsDto> Act(GetServiceQuery query)
         => await _handler.Handle(query, CancellationToken.None);
@@ -18,7 +18,7 @@ public class GetInspectionQueryHandlerTests
         // Arrange
         var query = _factory.GetServiceQuery();
 
-        _serviceBookRepository.GetAsync(query.ServiceBookId, Arg.Any<CancellationToken>())
+        _serviceBookRepository.GetAsync(query.ServiceBookId, Arg.Any<CancellationToken>(), true)
             .ReturnsNull();
 
         // Act
@@ -27,7 +27,7 @@ public class GetInspectionQueryHandlerTests
         // Assert
         exception.ShouldNotBeNull();
         exception.ShouldBeOfType<ServiceBookNotFoundException>();
-        await _serviceBookRepository.Received(1).GetAsync(query.ServiceBookId, Arg.Any<CancellationToken>());
+        await _serviceBookRepository.Received(1).GetAsync(query.ServiceBookId, Arg.Any<CancellationToken>(), Arg.Any<bool>());
     }
 
     [Fact]
@@ -36,7 +36,7 @@ public class GetInspectionQueryHandlerTests
         // Arrange
         var query = _factory.GetServiceQuery();
 
-        _serviceBookRepository.GetAsync(query.ServiceBookId, Arg.Any<CancellationToken>())
+        _serviceBookRepository.GetAsync(query.ServiceBookId, Arg.Any<CancellationToken>(), true)
             .Returns(_factory.CreateServiceBook());
 
         // Act
@@ -45,7 +45,7 @@ public class GetInspectionQueryHandlerTests
         // Assert
         exception.ShouldNotBeNull();
         exception.ShouldBeOfType<ServiceNotFoundException>();
-        await _serviceBookRepository.Received(1).GetAsync(query.ServiceBookId, Arg.Any<CancellationToken>());
+        await _serviceBookRepository.Received(1).GetAsync(query.ServiceBookId, Arg.Any<CancellationToken>(), Arg.Any<bool>());
     }
 
     [Fact]
@@ -57,7 +57,7 @@ public class GetInspectionQueryHandlerTests
         serviceBook.AddService(service);
         var query = _factory.GetServiceQuery(serviceBook.Id, service.Id);
 
-        _serviceBookRepository.GetAsync(query.ServiceBookId, Arg.Any<CancellationToken>())
+        _serviceBookRepository.GetAsync(query.ServiceBookId, Arg.Any<CancellationToken>(), true)
             .Returns(serviceBook);
 
         // Act
@@ -68,14 +68,14 @@ public class GetInspectionQueryHandlerTests
         result.ShouldBeOfType<ServiceDetailsDto>();
         result.Id.ShouldBe(service.Id);
         result.Costs.Count.ShouldBe(service.Costs.Count());
-        await _serviceBookRepository.Received(1).GetAsync(query.ServiceBookId, Arg.Any<CancellationToken>());
+        await _serviceBookRepository.Received(1).GetAsync(query.ServiceBookId, Arg.Any<CancellationToken>(), Arg.Any<bool>());
     }
 
     private readonly IServiceBookRepository _serviceBookRepository;
     private readonly IRequestHandler<GetServiceQuery, ServiceDetailsDto> _handler;
     private readonly ServiceBookTestFactory _factory = new();
 
-    public GetInspectionQueryHandlerTests()
+    public GetServiceQueryHandlerTests()
     {
         _serviceBookRepository = Substitute.For<IServiceBookRepository>();
 

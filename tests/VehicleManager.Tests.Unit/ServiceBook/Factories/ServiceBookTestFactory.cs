@@ -3,6 +3,7 @@ using VehicleManager.Application.ServiceBooks.Commands.AddService;
 using VehicleManager.Application.ServiceBooks.Commands.AddService.DTO;
 using VehicleManager.Application.ServiceBooks.Commands.DeleteInspection;
 using VehicleManager.Application.ServiceBooks.Commands.DeleteService;
+using VehicleManager.Application.ServiceBooks.Queries.GetInspection;
 using VehicleManager.Application.ServiceBooks.Queries.GetService;
 using VehicleManager.Core.Vehicles.Builders;
 using VehicleManager.Core.Vehicles.Entities;
@@ -68,5 +69,11 @@ internal class ServiceBookTestFactory
         => new(
             serviceBookId == default ? Guid.NewGuid() : serviceBookId,
             serviceId == default ? Guid.NewGuid() : serviceId
+        );
+
+    public GetInspectionQuery GetInspectionQuery(Guid serviceBookId = default, Guid inspectionId = default)
+        => new(
+            serviceBookId == default ? Guid.NewGuid() : serviceBookId,
+            inspectionId == default ? Guid.NewGuid() : inspectionId
         );
 }
