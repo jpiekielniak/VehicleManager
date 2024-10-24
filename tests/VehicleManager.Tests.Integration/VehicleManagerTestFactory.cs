@@ -1,15 +1,12 @@
+using Microsoft.Extensions.Configuration;
 using VehicleManager.Infrastructure.EF;
 
 namespace VehicleManager.Tests.Integration;
 
-public class VehicleManagerTestFactory : WebApplicationFactory<Api.Program>, IAsyncLifetime
+public class VehicleManagerTestFactory : WebApplicationFactory<Api.Program>
 {
-    private readonly PostgreSqlContainer _container = new PostgreSqlBuilder()
-        .WithImage("postgres:15-alpine")
-        .WithDatabase("vehicle_manager_test")
-        .WithUsername("postgres")
-        .WithPassword("postgres")
-        .WithName($"vehicle_manager_test_{Guid.NewGuid()}")
+    private readonly IConfiguration _configuration = new ConfigurationBuilder()
+        .AddJsonFile("appsettings.Test.json")
         .Build();
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -27,12 +24,8 @@ public class VehicleManagerTestFactory : WebApplicationFactory<Api.Program>, IAs
             services.AddDbContext<VehicleManagerDbContext>(options =>
             {
                 options
-                    .UseNpgsql(_container.GetConnectionString());
+                    .UseNpgsql(_configuration.GetConnectionString("VehicleManagerTest"));
             });
         });
     }
-
-    public Task InitializeAsync() => _container.StartAsync();
-
-    public new Task DisposeAsync() => _container.StopAsync();
 }

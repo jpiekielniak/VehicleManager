@@ -5,6 +5,7 @@ using VehicleManager.Shared.Hash;
 
 namespace VehicleManager.Tests.Integration.Endpoints;
 
+[Collection("IntegrationTests")]
 public abstract class EndpointTests : IClassFixture<VehicleManagerTestFactory>, IAsyncLifetime
 {
     private readonly IServiceScope _scope;
@@ -23,14 +24,12 @@ public abstract class EndpointTests : IClassFixture<VehicleManagerTestFactory>, 
         PasswordHasher = _scope.ServiceProvider.GetRequiredService<IPasswordHasher>();
     }
 
-    public async Task InitializeAsync() => await ClearDatabase();
+    public async Task InitializeAsync() => await DbContext.Database.EnsureCreatedAsync();
 
-    public Task DisposeAsync() => Task.CompletedTask;
-
-    private async Task ClearDatabase()
+    public async Task DisposeAsync()
     {
-        DbContext.Users.RemoveRange(DbContext.Users);
-        await DbContext.SaveChangesAsync();
+        await DbContext.Database.EnsureDeletedAsync();
+        await DbContext.DisposeAsync();
     }
 
     protected void Authorize(Guid userId, string role)

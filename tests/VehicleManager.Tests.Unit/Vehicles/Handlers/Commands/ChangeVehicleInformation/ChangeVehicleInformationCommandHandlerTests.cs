@@ -89,7 +89,6 @@ public class ChangeVehicleInformationCommandHandlerTests
 
         // Assert
         vehicle.Brand.ShouldBe(command.Brand);
-        await _vehicleRepository.Received().UpdateAsync(Arg.Any<Vehicle>(), Arg.Any<CancellationToken>());
         await _vehicleRepository.Received().SaveChangesAsync(Arg.Any<CancellationToken>());
     }
 

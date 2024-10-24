@@ -33,8 +33,8 @@ internal class VehicleTestFactory
             GenerateLicensePlate(),
             _faker.Vehicle.Vin(),
             double.Round(_faker.Random.Double(1.0, 5.4)),
-            _faker.PickRandom<FuelType>(),
             _faker.Random.Int(80, 300),
+            _faker.PickRandom<FuelType>(),
             _faker.PickRandom<GearboxType>(),
             _faker.PickRandom<VehicleType>()
         );
