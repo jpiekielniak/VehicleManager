@@ -2,6 +2,7 @@ using VehicleManager.Application.ServiceBooks.Commands.AddInspection;
 using VehicleManager.Application.ServiceBooks.Commands.AddService;
 using VehicleManager.Application.ServiceBooks.Commands.AddService.DTO;
 using VehicleManager.Application.ServiceBooks.Commands.DeleteInspection;
+using VehicleManager.Application.ServiceBooks.Commands.DeleteService;
 using VehicleManager.Core.Vehicles.Builders;
 using VehicleManager.Core.Vehicles.Entities;
 using VehicleManager.Core.Vehicles.Entities.Enums;
@@ -48,4 +49,17 @@ internal class ServiceBookTestFactory
             .WithPerformDate(_faker.Date.Past())
             .WithScheduledDate(_faker.Date.Past())
             .Build();
+
+    public DeleteServiceCommand CreateDeleteServiceCommand(Guid serviceBookId = default, Guid serviceId = default)
+        => new(
+            serviceBookId == default ? Guid.NewGuid() : serviceBookId,
+            serviceId == default ? Guid.NewGuid() : serviceId
+        );
+
+    public Service CreateService()
+    => new ServiceBuilder()
+        .WithTitle(_faker.Lorem.Paragraph())
+        .WithDescription(_faker.Lorem.Paragraph())
+        .WithServiceDate(_faker.Date.Past())
+        .Build();
 }
