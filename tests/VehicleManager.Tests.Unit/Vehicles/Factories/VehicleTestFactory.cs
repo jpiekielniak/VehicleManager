@@ -41,6 +41,16 @@ internal class VehicleTestFactory
 
     public Vehicle CreateVehicle(Guid userId = default)
         => new VehicleBuilder()
+            .WithBrand(_faker.Vehicle.Manufacturer())
+            .WithModel(_faker.Vehicle.Model())
+            .WithYear(_faker.Date.Random.Int(1980, 2024))
+            .WithLicensePlate(GenerateLicensePlate())
+            .WithVIN(_faker.Vehicle.Vin())
+            .WithEngineCapacity(double.Round(_faker.Random.Double(1.0, 5.4)))
+            .WithEnginePower(_faker.Random.Int(60, 300))
+            .WithFuelType(_faker.PickRandom<FuelType>())
+            .WithGearboxType(_faker.PickRandom<GearboxType>())
+            .WithVehicleType(_faker.PickRandom<VehicleType>())
             .WithOwner(userId == default ? Guid.NewGuid() : userId)
             .Build();
 

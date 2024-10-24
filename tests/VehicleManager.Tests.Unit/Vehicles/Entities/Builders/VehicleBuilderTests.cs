@@ -49,6 +49,6 @@ public class VehicleBuilderTests
             .WithFuelType(vehicleBuilderParams.FuelType)
             .WithGearboxType(vehicleBuilderParams.GearboxType)
             .WithOwner(Guid.NewGuid())
-            .WithServiceBook(ServiceBook.Create())
+            .WithServiceBook(Core.Vehicles.Entities.ServiceBook.Create())
             .Build();
 }

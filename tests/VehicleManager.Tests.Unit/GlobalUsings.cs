@@ -7,3 +7,4 @@ global using FluentValidation;
 global using FluentValidation.TestHelper;
 global using System.Linq.Expressions;
 global using Bogus;
+global using Sieve.Services;

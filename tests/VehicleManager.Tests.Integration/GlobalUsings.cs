@@ -7,6 +7,5 @@ global using Microsoft.AspNetCore.Mvc.Testing;
 global using Microsoft.AspNetCore.TestHost;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.DependencyInjection;
-global using Testcontainers.PostgreSql;
 global using Bogus;
 
