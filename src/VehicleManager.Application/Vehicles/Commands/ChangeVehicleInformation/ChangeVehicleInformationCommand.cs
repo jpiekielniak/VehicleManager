@@ -9,8 +9,8 @@ internal record ChangeVehicleInformationCommand(
     string LicensePlate,
     string Vin,
     double EngineCapacity,
-    FuelType FuelType,
     int EnginePower,
+    FuelType FuelType,
     GearboxType GearboxType,
     VehicleType VehicleType
 ) : IRequest

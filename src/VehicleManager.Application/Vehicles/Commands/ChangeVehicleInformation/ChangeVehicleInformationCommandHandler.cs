@@ -26,18 +26,18 @@ internal sealed class ChangeVehicleInformationCommandHandler(
         }
 
         var vehicle = await vehicleRepository.GetAsync(command.VehicleId, cancellationToken);
-        
+
         if (vehicle is null)
         {
             throw new VehicleNotFoundException(command.VehicleId);
         }
-        
+
         if (vehicle.UserId != currentLoggedUserId)
         {
             throw new VehicleNotBelowToUserException();
         }
-        
-        vehicle = new VehicleBuilder(vehicle)
+
+        new VehicleBuilder(vehicle)
             .WithBrand(command.Brand)
             .WithModel(command.Model)
             .WithYear(command.Year)
@@ -49,8 +49,7 @@ internal sealed class ChangeVehicleInformationCommandHandler(
             .WithGearboxType(command.GearboxType)
             .WithVehicleType(command.VehicleType)
             .Build();
-        
-        await vehicleRepository.UpdateAsync(vehicle, cancellationToken);
+
         await vehicleRepository.SaveChangesAsync(cancellationToken);
     }
 }

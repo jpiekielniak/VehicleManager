@@ -16,10 +16,18 @@ internal sealed class VehicleRepository(VehicleManagerDbContext dbContext) : IVe
     public async Task SaveChangesAsync(CancellationToken cancellationToken)
         => await dbContext.SaveChangesAsync(cancellationToken);
 
-    public async Task<Vehicle> GetAsync(Guid vehicleId, CancellationToken cancellationToken)
-        => await _vehicles
-            .AsNoTracking()
-            .FirstOrDefaultAsync(v => v.Id == vehicleId, cancellationToken);
+    public async Task<Vehicle> GetAsync(Guid vehicleId, CancellationToken cancellationToken, bool asNoTracking = false)
+    {
+        var query = _vehicles.AsQueryable();
+
+        if (asNoTracking)
+        {
+            query = query.AsNoTracking();
+        }
+
+        return await query.FirstOrDefaultAsync(v => v.Id == vehicleId, cancellationToken);
+    }
+
 
     public Task<IQueryable<Vehicle>> GetVehiclesByUserId(Guid userId, CancellationToken cancellationToken)
         => Task.FromResult(_vehicles
@@ -31,13 +39,4 @@ internal sealed class VehicleRepository(VehicleManagerDbContext dbContext) : IVe
 
     public Task UpdateAsync(Vehicle vehicle, CancellationToken cancellationToken)
         => Task.FromResult(_vehicles.Update(vehicle));
-
-    public async Task<bool> ExistsWithLicensePlateAsync(string licensePlate, Guid vehicleId,
-        CancellationToken cancellationToken)
-        => await _vehicles
-            .AnyAsync(v => v.LicensePlate == licensePlate && v.Id != vehicleId, cancellationToken);
-
-    public async Task<bool> ExistsWithVinAsync(string vin, Guid vehicleId, CancellationToken cancellationToken)
-        => await _vehicles
-            .AnyAsync(v => v.VIN == vin && v.Id != vehicleId, cancellationToken);
 }
