@@ -55,6 +55,7 @@ internal class VehicleTestFactory
             .WithGearboxType(_faker.PickRandom<GearboxType>())
             .WithVehicleType(_faker.PickRandom<VehicleType>())
             .WithOwner(userId == default ? Guid.NewGuid() : userId)
+            .WithServiceBook(ServiceBook.Create())
             .Build();
 
     public DeleteVehicleCommand DeleteVehicleCommand() => new(Guid.NewGuid());

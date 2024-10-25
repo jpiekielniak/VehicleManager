@@ -23,7 +23,7 @@ public class CreateVehicleEndpointTests(VehicleManagerTestFactory factory) : End
     }
 
     [Fact]
-    public async Task post_create_vehicle_without_authorization_should_return_401_status_code()
+    public async Task post_create_vehicle_without_authentication_should_return_401_status_code()
     {
         //arrange
         var command = _factory.CreateVehicleCommand();

@@ -9,7 +9,7 @@ internal sealed class DeleteVehicleEndpoint : IEndpointDefinition
     public void DefineEndpoint(IEndpointRouteBuilder endpoint)
     {
         endpoint.MapDelete(VehicleEndpoints.VehicleById, async (
-                [FromRoute] Guid vehicleId,
+                [FromRoute(Name = "vehicleId")] Guid vehicleId,
                 [FromServices] IMediator mediator,
                 CancellationToken cancellationToken
             ) =>
