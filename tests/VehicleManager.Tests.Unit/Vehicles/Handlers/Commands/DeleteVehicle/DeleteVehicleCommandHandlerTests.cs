@@ -1,5 +1,4 @@
 using VehicleManager.Application.Vehicles.Commands.DeleteVehicle;
-using VehicleManager.Core.Vehicles.Exceptions;
 using VehicleManager.Core.Vehicles.Exceptions.Vehicles;
 using VehicleManager.Core.Vehicles.Repositories;
 using VehicleManager.Shared.Auth.Context;

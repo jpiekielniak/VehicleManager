@@ -2,7 +2,6 @@ using VehicleManager.Application.Vehicles.Commands.ChangeVehicleInformation;
 using VehicleManager.Core.Users.Entities;
 using VehicleManager.Core.Users.Exceptions.Users;
 using VehicleManager.Core.Users.Repositories;
-using VehicleManager.Core.Vehicles.Entities;
 using VehicleManager.Core.Vehicles.Exceptions.Vehicles;
 using VehicleManager.Core.Vehicles.Repositories;
 using VehicleManager.Shared.Auth.Context;

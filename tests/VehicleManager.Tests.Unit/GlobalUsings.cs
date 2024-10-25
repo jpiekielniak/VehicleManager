@@ -8,3 +8,5 @@ global using FluentValidation.TestHelper;
 global using System.Linq.Expressions;
 global using Bogus;
 global using Sieve.Services;
+global using Sieve.Models;
+

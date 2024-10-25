@@ -1,4 +1,3 @@
-using Microsoft.IdentityModel.Tokens;
 using VehicleManager.Application.Vehicles.Queries.BrowseCurrentLoggedUserVehicles;
 using VehicleManager.Core.Users.Exceptions.Users;
 using VehicleManager.Core.Users.Repositories;
