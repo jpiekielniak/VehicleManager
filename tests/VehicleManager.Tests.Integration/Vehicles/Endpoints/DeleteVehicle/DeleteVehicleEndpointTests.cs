@@ -1,4 +1,6 @@
 using VehicleManager.Api.Endpoints.Vehicles;
+using VehicleManager.Core.Users.Entities;
+using VehicleManager.Core.Vehicles.Entities;
 using VehicleManager.Shared.Middlewares.Exceptions;
 using VehicleManager.Tests.Integration.Vehicles.Factories;
 
@@ -12,9 +14,7 @@ public class DeleteVehicleEndpointTests(VehicleManagerTestFactory factory) : End
         //arrange
         var user = _factory.CreateUser();
         var vehicle = _factory.CreateVehicle(user.Id);
-        await DbContext.Users.AddAsync(user);
-        await DbContext.Vehicles.AddAsync(vehicle);
-        await DbContext.SaveChangesAsync();
+        await SeedDataAsync(user, vehicle);
 
         //act
         var response =
@@ -29,13 +29,13 @@ public class DeleteVehicleEndpointTests(VehicleManagerTestFactory factory) : End
     {
         //arrange
         var user = _factory.CreateUser();
-        await DbContext.Users.AddAsync(user);
-        await DbContext.SaveChangesAsync();
+        await SeedDataAsync(user: user);
         Authorize(user.Id, user.Role.ToString());
 
         //act
         var response =
-            await Client.DeleteAsync(VehicleEndpoints.VehicleById.Replace("{vehicleId:guid}", Guid.NewGuid().ToString()));
+            await Client.DeleteAsync(
+                VehicleEndpoints.VehicleById.Replace("{vehicleId:guid}", Guid.NewGuid().ToString()));
 
         //assert
         response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
@@ -49,9 +49,7 @@ public class DeleteVehicleEndpointTests(VehicleManagerTestFactory factory) : End
         var fakeUser = _factory.CreateUser();
         var user = _factory.CreateUser();
         var vehicle = _factory.CreateVehicle(fakeUser.Id);
-        await DbContext.Users.AddAsync(fakeUser);
-        await DbContext.Vehicles.AddAsync(vehicle);
-        await DbContext.SaveChangesAsync();
+        await SeedDataAsync(fakeUser, vehicle);
         Authorize(user.Id, user.Role.ToString());
 
         //act
@@ -69,9 +67,7 @@ public class DeleteVehicleEndpointTests(VehicleManagerTestFactory factory) : End
         //arrange
         var user = _factory.CreateUser();
         var vehicle = _factory.CreateVehicle(user.Id);
-        await DbContext.Users.AddAsync(user);
-        await DbContext.Vehicles.AddAsync(vehicle);
-        await DbContext.SaveChangesAsync();
+        await SeedDataAsync(user, vehicle);
         Authorize(user.Id, user.Role.ToString());
 
         //act
@@ -80,6 +76,21 @@ public class DeleteVehicleEndpointTests(VehicleManagerTestFactory factory) : End
 
         //assert
         response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
+    }
+
+    private async Task SeedDataAsync(User? user = default, Vehicle? vehicle = default)
+    {
+        if (user is not null)
+        {
+            await DbContext.Users.AddAsync(user);
+        }
+
+        if (vehicle is not null)
+        {
+            await DbContext.Vehicles.AddAsync(vehicle);
+        }
+
+        await DbContext.SaveChangesAsync();
     }
 
 
