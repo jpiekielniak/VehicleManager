@@ -3,7 +3,7 @@ using VehicleManager.Infrastructure.EF;
 using VehicleManager.Shared.Auth;
 using VehicleManager.Shared.Hash;
 
-namespace VehicleManager.Tests.Integration.Endpoints;
+namespace VehicleManager.Tests.Integration;
 
 [Collection("IntegrationTests")]
 public abstract class EndpointTests : IClassFixture<VehicleManagerTestFactory>, IAsyncLifetime

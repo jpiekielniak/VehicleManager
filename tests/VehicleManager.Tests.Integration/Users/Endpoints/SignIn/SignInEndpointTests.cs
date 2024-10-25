@@ -1,8 +1,9 @@
 using VehicleManager.Api.Endpoints.Users;
 using VehicleManager.Application.Users.Commands.SignIn;
 using VehicleManager.Shared.Middlewares.Exceptions;
+using VehicleManager.Tests.Integration.Users.Factories;
 
-namespace VehicleManager.Tests.Integration.Endpoints.Users.Commands.SignIn;
+namespace VehicleManager.Tests.Integration.Users.Endpoints.SignIn;
 
 public class SignInEndpointTests(VehicleManagerTestFactory factory) : EndpointTests(factory)
 {

@@ -4,7 +4,7 @@ using VehicleManager.Core.Users.Entities;
 using VehicleManager.Core.Users.Entities.Builders;
 using VehicleManager.Core.Users.Entities.Enums;
 
-namespace VehicleManager.Tests.Integration.Endpoints.Users;
+namespace VehicleManager.Tests.Integration.Users.Factories;
 
 internal class UserTestFactory
 {
