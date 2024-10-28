@@ -5,7 +5,7 @@ using VehicleManager.Tests.Integration.Vehicles.Factories;
 
 namespace VehicleManager.Tests.Integration.Vehicles.Endpoints.CreateVehicle;
 
-public class CreateVehicleEndpointTests(VehicleManagerTestFactory factory) : EndpointTests(factory)
+public class CreateVehicleEndpointTests : EndpointTests
 {
     [Fact]
     public async Task post_create_vehicle_with_non_existing_user_should_return_400_status_code()

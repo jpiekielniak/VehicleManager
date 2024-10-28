@@ -1,4 +1,6 @@
 using System.Net.Http.Headers;
+using VehicleManager.Core.Users.Entities;
+using VehicleManager.Core.Vehicles.Entities;
 using VehicleManager.Infrastructure.EF;
 using VehicleManager.Shared.Auth;
 using VehicleManager.Shared.Hash;
@@ -15,8 +17,9 @@ public abstract class EndpointTests : IClassFixture<VehicleManagerTestFactory>, 
     protected readonly IPasswordHasher PasswordHasher;
 
 
-    protected EndpointTests(VehicleManagerTestFactory factory)
+    protected EndpointTests()
     {
+        var factory = new VehicleManagerTestFactory();
         _scope = factory.Services.CreateScope();
         _authManager = _scope.ServiceProvider.GetRequiredService<IAuthManager>();
         Client = factory.CreateClient();
@@ -36,5 +39,20 @@ public abstract class EndpointTests : IClassFixture<VehicleManagerTestFactory>, 
     {
         var jwt = _authManager.GenerateToken(userId, role);
         Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", jwt.AccessToken);
+    }
+    
+    protected async Task SeedDataAsync(User? user = default, Vehicle? vehicle = default)
+    {
+        if (user is not null)
+        {
+            await DbContext.Users.AddAsync(user);
+        }
+
+        if (vehicle is not null)
+        {
+            await DbContext.Vehicles.AddAsync(vehicle);
+        }
+
+        await DbContext.SaveChangesAsync();
     }
 }

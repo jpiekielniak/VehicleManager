@@ -28,20 +28,6 @@ internal class VehicleTestFactory
             _faker.PickRandom<VehicleType>()
         );
 
-    internal ChangeVehicleInformationCommand ChangeVehicleInformationCommand()
-        => new(
-            _faker.Vehicle.Manufacturer(),
-            _faker.Vehicle.Model(),
-            _faker.Date.Random.Int(1980, 2024),
-            GenerateLicensePlate(),
-            _faker.Vehicle.Vin(),
-            double.Round(_faker.Random.Double(1.0, 5.4)),
-            _faker.Random.Int(80, 300),
-            _faker.PickRandom<FuelType>(),
-            _faker.PickRandom<GearboxType>(),
-            _faker.PickRandom<VehicleType>()
-        );
-
     public Vehicle CreateVehicle(Guid userId = default)
         => new VehicleBuilder()
             .WithBrand(_faker.Vehicle.Manufacturer())
@@ -58,16 +44,30 @@ internal class VehicleTestFactory
             .WithServiceBook(ServiceBook.Create())
             .Build();
 
-    public DeleteVehicleCommand DeleteVehicleCommand() => new(Guid.NewGuid());
-
     private string GenerateLicensePlate()
         => _faker.Random.String2(3, "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
            + _faker.Random.String2(5, "0123456789");
 
     public User CreateUser()
-    => new UserBuilder()
-        .WithEmail(_faker.Internet.Email())
-        .WithPassword(_faker.Internet.Password())
-        .WithRole(Role.User)
-        .Build();
+        => new UserBuilder()
+            .WithEmail(_faker.Internet.Email())
+            .WithPassword(_faker.Internet.Password())
+            .WithRole(Role.User)
+            .Build();
+
+    public ChangeVehicleInformationCommand CreateChangeVehicleInformationCommand(Guid vehicleId)
+        => new(
+            _faker.Vehicle.Manufacturer(),
+            _faker.Vehicle.Model(),
+            _faker.Date.Random.Int(1980, 2024),
+            GenerateLicensePlate(),
+            _faker.Vehicle.Vin(),
+            double.Round(_faker.Random.Double(1.0, 5.4)),
+            _faker.Random.Int(80, 300),
+            _faker.PickRandom<FuelType>(),
+            _faker.PickRandom<GearboxType>(),
+            _faker.PickRandom<VehicleType>())
+        {
+            VehicleId = vehicleId
+        };
 }
