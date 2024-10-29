@@ -40,8 +40,9 @@ public abstract class EndpointTests : IClassFixture<VehicleManagerTestFactory>, 
         var jwt = _authManager.GenerateToken(userId, role);
         Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", jwt.AccessToken);
     }
-    
-    protected async Task SeedDataAsync(User? user = default, Vehicle? vehicle = default)
+
+    protected async Task SeedDataAsync(User? user = default, Vehicle? vehicle = default,
+        List<Vehicle>? vehicles = default)
     {
         if (user is not null)
         {
@@ -51,6 +52,11 @@ public abstract class EndpointTests : IClassFixture<VehicleManagerTestFactory>, 
         if (vehicle is not null)
         {
             await DbContext.Vehicles.AddAsync(vehicle);
+        }
+
+        if (vehicles is not null)
+        {
+            await DbContext.Vehicles.AddRangeAsync(vehicles);
         }
 
         await DbContext.SaveChangesAsync();

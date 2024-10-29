@@ -70,4 +70,16 @@ internal class VehicleTestFactory
         {
             VehicleId = vehicleId
         };
+
+    public List<Vehicle> CreateVehicles(Guid userId, int numberOfVehicles)
+    {
+        var vehicles = new List<Vehicle>();
+
+        for (var i = 0; i < numberOfVehicles; i++)
+        {
+            vehicles.Add(CreateVehicle(userId));
+        }
+
+        return vehicles;
+    }
 }
