@@ -1,3 +1,4 @@
+using VehicleManager.Application.Users.Commands.CompleteUserData;
 using VehicleManager.Application.Users.Commands.SignIn;
 using VehicleManager.Application.Users.Commands.SignUp;
 using VehicleManager.Core.Users.Entities;
@@ -28,4 +29,14 @@ internal class UserTestFactory
             .WithPassword(password ?? _faker.Internet.Password())
             .WithRole(Role.User)
             .Build();
+
+    public CompleteUserDataCommand CreateCompleteUserDataCommand(Guid? userId = default)
+        => new(
+            _faker.Person.FirstName,
+            _faker.Person.LastName,
+            _faker.Phone.PhoneNumber()
+        )
+        {
+            UserId = userId ?? Guid.NewGuid()
+        };
 }

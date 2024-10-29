@@ -1,3 +1,4 @@
+using VehicleManager.Application.Users.Commands.CompleteUserData;
 using VehicleManager.Application.Users.Commands.DeleteUser;
 using VehicleManager.Application.Users.Commands.SignIn;
 using VehicleManager.Application.Users.Commands.SignUp;
@@ -39,4 +40,14 @@ internal class UserTestFactory
 
     public DeleteUserCommand CreateDeleteUserCommand(Guid? userId = default)
         => new(userId ?? Guid.NewGuid());
+
+    public CompleteUserDataCommand CreateCompleteUserDataCommand(Guid? userId = default)
+        => new(
+            _faker.Person.FirstName,
+            _faker.Person.LastName,
+            _faker.Phone.PhoneNumber()
+        )
+        {
+            UserId = userId ?? Guid.NewGuid()
+        };
 }

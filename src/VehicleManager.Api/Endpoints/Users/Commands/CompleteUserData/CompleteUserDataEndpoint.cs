@@ -14,6 +14,7 @@ internal sealed class CompleteUserDataEndpoint : IEndpointDefinition
             {
                 var command = request.Command with { UserId = request.UserId };
                 await mediator.Send(command, cancellationToken);
+                return Results.NoContent();
             })
             .RequireAuthorization()
             .WithTags(UserEndpoints.Users)
