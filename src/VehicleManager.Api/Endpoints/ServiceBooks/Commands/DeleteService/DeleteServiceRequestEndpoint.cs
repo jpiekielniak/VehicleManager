@@ -15,6 +15,7 @@ internal sealed class DeleteServiceRequestEndpoint : IEndpointDefinition
             {
                 var command = new DeleteServiceCommand(request.ServiceBookId, request.ServiceId);
                 await mediator.Send(command, cancellationToken);
+                return Results.NoContent();
             })
             .RequireAuthorization()
             .WithOpenApi(operation => new OpenApiOperation(operation)

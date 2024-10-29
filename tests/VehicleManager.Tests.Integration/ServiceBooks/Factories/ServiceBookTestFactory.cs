@@ -73,4 +73,12 @@ internal class ServiceBookTestFactory
             .WithPerformDate(_faker.Date.Future())
             .WithServiceBook(serviceBook)
             .Build();
+
+    public Service CreateService(ServiceBook serviceBook)
+        => new ServiceBuilder()
+            .WithTitle(_faker.Lorem.Word())
+            .WithDescription(_faker.Lorem.Sentence())
+            .WithServiceDate(_faker.Date.Past())
+            .WithServiceBook(serviceBook)
+            .Build();
 }

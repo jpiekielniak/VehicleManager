@@ -1,4 +1,3 @@
-using System.Net.Http.Headers;
 using VehicleManager.Core.Users.Entities;
 using VehicleManager.Core.Vehicles.Entities;
 using VehicleManager.Infrastructure.EF;
@@ -42,7 +41,8 @@ public abstract class EndpointTests : IClassFixture<VehicleManagerTestFactory>, 
     }
 
     protected async Task SeedDataAsync(User? user = default, Vehicle? vehicle = default,
-        List<Vehicle>? vehicles = default, Inspection? inspection = default)
+        List<Vehicle>? vehicles = default, Inspection? inspection = default,
+        Service? service = default)
     {
         if (user is not null)
         {
@@ -62,6 +62,11 @@ public abstract class EndpointTests : IClassFixture<VehicleManagerTestFactory>, 
         if (inspection is not null)
         {
             await DbContext.Inspections.AddAsync(inspection);
+        }
+
+        if (service is not null)
+        {
+            await DbContext.Services.AddAsync(service);
         }
 
         await DbContext.SaveChangesAsync();
