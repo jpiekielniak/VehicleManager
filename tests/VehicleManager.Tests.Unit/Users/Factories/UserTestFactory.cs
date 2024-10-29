@@ -1,3 +1,4 @@
+using VehicleManager.Application.Users.Commands.DeleteUser;
 using VehicleManager.Application.Users.Commands.SignIn;
 using VehicleManager.Application.Users.Commands.SignUp;
 using VehicleManager.Core.Users.Entities;
@@ -8,7 +9,7 @@ using VehicleManager.Tests.Unit.Users.Helpers;
 
 namespace VehicleManager.Tests.Unit.Users.Factories;
 
-public class UserTestFactory
+internal class UserTestFactory
 {
     private readonly Faker _faker = new();
 
@@ -35,4 +36,7 @@ public class UserTestFactory
 
     internal JsonWebToken CreateToken(Guid userId, string role)
         => JwtHelper.CreateToken(userId.ToString(), role);
+
+    public DeleteUserCommand CreateDeleteUserCommand(Guid? userId = default)
+        => new(userId ?? Guid.NewGuid());
 }
