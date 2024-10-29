@@ -1,3 +1,4 @@
+using VehicleManager.Application.ServiceBooks.Commands.AddInspection;
 using VehicleManager.Application.ServiceBooks.Commands.AddService;
 using VehicleManager.Application.ServiceBooks.Commands.AddService.DTO;
 using VehicleManager.Core.Users.Entities;
@@ -42,14 +43,25 @@ internal class ServiceBookTestFactory
             .WithOwner(userId == default ? Guid.NewGuid() : userId)
             .WithServiceBook(ServiceBook.Create())
             .Build();
-    
+
     public User CreateUser()
         => new UserBuilder()
             .WithEmail(_faker.Internet.Email())
             .WithPassword(_faker.Internet.Password())
             .WithRole(Role.User)
             .Build();
-    
+
+    public AddInspectionCommand CreateAddInspectionCommand(Guid? serviceBookId = default)
+        => new(
+            _faker.Lorem.Word(),
+            _faker.Date.Future(),
+            _faker.Date.Future(),
+            _faker.PickRandom<InspectionType>()
+        )
+        {
+            ServiceBookId = serviceBookId ?? Guid.NewGuid()
+        };
+
     private string GenerateLicensePlate()
         => _faker.Random.String2(3, "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
            + _faker.Random.String2(5, "0123456789");
