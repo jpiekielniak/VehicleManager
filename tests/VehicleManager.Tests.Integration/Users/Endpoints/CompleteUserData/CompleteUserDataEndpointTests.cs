@@ -5,7 +5,7 @@ using VehicleManager.Tests.Integration.Users.Factories;
 
 namespace VehicleManager.Tests.Integration.Users.Endpoints.CompleteUserData;
 
-public class CompleteUserDataEndpointTests : EndpointTests
+public class CompleteUserDataEndpointTests : UserEndpointTest
 {
     [Fact]
     public async Task put_complete_user_data_without_authentication_should_return_401_status_code()

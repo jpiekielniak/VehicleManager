@@ -4,7 +4,7 @@ using VehicleManager.Tests.Integration.ServiceBooks.Factories;
 
 namespace VehicleManager.Tests.Integration.ServiceBooks.Endpoints.AddInspection;
 
-public class AddInspectionEndpointTests : EndpointTests
+public class AddInspectionEndpointTest : ServiceBookTest
 {
     [Fact]
     public async Task post_add_inspection_without_authentication_should_return_401_status_code()

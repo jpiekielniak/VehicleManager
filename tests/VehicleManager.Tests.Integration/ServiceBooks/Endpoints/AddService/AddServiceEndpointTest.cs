@@ -4,7 +4,7 @@ using VehicleManager.Tests.Integration.ServiceBooks.Factories;
 
 namespace VehicleManager.Tests.Integration.ServiceBooks.Endpoints.AddService;
 
-public class AddServiceEndpointTests : EndpointTests
+public class AddServiceEndpointTest : ServiceBookTest
 {
     [Fact]
     public async Task post_add_service_without_authentication_should_return_401_status_code()
@@ -45,7 +45,7 @@ public class AddServiceEndpointTests : EndpointTests
         var user = _factory.CreateUser();
         var vehicle = _factory.CreateVehicle(user.Id);
         var command = _factory.CreateAddServiceCommand(vehicle.ServiceBookId);
-        await SeedDataAsync(user: user, vehicle: vehicle);
+        await SeedDataAsync(user, vehicle);
         Authorize(user.Id, user.Role.ToString());
 
         //Act

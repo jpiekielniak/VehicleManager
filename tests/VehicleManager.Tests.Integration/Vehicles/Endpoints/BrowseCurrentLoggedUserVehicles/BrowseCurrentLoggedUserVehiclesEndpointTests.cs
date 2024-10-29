@@ -4,7 +4,7 @@ using VehicleManager.Tests.Integration.Vehicles.Factories;
 
 namespace VehicleManager.Tests.Integration.Vehicles.Endpoints.BrowseCurrentLoggedUserVehicles;
 
-public class BrowseCurrentLoggedUserVehiclesEndpointTests : EndpointTests
+public class BrowseCurrentLoggedUserVehiclesEndpointTests : VehicleEndpointTest
 {
     [Fact]
     public async Task browse_current_logged_user_vehicles_with_non_existing_user_should_return_400_status_code()
@@ -26,7 +26,7 @@ public class BrowseCurrentLoggedUserVehiclesEndpointTests : EndpointTests
         var user = _factory.CreateUser();
         var vehicles = _factory.CreateVehicles(user.Id, 5);
         const string pageSize = "5";
-        await SeedDataAsync(user: user, vehicles: vehicles);
+        await SeedDataAsync(user, vehicles: vehicles);
         Authorize(user.Id, user.Role.ToString());
 
         // Act

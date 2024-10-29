@@ -21,10 +21,13 @@ public class VehicleManagerTestFactory : WebApplicationFactory<Api.Program>
                 services.Remove(descriptor);
             }
 
+            var connectionString = _configuration.GetConnectionString("VehicleManagerTest");
+            var dbName = $"vehicle_manager_test_{Guid.NewGuid()}";
             services.AddDbContext<VehicleManagerDbContext>(options =>
             {
-                options
-                    .UseNpgsql(_configuration.GetConnectionString("VehicleManagerTest"));
+                options.UseNpgsql(connectionString?.Replace("vehicle_manager_test", dbName))
+                    .EnableSensitiveDataLogging(false)
+                    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             });
         });
     }

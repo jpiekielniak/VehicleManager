@@ -1,10 +1,11 @@
+using VehicleManager.Api;
 using VehicleManager.Api.Endpoints.Vehicles;
 using VehicleManager.Shared.Middlewares.Exceptions;
 using VehicleManager.Tests.Integration.Vehicles.Factories;
 
 namespace VehicleManager.Tests.Integration.Vehicles.Endpoints.ChangeVehicleInformation;
 
-public class ChangeVehicleInformationEndpointTests : EndpointTests
+public class ChangeVehicleInformationEndpointTests : VehicleEndpointTest
 {
     [Fact]
     public async Task put_change_vehicle_information_without_authentication_should_return_401_status_code()
@@ -30,7 +31,7 @@ public class ChangeVehicleInformationEndpointTests : EndpointTests
         //arrange
         var user = _factory.CreateUser();
         var command = _factory.CreateChangeVehicleInformationCommand(user.Id);
-        await SeedDataAsync(user: user);
+        await SeedDataAsync(user);
         Authorize(user.Id, user.Role.ToString());
 
         //act

@@ -4,7 +4,7 @@ using VehicleManager.Tests.Integration.Users.Factories;
 
 namespace VehicleManager.Tests.Integration.Users.Endpoints.DeleteUser;
 
-public class DeleteUserEndpointTests : EndpointTests
+public class DeleteUserEndpointTests : UserEndpointTest
 {
     [Fact]
     public async Task delete_user_without_authentication_should_return_401_status_code()

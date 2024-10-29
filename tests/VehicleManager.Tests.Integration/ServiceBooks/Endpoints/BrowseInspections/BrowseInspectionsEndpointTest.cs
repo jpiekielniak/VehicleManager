@@ -4,7 +4,7 @@ using VehicleManager.Tests.Integration.ServiceBooks.Factories;
 
 namespace VehicleManager.Tests.Integration.ServiceBooks.Endpoints.BrowseInspections;
 
-public class BrowseInspectionsEndpointTests : EndpointTests
+public class BrowseInspectionsEndpointTest : ServiceBookTest
 {
     [Fact]
     public async Task browse_inspections_without_authentication_should_return_401_status_code()

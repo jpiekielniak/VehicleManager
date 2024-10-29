@@ -4,7 +4,7 @@ using VehicleManager.Tests.Integration.Users.Factories;
 
 namespace VehicleManager.Tests.Integration.Users.Endpoints.SignUp;
 
-public class SignUpEndpointTests : EndpointTests
+public class SignUpEndpointTests : UserEndpointTest
 {
     [Fact]
     public async Task post_sign_up_with_valid_data_should_return_201()

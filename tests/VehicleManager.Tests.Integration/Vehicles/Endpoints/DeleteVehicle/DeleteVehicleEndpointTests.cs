@@ -4,7 +4,7 @@ using VehicleManager.Tests.Integration.Vehicles.Factories;
 
 namespace VehicleManager.Tests.Integration.Vehicles.Endpoints.DeleteVehicle;
 
-public class DeleteVehicleEndpointTests : EndpointTests
+public class DeleteVehicleEndpointTests : VehicleEndpointTest
 {
     [Fact]
     public async Task delete_vehicle_without_authentication_should_return_401_status_code()
@@ -27,7 +27,7 @@ public class DeleteVehicleEndpointTests : EndpointTests
     {
         //arrange
         var user = _factory.CreateUser();
-        await SeedDataAsync(user: user);
+        await SeedDataAsync(user);
         Authorize(user.Id, user.Role.ToString());
 
         //act

@@ -5,7 +5,7 @@ using VehicleManager.Tests.Integration.Users.Factories;
 
 namespace VehicleManager.Tests.Integration.Users.Endpoints.SignIn;
 
-public class SignInEndpointTests : EndpointTests
+public class SignInEndpointTests : UserEndpointTest
 {
     [Fact]
     public async Task post_sign_in_with_valid_data_should_return_200_status_code()

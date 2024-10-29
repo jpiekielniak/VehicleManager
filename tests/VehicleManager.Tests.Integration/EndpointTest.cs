@@ -6,8 +6,7 @@ using VehicleManager.Shared.Hash;
 
 namespace VehicleManager.Tests.Integration;
 
-[Collection("IntegrationTests")]
-public abstract class EndpointTests : IClassFixture<VehicleManagerTestFactory>, IAsyncLifetime
+public abstract class EndpointTest : IAsyncLifetime
 {
     private readonly IServiceScope _scope;
     private readonly IAuthManager _authManager;
@@ -16,7 +15,7 @@ public abstract class EndpointTests : IClassFixture<VehicleManagerTestFactory>, 
     protected readonly IPasswordHasher PasswordHasher;
 
 
-    protected EndpointTests()
+    protected EndpointTest()
     {
         var factory = new VehicleManagerTestFactory();
         _scope = factory.Services.CreateScope();
@@ -26,7 +25,10 @@ public abstract class EndpointTests : IClassFixture<VehicleManagerTestFactory>, 
         PasswordHasher = _scope.ServiceProvider.GetRequiredService<IPasswordHasher>();
     }
 
-    public async Task InitializeAsync() => await DbContext.Database.EnsureCreatedAsync();
+    public async Task InitializeAsync()
+    {
+        await DbContext.Database.EnsureCreatedAsync();
+    }
 
     public async Task DisposeAsync()
     {
@@ -44,36 +46,16 @@ public abstract class EndpointTests : IClassFixture<VehicleManagerTestFactory>, 
         List<Vehicle>? vehicles = default, Inspection? inspection = default,
         Service? service = default, List<Service>? services = default)
     {
-        if (user is not null)
-        {
-            await DbContext.Users.AddAsync(user);
-        }
+        await DbContext.Database.BeginTransactionAsync();
 
-        if (vehicle is not null)
-        {
-            await DbContext.Vehicles.AddAsync(vehicle);
-        }
-
-        if (vehicles is not null)
-        {
-            await DbContext.Vehicles.AddRangeAsync(vehicles);
-        }
-
-        if (inspection is not null)
-        {
-            await DbContext.Inspections.AddAsync(inspection);
-        }
-
-        if (service is not null)
-        {
-            await DbContext.Services.AddAsync(service);
-        }
-
-        if (services is not null)
-        {
-            await DbContext.Services.AddRangeAsync(services);
-        }
+        if (user is not null) await DbContext.Users.AddAsync(user);
+        if (vehicle is not null) await DbContext.Vehicles.AddAsync(vehicle);
+        if (vehicles is not null) await DbContext.Vehicles.AddRangeAsync(vehicles);
+        if (inspection is not null) await DbContext.Inspections.AddAsync(inspection);
+        if (service is not null) await DbContext.Services.AddAsync(service);
+        if (services is not null) await DbContext.Services.AddRangeAsync(services);
 
         await DbContext.SaveChangesAsync();
+        await DbContext.Database.CommitTransactionAsync();
     }
 }
