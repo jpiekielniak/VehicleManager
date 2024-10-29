@@ -15,6 +15,7 @@ internal sealed class DeleteInspectionRequestEndpoint : IEndpointDefinition
             {
                 var command = new DeleteInspectionCommand(request.ServiceBookId, request.InspectionId);
                 await mediator.Send(command, cancellationToken);
+                return Results.NoContent();
             })
             .RequireAuthorization()
             .WithOpenApi(operation => new OpenApiOperation(operation)

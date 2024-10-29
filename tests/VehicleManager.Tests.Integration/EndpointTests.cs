@@ -42,7 +42,7 @@ public abstract class EndpointTests : IClassFixture<VehicleManagerTestFactory>, 
     }
 
     protected async Task SeedDataAsync(User? user = default, Vehicle? vehicle = default,
-        List<Vehicle>? vehicles = default)
+        List<Vehicle>? vehicles = default, Inspection? inspection = default)
     {
         if (user is not null)
         {
@@ -57,6 +57,11 @@ public abstract class EndpointTests : IClassFixture<VehicleManagerTestFactory>, 
         if (vehicles is not null)
         {
             await DbContext.Vehicles.AddRangeAsync(vehicles);
+        }
+
+        if (inspection is not null)
+        {
+            await DbContext.Inspections.AddAsync(inspection);
         }
 
         await DbContext.SaveChangesAsync();

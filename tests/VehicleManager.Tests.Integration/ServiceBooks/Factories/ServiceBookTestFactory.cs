@@ -65,4 +65,12 @@ internal class ServiceBookTestFactory
     private string GenerateLicensePlate()
         => _faker.Random.String2(3, "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
            + _faker.Random.String2(5, "0123456789");
+
+    public Inspection CreateInspection(ServiceBook serviceBook)
+        => new InspectionBuilder()
+            .WithTitle(_faker.Lorem.Word())
+            .WithScheduledDate(_faker.Date.Future())
+            .WithPerformDate(_faker.Date.Future())
+            .WithServiceBook(serviceBook)
+            .Build();
 }
