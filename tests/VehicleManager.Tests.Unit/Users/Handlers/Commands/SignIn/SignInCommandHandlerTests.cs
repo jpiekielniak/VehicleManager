@@ -10,6 +10,9 @@ namespace VehicleManager.Tests.Unit.Users.Handlers.Commands.SignIn;
 
 public class SignInCommandHandlerTests
 {
+    private async Task<SignInResponse> Act(SignInCommand command)
+        => await _handler.Handle(command, CancellationToken.None);
+    
     [Fact]
     public async Task given_non_existing_user_should_throw_user_not_found_exception()
     {
@@ -20,7 +23,7 @@ public class SignInCommandHandlerTests
             .ReturnsNull();
 
         //act
-        var exception = await Record.ExceptionAsync(() => _handler.Handle(command, CancellationToken.None));
+        var exception = await Record.ExceptionAsync(() => Act(command));
 
         //assert
         exception.ShouldBeOfType<InvalidCredentialsException>();
@@ -41,7 +44,7 @@ public class SignInCommandHandlerTests
             .Returns(false);
 
         //act
-        var exception = await Record.ExceptionAsync(() => _handler.Handle(command, CancellationToken.None));
+        var exception = await Record.ExceptionAsync(() => Act(command));
 
         //assert
         exception.ShouldBeOfType<InvalidCredentialsException>();
@@ -66,7 +69,7 @@ public class SignInCommandHandlerTests
             .Returns(token);
 
         //act
-        var response = await _handler.Handle(command, CancellationToken.None);
+        var response = await Act(command);
 
         //assert
         response.ShouldNotBeNull();

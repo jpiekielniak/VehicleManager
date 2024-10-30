@@ -8,6 +8,9 @@ namespace VehicleManager.Tests.Unit.Users.Handlers.Commands.SignUp;
 
 public class SignUpCommandHandlerTests
 {
+    private async Task Act(SignUpCommand command)
+        => await _handler.Handle(command, CancellationToken.None);
+
     [Fact]
     public async Task given_valid_data_when_handle_should_add_user()
     {
@@ -16,7 +19,7 @@ public class SignUpCommandHandlerTests
         _passwordHasher.HashPassword(Arg.Any<string>()).Returns(command.Password);
 
         //act
-        await _handler.Handle(command, CancellationToken.None);
+        await Act(command);
 
         //assert
         await _userRepository.Received(1).AddAsync(Arg.Any<User>(), Arg.Any<CancellationToken>());

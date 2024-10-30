@@ -11,6 +11,9 @@ namespace VehicleManager.Tests.Unit.Vehicles.Handlers.Commands.CreateVehicle;
 
 public class CreateVehicleCommandHandlerTests
 {
+    private async Task<CreateVehicleResponse> Act(CreateVehicleCommand command)
+        => await _handler.Handle(command, CancellationToken.None);
+
     [Fact]
     public async Task given_valid_data_should_create_vehicle_success()
     {
@@ -24,7 +27,7 @@ public class CreateVehicleCommandHandlerTests
         _context.Id.Returns(userId);
 
         // Act
-        var response = await _handler.Handle(command, CancellationToken.None);
+        var response = await Act(command);
 
         // Assert
         response.ShouldNotBeNull();
@@ -45,7 +48,7 @@ public class CreateVehicleCommandHandlerTests
         _context.Id.Returns(userId);
 
         // Act
-        var exception = await Record.ExceptionAsync(() => _handler.Handle(command, CancellationToken.None));
+        var exception = await Record.ExceptionAsync(() => Act(command));
 
         // Assert
         exception.ShouldNotBeNull();
@@ -53,7 +56,7 @@ public class CreateVehicleCommandHandlerTests
         await _vehicleRepository.DidNotReceive().AddAsync(Arg.Any<Vehicle>(), Arg.Any<CancellationToken>());
         await _vehicleRepository.DidNotReceive().SaveChangesAsync(Arg.Any<CancellationToken>());
     }
-    
+
     private readonly IRequestHandler<CreateVehicleCommand, CreateVehicleResponse> _handler;
     private readonly IVehicleRepository _vehicleRepository;
     private readonly IUserRepository _userRepository;

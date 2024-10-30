@@ -8,6 +8,9 @@ namespace VehicleManager.Tests.Unit.Vehicles.Handlers.Commands.DeleteVehicle;
 
 public class DeleteVehicleCommandHandlerTests
 {
+    private async Task Act(DeleteVehicleCommand command)
+        => await _handler.Handle(command, CancellationToken.None);
+
     [Fact]
     public async Task given_valid_vehicle_id_should_delete_vehicle()
     {
@@ -19,7 +22,7 @@ public class DeleteVehicleCommandHandlerTests
         _context.Id.Returns(vehicle.UserId);
 
         // Act
-        await _handler.Handle(command, CancellationToken.None);
+        await Act(command);
 
         // Assert
         await _vehicleRepository.Received(1).DeleteAsync(vehicle, Arg.Any<CancellationToken>());
@@ -35,7 +38,7 @@ public class DeleteVehicleCommandHandlerTests
         _vehicleRepository.GetAsync(command.VehicleId, Arg.Any<CancellationToken>()).ReturnsNull();
 
         // Act
-        var exception = await Record.ExceptionAsync(() => _handler.Handle(command, CancellationToken.None));
+        var exception = await Record.ExceptionAsync(() => Act(command));
 
         // Assert
         exception.ShouldNotBeNull();
@@ -53,7 +56,7 @@ public class DeleteVehicleCommandHandlerTests
         _context.Id.Returns(Guid.NewGuid());
 
         // Act
-        var exception = await Record.ExceptionAsync(() => _handler.Handle(command, CancellationToken.None));
+        var exception = await Record.ExceptionAsync(() => Act(command));
 
         // Assert
         exception.ShouldNotBeNull();
