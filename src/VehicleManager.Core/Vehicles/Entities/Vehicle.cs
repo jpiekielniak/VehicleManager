@@ -34,4 +34,6 @@ public sealed class Vehicle
     public static Vehicle Create() => new();
 
     public void AddInsurance(Insurance insurance) => _insurances.Add(insurance);
+
+    public void RemoveInsurance(Insurance insurance) => _insurances.Remove(insurance);
 }

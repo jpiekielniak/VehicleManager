@@ -25,7 +25,9 @@ internal sealed class VehicleRepository(VehicleManagerDbContext dbContext) : IVe
             query = query.AsNoTracking();
         }
 
-        return await query.FirstOrDefaultAsync(v => v.Id == vehicleId, cancellationToken);
+        return await query
+            .Include(v => v.Insurances)
+            .FirstOrDefaultAsync(v => v.Id == vehicleId, cancellationToken);
     }
 
 
