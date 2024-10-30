@@ -2,6 +2,7 @@ using VehicleManager.Core.Users.Repositories;
 using VehicleManager.Core.Vehicles.Repositories;
 using VehicleManager.Infrastructure.EF;
 using VehicleManager.Infrastructure.EF.Initializer;
+using VehicleManager.Infrastructure.EF.ServiceBooks.Repositories;
 using VehicleManager.Infrastructure.EF.Users.Repositories;
 using VehicleManager.Infrastructure.EF.Vehicles.Repositories;
 using VehicleManager.Infrastructure.Sieve;

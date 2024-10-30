@@ -1,7 +1,7 @@
 using VehicleManager.Core.Vehicles.Entities;
 using VehicleManager.Core.Vehicles.Repositories;
 
-namespace VehicleManager.Infrastructure.EF.Vehicles.Repositories;
+namespace VehicleManager.Infrastructure.EF.ServiceBooks.Repositories;
 
 internal sealed class ServiceBookRepository(VehicleManagerDbContext dbContext) : IServiceBookRepository
 {

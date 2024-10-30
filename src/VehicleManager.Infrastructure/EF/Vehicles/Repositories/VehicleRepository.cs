@@ -37,6 +37,18 @@ internal sealed class VehicleRepository(VehicleManagerDbContext dbContext) : IVe
     public Task DeleteAsync(Vehicle vehicle, CancellationToken cancellationToken)
         => Task.FromResult(_vehicles.Remove(vehicle));
 
-    public Task UpdateAsync(Vehicle vehicle, CancellationToken cancellationToken)
-        => Task.FromResult(_vehicles.Update(vehicle));
+    public async Task UpdateAsync(Vehicle vehicle, CancellationToken cancellationToken)
+    {
+        var insurances = vehicle.Insurances;
+
+        foreach (var insurance in insurances)
+        {
+            if (dbContext.Entry(insurance).State is EntityState.Detached or EntityState.Modified)
+            {
+                dbContext.Entry(insurance).State = EntityState.Added;
+            }
+        }
+
+        await Task.FromResult(dbContext.Update(vehicle));
+    }
 }

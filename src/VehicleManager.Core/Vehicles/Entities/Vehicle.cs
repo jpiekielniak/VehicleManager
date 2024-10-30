@@ -24,11 +24,14 @@ public sealed class Vehicle
 
     public Guid ServiceBookId { get; set; }
     public ServiceBook ServiceBook { get; set; } = default!;
-    public List<Insurance> Insurances { get; set; } = [];
+    public IEnumerable<Insurance> Insurances => _insurances;
+    private readonly HashSet<Insurance> _insurances = [];
 
     private Vehicle()
     {
     }
 
     public static Vehicle Create() => new();
+
+    public void AddInsurance(Insurance insurance) => _insurances.Add(insurance);
 }
