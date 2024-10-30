@@ -53,4 +53,13 @@ internal sealed class VehicleRepository(VehicleManagerDbContext dbContext) : IVe
 
         await Task.FromResult(dbContext.Update(vehicle));
     }
+
+    public async Task<IQueryable<Insurance>> GetInsurancesByVehicleIdAsync(Guid vehicleId,
+        CancellationToken cancellationToken)
+        => await Task.FromResult(_vehicles
+            .Include(v => v.Insurances)
+            .AsNoTracking()
+            .Where(v => v.Id == vehicleId)
+            .SelectMany(v => v.Insurances)
+            .AsQueryable());
 }

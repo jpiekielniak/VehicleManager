@@ -8,7 +8,7 @@ internal sealed class AddInsuranceRequestEndpoint : IEndpointDefinition
 {
     public void DefineEndpoint(IEndpointRouteBuilder endpoint)
     {
-        endpoint.MapPost(VehicleEndpoints.Insurance, async (
+        endpoint.MapPost(VehicleEndpoints.Insurances, async (
                 [AsParameters] AddInsuranceRequest request,
                 [FromServices] IMediator mediator,
                 CancellationToken cancellationToken) =>

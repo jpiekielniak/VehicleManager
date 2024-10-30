@@ -11,4 +11,5 @@ public interface IVehicleRepository
     Task<IQueryable<Vehicle>> GetVehiclesByUserId(Guid userId, CancellationToken cancellationToken);
     Task DeleteAsync(Vehicle vehicle, CancellationToken cancellationToken);
     Task UpdateAsync(Vehicle vehicle, CancellationToken cancellationToken);
+    Task<IQueryable<Insurance>> GetInsurancesByVehicleIdAsync(Guid vehicleId, CancellationToken cancellationToken);
 }
