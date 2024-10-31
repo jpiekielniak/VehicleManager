@@ -3,6 +3,7 @@ using VehicleManager.Application.Vehicles.Commands.ChangeVehicleInformation;
 using VehicleManager.Application.Vehicles.Commands.CreateVehicle;
 using VehicleManager.Application.Vehicles.Commands.DeleteInsurance;
 using VehicleManager.Application.Vehicles.Commands.DeleteVehicle;
+using VehicleManager.Application.Vehicles.Queries.GetInsuranceDetailsForVehicle;
 using VehicleManager.Core.Vehicles.Builders;
 using VehicleManager.Core.Vehicles.Entities;
 using VehicleManager.Core.Vehicles.Entities.Enums;
@@ -89,4 +90,11 @@ internal class VehicleTestFactory
             .WithValidTo(_faker.Date.Future())
             .WithVehicle(vehicle)
             .Build();
+
+    public GetInsuranceDetailsForVehicleQuery CreateGetInsuranceDetailsForVehicleQuery(Guid vehicleId = default,
+        Guid insuranceId = default)
+        => new(
+            vehicleId == default ? Guid.NewGuid() : vehicleId,
+            insuranceId == default ? Guid.NewGuid() : insuranceId
+        );
 }
