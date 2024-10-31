@@ -44,7 +44,7 @@ public abstract class EndpointTest : IAsyncLifetime
 
     protected async Task SeedDataAsync(User? user = default, Vehicle? vehicle = default,
         List<Vehicle>? vehicles = default, Inspection? inspection = default,
-        Service? service = default, List<Service>? services = default)
+        Service? service = default, List<Service>? services = default, Insurance? insurance = default)
     {
         await DbContext.Database.BeginTransactionAsync();
 
@@ -54,6 +54,7 @@ public abstract class EndpointTest : IAsyncLifetime
         if (inspection is not null) await DbContext.Inspections.AddAsync(inspection);
         if (service is not null) await DbContext.Services.AddAsync(service);
         if (services is not null) await DbContext.Services.AddRangeAsync(services);
+        if (insurance is not null) await DbContext.Insurances.AddAsync(insurance);
 
         await DbContext.SaveChangesAsync();
         await DbContext.Database.CommitTransactionAsync();

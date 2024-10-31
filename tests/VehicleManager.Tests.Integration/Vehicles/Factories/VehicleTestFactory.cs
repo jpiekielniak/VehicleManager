@@ -1,6 +1,7 @@
 using VehicleManager.Application.Vehicles.Commands.AddInsurance;
 using VehicleManager.Application.Vehicles.Commands.ChangeVehicleInformation;
 using VehicleManager.Application.Vehicles.Commands.CreateVehicle;
+using VehicleManager.Application.Vehicles.Commands.DeleteInsurance;
 using VehicleManager.Application.Vehicles.Commands.DeleteVehicle;
 using VehicleManager.Core.Users.Entities;
 using VehicleManager.Core.Users.Entities.Builders;
@@ -94,4 +95,14 @@ internal class VehicleTestFactory
         {
             VehicleId = vehicleId == default ? Guid.NewGuid() : vehicleId
         };
+
+    public Insurance CreateInsurance(Vehicle vehicle)
+        => new InsuranceBuilder()
+            .WithTitle(_faker.Lorem.Sentence())
+            .WithProvider(_faker.Company.CompanyName())
+            .WithPolicyNumber(_faker.Random.String2(10, "0123456789"))
+            .WithValidFrom(_faker.Date.Recent())
+            .WithValidTo(_faker.Date.Future())
+            .WithVehicle(vehicle)
+            .Build();
 }
