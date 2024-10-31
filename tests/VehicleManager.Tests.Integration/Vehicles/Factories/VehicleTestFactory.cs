@@ -1,3 +1,4 @@
+using VehicleManager.Application.Vehicles.Commands.AddInsurance;
 using VehicleManager.Application.Vehicles.Commands.ChangeVehicleInformation;
 using VehicleManager.Application.Vehicles.Commands.CreateVehicle;
 using VehicleManager.Application.Vehicles.Commands.DeleteVehicle;
@@ -82,4 +83,15 @@ internal class VehicleTestFactory
 
         return vehicles;
     }
+
+    public AddInsuranceCommand CreateAddInsuranceCommand(Guid vehicleId = default)
+        => new(
+            _faker.Lorem.Sentence(),
+            _faker.Company.CompanyName(),
+            _faker.Random.String2(10, "0123456789"),
+            _faker.Date.Recent(),
+            _faker.Date.Future())
+        {
+            VehicleId = vehicleId == default ? Guid.NewGuid() : vehicleId
+        };
 }

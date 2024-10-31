@@ -15,7 +15,9 @@ internal sealed class AddInsuranceRequestEndpoint : IEndpointDefinition
             {
                 var command = request.Command with { VehicleId = request.VehicleId };
                 var response = await mediator.Send(command, cancellationToken);
-                return Results.Ok(response);
+                return Results.Created(
+                    $"{VehicleEndpoints.BasePath}/{request.VehicleId}/insurances/{response.InsuranceId}", response
+                );
             })
             .RequireAuthorization()
             .WithTags(VehicleEndpoints.Vehicles)
@@ -23,7 +25,7 @@ internal sealed class AddInsuranceRequestEndpoint : IEndpointDefinition
             {
                 Summary = "This endpoint is used to add insurance to a vehicle",
             })
-            .Produces<AddInsuranceResponse>(StatusCodes.Status200OK)
+            .Produces<AddInsuranceResponse>(StatusCodes.Status201Created)
             .Produces<Error>(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized);
     }

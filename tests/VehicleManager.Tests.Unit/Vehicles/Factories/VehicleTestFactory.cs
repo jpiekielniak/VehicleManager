@@ -1,3 +1,4 @@
+using VehicleManager.Application.Vehicles.Commands.AddInsurance;
 using VehicleManager.Application.Vehicles.Commands.ChangeVehicleInformation;
 using VehicleManager.Application.Vehicles.Commands.CreateVehicle;
 using VehicleManager.Application.Vehicles.Commands.DeleteVehicle;
@@ -51,6 +52,7 @@ internal class VehicleTestFactory
             .WithFuelType(_faker.PickRandom<FuelType>())
             .WithGearboxType(_faker.PickRandom<GearboxType>())
             .WithVehicleType(_faker.PickRandom<VehicleType>())
+            .WithServiceBook(Core.Vehicles.Entities.ServiceBook.Create())
             .WithOwner(userId == default ? Guid.NewGuid() : userId)
             .Build();
 
@@ -59,4 +61,15 @@ internal class VehicleTestFactory
     private string GenerateLicensePlate()
         => _faker.Random.String2(3, "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
            + _faker.Random.String2(5, "0123456789");
+
+    public AddInsuranceCommand CreateAddInsuranceCommand(Guid vehicleId = default)
+        => new(
+            _faker.Lorem.Sentence(),
+            _faker.Company.CompanyName(),
+            _faker.Random.String2(10, "0123456789"),
+            _faker.Date.Recent(),
+            _faker.Date.Future())
+        {
+            VehicleId = vehicleId == default ? Guid.NewGuid() : vehicleId
+        };
 }
