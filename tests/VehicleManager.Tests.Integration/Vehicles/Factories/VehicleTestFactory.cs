@@ -105,4 +105,16 @@ internal class VehicleTestFactory
             .WithValidTo(_faker.Date.Future())
             .WithVehicle(vehicle)
             .Build();
+    
+    public List<Insurance> CreateInsurances(Vehicle vehicle, int numberOfInsurances)
+    {
+        var insurances = new List<Insurance>();
+
+        for (var i = 0; i < numberOfInsurances; i++)
+        {
+            insurances.Add(CreateInsurance(vehicle));
+        }
+
+        return insurances;
+    }
 }
