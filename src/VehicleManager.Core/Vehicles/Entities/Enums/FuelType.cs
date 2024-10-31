@@ -1,6 +1,6 @@
 namespace VehicleManager.Core.Vehicles.Entities.Enums;
 
-public enum FuelType
+public enum FuelType : short
 {
     [Display(Name = "Benzyna")] Gasoline,
 

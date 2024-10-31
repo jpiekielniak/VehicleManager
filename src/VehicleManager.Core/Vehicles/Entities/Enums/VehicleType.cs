@@ -1,6 +1,6 @@
 namespace VehicleManager.Core.Vehicles.Entities.Enums;
 
-public enum VehicleType
+public enum VehicleType : short
 {
     [Display(Name = "Samochód")] Car,
 

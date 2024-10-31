@@ -1,6 +1,6 @@
 namespace VehicleManager.Core.Vehicles.Entities.Enums;
 
-public enum InspectionType
+public enum InspectionType : short
 {
     [Display(Name = "Okresowy")] Periodic,
     [Display(Name = "Techniczny")] Technical,
