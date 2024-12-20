@@ -29,8 +29,9 @@ internal sealed class GetVehicleQueryHandler(
             throw new UserNotFoundException(userId);
         }
 
-        var vehicle = await vehicleRepository.GetAsync(query.VehicleId, cancellationToken);
+        var vehicle = await vehicleRepository.GetAsync(query.VehicleId, cancellationToken)
+            ?? throw new VehicleNotFoundException(query.VehicleId);
 
-        return vehicle?.AsDetailsDto() ?? throw new VehicleNotFoundException(query.VehicleId);
+        return vehicle.AsDetailsDto();
     }
 }

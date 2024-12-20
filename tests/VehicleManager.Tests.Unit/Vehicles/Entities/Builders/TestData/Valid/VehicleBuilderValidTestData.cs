@@ -4,17 +4,18 @@ namespace VehicleManager.Tests.Unit.Vehicles.Entities.Builders.TestData.Valid;
 
 internal class VehicleBuilderValidTestData : TheoryData<VehicleBuilderParams>
 {
+    private readonly Faker _faker = new();
     public VehicleBuilderValidTestData()
     {
         Add(new VehicleBuilderParams
         {
-            Brand = "Peugeot",
-            Model = "308SW",
-            Year = 2021,
-            EngineCapacity = 1.6,
-            EnginePower = 120,
-            LicensePlate = "KTA94969",
-            VIN = "KIU4365928LOS9120",
+            Brand = _faker.Vehicle.Manufacturer(),
+            Model = _faker.Vehicle.Model(),
+            Year = _faker.Date.Past().Year,
+            EngineCapacity = _faker.Random.Int(1000, 5000),
+            EnginePower = _faker.Random.Int(50, 500),
+            LicensePlate = GenerateLicensePlate(),
+            VIN = _faker.Vehicle.Vin(),
             FuelType = FuelType.Diesel,
             GearboxType = GearboxType.Automatic,
             VehicleType = VehicleType.Car
@@ -25,7 +26,7 @@ internal class VehicleBuilderValidTestData : TheoryData<VehicleBuilderParams>
             Brand = "Audi",
             Model = "A4",
             Year = 2000,
-            EngineCapacity = 2.0,
+            EngineCapacity = 1995,
             EnginePower = 150,
             LicensePlate = "KTA7432K",
             VIN = "AL98OU65203546786",
@@ -48,4 +49,8 @@ internal class VehicleBuilderValidTestData : TheoryData<VehicleBuilderParams>
             VehicleType = VehicleType.Motorcycle
         });
     }
+    
+    private string GenerateLicensePlate()
+        => _faker.Random.String2(3, "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+           + _faker.Random.String2(5, "0123456789");
 }

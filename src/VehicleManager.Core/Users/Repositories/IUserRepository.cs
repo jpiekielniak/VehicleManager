@@ -10,4 +10,5 @@ public interface IUserRepository
     Task<bool> AnyAsync(Expression<Func<User, bool>> predicate, CancellationToken cancellationToken);
     Task<User> GetAsync(Guid id, CancellationToken cancellationToken);
     Task DeleteAsync(User user, CancellationToken cancellationToken);
+    Task<IQueryable<User>> GetUsersAsync(CancellationToken cancellationToken);
 }

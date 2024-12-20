@@ -7,7 +7,7 @@ public sealed class VehicleBuilderParams
     public string Brand { get; init; }
     public string Model { get; init; }
     public int Year { get; init; }
-    public double EngineCapacity { get; init; }
+    public int EngineCapacity { get; init; }
     public int EnginePower { get; init; }
     public string LicensePlate { get; init; }
     public string VIN { get; init; }

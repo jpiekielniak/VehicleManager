@@ -5,6 +5,7 @@ namespace VehicleManager.Tests.Integration;
 
 public class VehicleManagerTestFactory : WebApplicationFactory<Api.Program>
 {
+    private const string ConnectionStringSection = "VehicleManagerTest"; 
     private readonly IConfiguration _configuration = new ConfigurationBuilder()
         .AddJsonFile("appsettings.Test.json")
         .Build();
@@ -21,7 +22,7 @@ public class VehicleManagerTestFactory : WebApplicationFactory<Api.Program>
                 services.Remove(descriptor);
             }
 
-            var connectionString = _configuration.GetConnectionString("VehicleManagerTest");
+            var connectionString = _configuration.GetConnectionString(ConnectionStringSection);
             var dbName = $"vehicle_manager_test_{Guid.NewGuid()}";
             services.AddDbContext<VehicleManagerDbContext>(options =>
             {

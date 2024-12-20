@@ -8,8 +8,6 @@ internal class UserBuilderInvalidTestData : TheoryData<UserBuilderParams>
 
     public UserBuilderInvalidTestData()
     {
-        Add(new UserBuilderParams());
-
         Add(new UserBuilderParams
         {
             FirstName = "",
@@ -38,16 +36,6 @@ internal class UserBuilderInvalidTestData : TheoryData<UserBuilderParams>
             Password = "",
             PhoneNumber = "",
             Role = Role.Admin
-        });
-
-        Add(new UserBuilderParams
-        {
-            FirstName = "      ",
-            LastName = _faker.Person.LastName,
-            Email = _faker.Internet.Email(),
-            Password = _faker.Internet.Password(),
-            PhoneNumber = _faker.Phone.PhoneNumber(),
-            Role = Role.User
         });
     }
 }

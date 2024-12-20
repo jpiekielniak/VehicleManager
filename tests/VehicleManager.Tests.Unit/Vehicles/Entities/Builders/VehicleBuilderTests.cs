@@ -13,7 +13,7 @@ public class VehicleBuilderTests
         VehicleBuilderParams vehicleBuilderParams
     )
     {
-        //act
+        //arrange & act
         var vehicle = Act(vehicleBuilderParams);
 
         //assert

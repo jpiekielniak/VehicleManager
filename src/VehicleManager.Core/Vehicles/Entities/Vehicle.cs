@@ -11,7 +11,7 @@ public sealed class Vehicle
     public int Year { get; set; }
     public string LicensePlate { get; set; } = default!;
     public string VIN { get; set; } = default!;
-    public double EngineCapacity { get; set; }
+    public int EngineCapacity { get; set; }
     public FuelType FuelType { get; set; }
     public Guid UserId { get; set; }
     public User User { get; set; }

@@ -24,6 +24,7 @@ internal sealed class CreateVehicleEndpoint : IEndpointDefinition
             })
             .WithTags(VehicleEndpoints.Vehicles)
             .Produces<CreateVehicleResponse>(StatusCodes.Status201Created)
-            .Produces<Error>(StatusCodes.Status400BadRequest);
+            .Produces<Error>(StatusCodes.Status400BadRequest)
+            .Produces(StatusCodes.Status401Unauthorized);
     }
 }

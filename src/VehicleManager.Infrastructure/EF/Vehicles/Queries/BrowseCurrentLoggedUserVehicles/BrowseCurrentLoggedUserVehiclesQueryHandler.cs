@@ -31,16 +31,23 @@ internal sealed class BrowseCurrentLoggedUserVehiclesQueryHandler(
 
         query.SieveModel.Sorts ??= "CreatedAt";
 
-        var sieveResult = await sieveProcessor
-            .Apply(query.SieveModel, vehicles)
+        var sortedQuery = sieveProcessor
+            .Apply(query.SieveModel, vehicles, applyPagination: false, applySorting: true, applyFiltering: true);
+
+        var totalCount = sortedQuery.Count();
+
+        var skipValue = ((query.SieveModel.Page ?? 1) - 1) * (query.SieveModel.PageSize ?? 5);
+        var takeValue = query.SieveModel.PageSize ?? 5;
+
+        var paginatedVehicles = await sortedQuery
+            .Skip(skipValue)
+            .Take(takeValue)
             .Select(v => new VehicleDto(v.Id, v.Brand, v.Model, v.LicensePlate))
             .ToListAsync(cancellationToken);
 
-        var totalCount = sieveResult.Count;
-        
         var result = new PaginationResult<VehicleDto>(
-            sieveResult,
-            totalCount,
+            paginatedVehicles,
+            totalCount, 
             query.SieveModel.PageSize ?? 5,
             query.SieveModel.Page ?? 1
         );

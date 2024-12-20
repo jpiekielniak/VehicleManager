@@ -27,8 +27,7 @@ public sealed class UserBuilder(User user)
 
     public UserBuilder WithPhoneNumber(string phoneNumber)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(phoneNumber);
-        user.PhoneNumber = phoneNumber;
+        user.PhoneNumber = phoneNumber?.Trim();
         return this;
     }
 
@@ -41,15 +40,13 @@ public sealed class UserBuilder(User user)
 
     public UserBuilder WithFirstName(string firstName)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(firstName);
-        user.FirstName = firstName;
+        user.FirstName = firstName?.Trim();
         return this;
     }
 
     public UserBuilder WithLastName(string lastName)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(lastName);
-        user.LastName = lastName;
+        user.LastName = lastName?.Trim();
         return this;
     }
 }

@@ -1,7 +1,6 @@
 using VehicleManager.Application.Vehicles.Queries.BrowseCurrentLoggedUserVehicles;
 using VehicleManager.Application.Vehicles.Queries.BrowseCurrentLoggedUserVehicles.DTO;
 using VehicleManager.Shared.Endpoints;
-using VehicleManager.Shared.Middlewares.Exceptions;
 using VehicleManager.Shared.Pagination;
 
 namespace VehicleManager.Api.Endpoints.Vehicles.Queries.BrowseCurrentLoggedUserVehicles;
@@ -25,7 +24,7 @@ internal sealed class BrowseCurrentLoggedUserVehiclesEndpoint : IEndpointDefinit
                 Summary = "This endpoint allows you to browse the vehicles of the current logged user."
             })
             .WithTags(VehicleEndpoints.Vehicles)
-            .Produces<PaginationResult<VehicleDto>>(StatusCodes.Status200OK)
-            .Produces<Error>(StatusCodes.Status401Unauthorized);
+            .Produces<PaginationResult<VehicleDto>>(StatusCodes.Status200OK);
+
     }
 }

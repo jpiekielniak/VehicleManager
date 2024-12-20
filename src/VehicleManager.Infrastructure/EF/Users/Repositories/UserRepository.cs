@@ -24,4 +24,10 @@ internal sealed class UserRepository(VehicleManagerDbContext dbContext) : IUserR
 
     public async Task DeleteAsync(User user, CancellationToken cancellationToken)
         => await Task.FromResult(_users.Remove(user));
+
+    public async Task<IQueryable<User>> GetUsersAsync(CancellationToken cancellationToken)
+        => await Task.FromResult(_users
+            .AsNoTracking()
+            .AsQueryable()
+            );
 }

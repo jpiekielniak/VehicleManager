@@ -46,7 +46,7 @@ public class VehicleBuilder(Vehicle vehicle)
         return this;
     }
 
-    public VehicleBuilder WithEngineCapacity(double engineCapacity)
+    public VehicleBuilder WithEngineCapacity(int engineCapacity)
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(engineCapacity);
         vehicle.EngineCapacity = engineCapacity;

@@ -35,7 +35,7 @@ internal sealed class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
         builder.Property(v => v.FuelType)
             .IsRequired();
 
-        builder.Property(v => v.EngineCapacity)
+        builder.Property(v => v.EnginePower)
             .IsRequired();
 
         builder.Property(v => v.GearboxType)

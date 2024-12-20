@@ -8,7 +8,7 @@ public record VehicleDetailsDto(
     int Year,
     string LicensePlate,
     string VIN,
-    double EngineCapacity,
+    int EngineCapacity,
     string FuelType,
     int EnginePower,
     string GearboxType,

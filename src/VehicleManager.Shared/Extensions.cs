@@ -24,7 +24,7 @@ public static class Extensions
     public static WebApplication UseMiddlewares(this WebApplication app)
     {
         app.UseMiddleware<ExceptionMiddleware>();
-        app.UseMiddleware<TokenExpirationMiddleware>();
+   //     app.UseMiddleware<TokenExpirationMiddleware>();
 
         return app;
     }

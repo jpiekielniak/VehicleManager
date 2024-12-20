@@ -8,7 +8,7 @@ internal record ChangeVehicleInformationCommand(
     int Year,
     string LicensePlate,
     string Vin,
-    double EngineCapacity,
+    int EngineCapacity,
     int EnginePower,
     FuelType FuelType,
     GearboxType GearboxType,

@@ -35,7 +35,7 @@ internal class ServiceBookTestFactory
             .WithYear(_faker.Date.Random.Int(1980, 2024))
             .WithLicensePlate(GenerateLicensePlate())
             .WithVIN(_faker.Vehicle.Vin())
-            .WithEngineCapacity(double.Round(_faker.Random.Double(1.0, 5.4)))
+            .WithEngineCapacity(_faker.Random.Int(900, 5400))
             .WithEnginePower(_faker.Random.Int(60, 300))
             .WithFuelType(_faker.PickRandom<FuelType>())
             .WithGearboxType(_faker.PickRandom<GearboxType>())

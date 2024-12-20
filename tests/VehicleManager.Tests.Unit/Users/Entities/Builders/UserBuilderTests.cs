@@ -13,7 +13,7 @@ public class UserBuilderTests
         UserBuilderParams userBuilderParams
     )
     {
-        //act
+        //arrange & act
         var user = Act(userBuilderParams);
 
         //assert

@@ -16,7 +16,7 @@ public static class Extensions
             vehicle.LicensePlate,
             vehicle.VIN,
             vehicle.EngineCapacity,
-            vehicle.FuelType.ToString(),
+            vehicle.FuelType.GetDisplay(),
             vehicle.EnginePower,
             vehicle.GearboxType.GetDisplay(),
             vehicle.VehicleType.GetDisplay(),

@@ -21,7 +21,7 @@ internal class VehicleTestFactory
             _faker.Date.Random.Int(1980, 2024),
             GenerateLicensePlate(),
             _faker.Vehicle.Vin(),
-            double.Round(_faker.Random.Double(1.0, 5.4)),
+            _faker.Random.Int(900, 5400),
             _faker.Random.Int(60, 300),
             _faker.PickRandom<FuelType>(),
             _faker.PickRandom<GearboxType>(),
@@ -35,7 +35,7 @@ internal class VehicleTestFactory
             _faker.Date.Random.Int(1980, 2024),
             GenerateLicensePlate(),
             _faker.Vehicle.Vin(),
-            double.Round(_faker.Random.Double(1.0, 5.4)),
+            _faker.Random.Int(900, 5400),
             _faker.Random.Int(80, 300),
             _faker.PickRandom<FuelType>(),
             _faker.PickRandom<GearboxType>(),
@@ -49,7 +49,7 @@ internal class VehicleTestFactory
             .WithYear(_faker.Date.Random.Int(1980, 2024))
             .WithLicensePlate(GenerateLicensePlate())
             .WithVIN(_faker.Vehicle.Vin())
-            .WithEngineCapacity(double.Round(_faker.Random.Double(1.0, 5.4)))
+            .WithEngineCapacity(_faker.Random.Int(900, 5400))
             .WithEnginePower(_faker.Random.Int(60, 300))
             .WithFuelType(_faker.PickRandom<FuelType>())
             .WithGearboxType(_faker.PickRandom<GearboxType>())
