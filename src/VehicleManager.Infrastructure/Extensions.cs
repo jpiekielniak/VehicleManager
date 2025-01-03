@@ -1,10 +1,12 @@
 using VehicleManager.Core.Users.Repositories;
 using VehicleManager.Core.Vehicles.Repositories;
+using VehicleManager.Infrastructure.BackgroundJobs;
 using VehicleManager.Infrastructure.EF;
 using VehicleManager.Infrastructure.EF.Initializer;
 using VehicleManager.Infrastructure.EF.ServiceBooks.Repositories;
 using VehicleManager.Infrastructure.EF.Users.Repositories;
 using VehicleManager.Infrastructure.EF.Vehicles.Repositories;
+using VehicleManager.Infrastructure.Emails;
 using VehicleManager.Infrastructure.Sieve;
 
 [assembly: InternalsVisibleTo("VehicleManager.Api")]
@@ -38,6 +40,9 @@ internal static class Extensions
         services.AddScoped<IServiceRepository, ServiceRepository>();
         services.AddScoped<ISieveProcessor, ApplicationSieveProcessor>();
         services.AddHostedService<MigrationInitializer>();
+
+        services.AddEmailService(configuration);
+        services.AddInsuranceCheckerBackgroundJob(configuration);
 
         return services;
     }
