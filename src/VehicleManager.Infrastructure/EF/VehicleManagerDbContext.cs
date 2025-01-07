@@ -13,6 +13,7 @@ public sealed class VehicleManagerDbContext(DbContextOptions<VehicleManagerDbCon
     public DbSet<Inspection> Inspections { get; init; }
     public DbSet<Cost> Costs { get; init; }
     public DbSet<Insurance> Insurances { get; init; }
+    public DbSet<Image> Images { get; init; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

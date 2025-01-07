@@ -24,6 +24,9 @@ public sealed class Vehicle
 
     public Guid ServiceBookId { get; set; }
     public ServiceBook ServiceBook { get; set; } = default!;
+    public Guid ImageId { get; set; }
+    public Image Image { get; set; } = default!;
+
     public IEnumerable<Insurance> Insurances => _insurances;
     private readonly HashSet<Insurance> _insurances = [];
 

@@ -31,7 +31,8 @@ internal class VehicleTestFactory
         );
 
     public Vehicle CreateVehicle(Guid userId = default)
-        => new VehicleBuilder()
+    {
+        var vehicle = new VehicleBuilder()
             .WithBrand(_faker.Vehicle.Manufacturer())
             .WithModel(_faker.Vehicle.Model())
             .WithYear(_faker.Date.Random.Int(1980, 2024))
@@ -42,9 +43,23 @@ internal class VehicleTestFactory
             .WithFuelType(_faker.PickRandom<FuelType>())
             .WithGearboxType(_faker.PickRandom<GearboxType>())
             .WithVehicleType(_faker.PickRandom<VehicleType>())
+            .WithServiceBook(Core.Vehicles.Entities.ServiceBook.Create())
             .WithOwner(userId == default ? Guid.NewGuid() : userId)
-            .WithServiceBook(ServiceBook.Create())
             .Build();
+
+        var image = CreateImage(vehicle.Id);
+
+        return new VehicleBuilder(vehicle)
+            .WithImage(image)
+            .Build();
+    }
+    
+    private Image CreateImage(Guid vehicleId = default)
+        => Image.Create(
+            vehicleId == default ? Guid.NewGuid() : vehicleId,
+            _faker.Image.PlaceholderUrl(100, 100),
+            _faker.Lorem.Sentence()
+        );
 
     private string GenerateLicensePlate()
         => _faker.Random.String2(3, "ABCDEFGHIJKLMNOPQRSTUVWXYZ")

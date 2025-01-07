@@ -15,7 +15,7 @@ public sealed class InsuranceCheckerBackgroundService(
     {
         while (!stoppingToken.IsCancellationRequested)
         {
-            await CheckInsurancesAsync(stoppingToken);
+           // await CheckInsurancesAsync(stoppingToken);
             await Task.Delay(TimeSpan.FromDays(1), stoppingToken);
         }
     }

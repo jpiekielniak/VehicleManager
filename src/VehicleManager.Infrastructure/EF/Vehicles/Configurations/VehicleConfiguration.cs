@@ -55,6 +55,12 @@ internal sealed class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
             .WithOne(insurance => insurance.Vehicle)
             .HasForeignKey(vehicle => vehicle.VehicleId)
             .OnDelete(DeleteBehavior.Cascade);
+        
+        builder
+            .HasOne(vehicle => vehicle.Image)
+            .WithOne(image => image.Vehicle)
+            .HasForeignKey<Image>(image => image.VehicleId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.ToTable(TableName);
     }

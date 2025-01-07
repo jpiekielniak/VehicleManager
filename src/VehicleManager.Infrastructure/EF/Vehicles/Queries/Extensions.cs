@@ -21,7 +21,8 @@ public static class Extensions
             vehicle.GearboxType.GetDisplay(),
             vehicle.VehicleType.GetDisplay(),
             vehicle.CreatedAt,
-            vehicle.ServiceBookId
+            vehicle.ServiceBookId,
+            vehicle.Image.BlobUrl
         );
 
     public static VehicleDto AsDto(this Vehicle vehicle)
@@ -29,6 +30,7 @@ public static class Extensions
             vehicle.Id,
             vehicle.Brand,
             vehicle.Model,
-            vehicle.LicensePlate
+            vehicle.LicensePlate,
+            vehicle.Image.BlobUrl
         );
 }

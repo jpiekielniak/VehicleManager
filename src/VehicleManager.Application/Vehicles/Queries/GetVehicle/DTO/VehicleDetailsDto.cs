@@ -1,4 +1,3 @@
-
 namespace VehicleManager.Application.Vehicles.Queries.GetVehicle.DTO;
 
 public record VehicleDetailsDto(
@@ -14,5 +13,6 @@ public record VehicleDetailsDto(
     string GearboxType,
     string VehicleType,
     DateTimeOffset CreatedAt,
-    Guid ServiceBookId
+    Guid ServiceBookId,
+    string ImageUrl
 );

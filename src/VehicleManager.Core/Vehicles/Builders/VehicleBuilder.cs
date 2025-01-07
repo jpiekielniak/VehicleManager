@@ -106,4 +106,12 @@ public class VehicleBuilder(Vehicle vehicle)
         vehicle.ServiceBookId = serviceBook.Id;
         return this;
     }
+
+    public VehicleBuilder WithImage(Image image)
+    {
+        ArgumentNullException.ThrowIfNull(image);
+        vehicle.ImageId = image.Id;
+        vehicle.Image = image;
+        return this;
+    }
 }

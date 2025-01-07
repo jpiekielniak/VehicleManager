@@ -15,7 +15,7 @@ internal static class Extensions
             cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly())
         );
 
-        services.AddApplication();
+        services.AddApplication(configuration);
         services.AddCore();
         services.AddInfrastructure(configuration);
         services.AddShared(configuration);

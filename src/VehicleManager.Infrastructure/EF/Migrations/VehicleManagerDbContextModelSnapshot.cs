@@ -85,6 +85,34 @@ namespace VehicleManager.Infrastructure.EF.Migrations
                     b.ToTable("Costs", (string)null);
                 });
 
+            modelBuilder.Entity("VehicleManager.Core.Vehicles.Entities.Image", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("BlobUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("UploadedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("VehicleId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VehicleId")
+                        .IsUnique();
+
+                    b.ToTable("Images", (string)null);
+                });
+
             modelBuilder.Entity("VehicleManager.Core.Vehicles.Entities.Inspection", b =>
                 {
                     b.Property<Guid>("Id")
@@ -217,6 +245,9 @@ namespace VehicleManager.Infrastructure.EF.Migrations
                     b.Property<short>("GearboxType")
                         .HasColumnType("smallint");
 
+                    b.Property<Guid>("ImageId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("LicensePlate")
                         .IsRequired()
                         .HasMaxLength(9)
@@ -260,6 +291,17 @@ namespace VehicleManager.Infrastructure.EF.Migrations
                         .IsRequired();
 
                     b.Navigation("Service");
+                });
+
+            modelBuilder.Entity("VehicleManager.Core.Vehicles.Entities.Image", b =>
+                {
+                    b.HasOne("VehicleManager.Core.Vehicles.Entities.Vehicle", "Vehicle")
+                        .WithOne("Image")
+                        .HasForeignKey("VehicleManager.Core.Vehicles.Entities.Image", "VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Vehicle");
                 });
 
             modelBuilder.Entity("VehicleManager.Core.Vehicles.Entities.Inspection", b =>
@@ -336,6 +378,8 @@ namespace VehicleManager.Infrastructure.EF.Migrations
 
             modelBuilder.Entity("VehicleManager.Core.Vehicles.Entities.Vehicle", b =>
                 {
+                    b.Navigation("Image");
+
                     b.Navigation("Insurances");
 
                     b.Navigation("ServiceBook");

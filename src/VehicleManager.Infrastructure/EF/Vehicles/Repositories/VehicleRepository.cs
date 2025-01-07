@@ -27,6 +27,7 @@ internal sealed class VehicleRepository(VehicleManagerDbContext dbContext) : IVe
 
         return await query
             .Include(v => v.Insurances)
+            .Include(v => v.Image)
             .AsSplitQuery()
             .FirstOrDefaultAsync(v => v.Id == vehicleId, cancellationToken);
     }
@@ -35,7 +36,9 @@ internal sealed class VehicleRepository(VehicleManagerDbContext dbContext) : IVe
     public Task<IQueryable<Vehicle>> GetVehiclesByUserId(Guid userId, CancellationToken cancellationToken)
         => Task.FromResult(_vehicles
             .AsNoTracking()
-            .Where(v => v.UserId == userId));
+            .Include(v => v.Image)
+            .Where(v => v.UserId == userId)
+        );
 
     public Task DeleteAsync(Vehicle vehicle, CancellationToken cancellationToken)
         => Task.FromResult(_vehicles.Remove(vehicle));

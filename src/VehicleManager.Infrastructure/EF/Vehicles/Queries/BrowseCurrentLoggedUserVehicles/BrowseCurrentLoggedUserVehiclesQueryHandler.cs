@@ -42,12 +42,12 @@ internal sealed class BrowseCurrentLoggedUserVehiclesQueryHandler(
         var paginatedVehicles = await sortedQuery
             .Skip(skipValue)
             .Take(takeValue)
-            .Select(v => new VehicleDto(v.Id, v.Brand, v.Model, v.LicensePlate))
+            .Select(v => v.AsDto())
             .ToListAsync(cancellationToken);
 
         var result = new PaginationResult<VehicleDto>(
             paginatedVehicles,
-            totalCount, 
+            totalCount,
             query.SieveModel.PageSize ?? 5,
             query.SieveModel.Page ?? 1
         );
