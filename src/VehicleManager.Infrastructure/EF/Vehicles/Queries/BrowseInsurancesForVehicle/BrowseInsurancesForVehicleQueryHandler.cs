@@ -1,8 +1,8 @@
 using VehicleManager.Application.Vehicles.Queries.BrowseInsurancesForVehicle;
 using VehicleManager.Application.Vehicles.Queries.BrowseInsurancesForVehicle.DTO;
+using VehicleManager.Core.Common.Pagination;
 using VehicleManager.Core.Vehicles.Exceptions.Vehicles;
 using VehicleManager.Core.Vehicles.Repositories;
-using VehicleManager.Shared.Pagination;
 
 namespace VehicleManager.Infrastructure.EF.Vehicles.Queries.BrowseInsurancesForVehicle;
 

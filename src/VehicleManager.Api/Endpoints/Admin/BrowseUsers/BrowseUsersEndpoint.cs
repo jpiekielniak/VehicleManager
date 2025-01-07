@@ -1,7 +1,7 @@
+using VehicleManager.Api.Common.Endpoints;
 using VehicleManager.Application.Admin.Queries.BrowseUsers;
 using VehicleManager.Core.Users.Entities.Enums;
-using VehicleManager.Shared.Endpoints;
-using VehicleManager.Shared.Middlewares.Exceptions;
+using VehicleManager.Infrastructure.Common.Middlewares.Exceptions.Models;
 
 namespace VehicleManager.Api.Endpoints.Admin.BrowseUsers;
 

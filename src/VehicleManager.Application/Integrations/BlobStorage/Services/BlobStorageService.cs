@@ -23,7 +23,7 @@ public class BlobStorageService(IOptions<BlobStorageOptions> options) : IBlobSto
         var photo = container.GetBlockBlobReference(Path.GetFileName(file.FileName));
         await using var stream = file.OpenReadStream();
         await photo.UploadFromStreamAsync(stream, cancellationToken);
-        
+
         return photo.Uri.ToString();
     }
 

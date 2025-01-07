@@ -5,7 +5,8 @@ namespace VehicleManager.Tests.Integration;
 
 public class VehicleManagerTestFactory : WebApplicationFactory<Api.Program>
 {
-    private const string ConnectionStringSection = "VehicleManagerTest"; 
+    private const string ConnectionStringSection = "VehicleManagerTest";
+
     private readonly IConfiguration _configuration = new ConfigurationBuilder()
         .AddJsonFile("appsettings.Test.json")
         .Build();

@@ -1,7 +1,7 @@
+using VehicleManager.Application.Common.Interfaces.Context;
 using VehicleManager.Application.Vehicles.Commands.DeleteVehicle;
 using VehicleManager.Core.Vehicles.Exceptions.Vehicles;
 using VehicleManager.Core.Vehicles.Repositories;
-using VehicleManager.Shared.Auth.Context;
 using VehicleManager.Tests.Unit.Vehicles.Factories;
 
 namespace VehicleManager.Tests.Unit.Vehicles.Handlers.Commands.DeleteVehicle;

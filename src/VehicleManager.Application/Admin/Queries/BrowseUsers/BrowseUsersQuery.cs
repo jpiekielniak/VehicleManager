@@ -1,5 +1,5 @@
 using VehicleManager.Application.Admin.Queries.BrowseUsers.DTO;
-using VehicleManager.Shared.Pagination;
+using VehicleManager.Core.Common.Pagination;
 
 namespace VehicleManager.Application.Admin.Queries.BrowseUsers;
 

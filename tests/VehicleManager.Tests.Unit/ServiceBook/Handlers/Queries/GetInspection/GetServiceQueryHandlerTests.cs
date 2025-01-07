@@ -27,7 +27,8 @@ public class GetServiceQueryHandlerTests
         // Assert
         exception.ShouldNotBeNull();
         exception.ShouldBeOfType<ServiceBookNotFoundException>();
-        await _serviceBookRepository.Received(1).GetAsync(query.ServiceBookId, Arg.Any<CancellationToken>(), Arg.Any<bool>());
+        await _serviceBookRepository.Received(1)
+            .GetAsync(query.ServiceBookId, Arg.Any<CancellationToken>(), Arg.Any<bool>());
     }
 
     [Fact]
@@ -45,7 +46,8 @@ public class GetServiceQueryHandlerTests
         // Assert
         exception.ShouldNotBeNull();
         exception.ShouldBeOfType<ServiceNotFoundException>();
-        await _serviceBookRepository.Received(1).GetAsync(query.ServiceBookId, Arg.Any<CancellationToken>(), Arg.Any<bool>());
+        await _serviceBookRepository.Received(1)
+            .GetAsync(query.ServiceBookId, Arg.Any<CancellationToken>(), Arg.Any<bool>());
     }
 
     [Fact]
@@ -68,7 +70,8 @@ public class GetServiceQueryHandlerTests
         result.ShouldBeOfType<ServiceDetailsDto>();
         result.Id.ShouldBe(service.Id);
         result.Costs.Count.ShouldBe(service.Costs.Count());
-        await _serviceBookRepository.Received(1).GetAsync(query.ServiceBookId, Arg.Any<CancellationToken>(), Arg.Any<bool>());
+        await _serviceBookRepository.Received(1)
+            .GetAsync(query.ServiceBookId, Arg.Any<CancellationToken>(), Arg.Any<bool>());
     }
 
     private readonly IServiceBookRepository _serviceBookRepository;

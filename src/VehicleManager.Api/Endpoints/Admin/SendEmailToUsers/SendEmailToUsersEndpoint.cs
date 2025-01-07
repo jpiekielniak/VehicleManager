@@ -1,5 +1,5 @@
-using VehicleManager.Shared.Endpoints;
-using VehicleManager.Shared.Middlewares.Exceptions;
+using VehicleManager.Api.Common.Endpoints;
+using VehicleManager.Infrastructure.Common.Middlewares.Exceptions.Models;
 
 namespace VehicleManager.Api.Endpoints.Admin.SendEmailToUsers;
 

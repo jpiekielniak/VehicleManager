@@ -1,7 +1,7 @@
+using VehicleManager.Core.Common.Security;
 using VehicleManager.Core.Users.Entities.Builders;
 using VehicleManager.Core.Users.Entities.Enums;
 using VehicleManager.Core.Users.Repositories;
-using VehicleManager.Shared.Hash;
 
 namespace VehicleManager.Application.Users.Commands.SignUp;
 

@@ -17,7 +17,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\VehicleManager.Infrastructure\VehicleManager.Infrastructure.csproj" />
-      <ProjectReference Include="..\VehicleManager.Shared\VehicleManager.Shared.csproj" />
     </ItemGroup>
 
     <ItemGroup>

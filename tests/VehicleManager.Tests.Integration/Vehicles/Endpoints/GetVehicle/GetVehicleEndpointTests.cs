@@ -1,7 +1,7 @@
 using VehicleManager.Api.Endpoints.Vehicles;
 using VehicleManager.Application.Vehicles.Queries.GetVehicle.DTO;
 using VehicleManager.Core.Users.Entities.Enums;
-using VehicleManager.Shared.Middlewares.Exceptions;
+using VehicleManager.Infrastructure.Common.Middlewares.Exceptions.Models;
 using VehicleManager.Tests.Integration.Vehicles.Factories;
 
 namespace VehicleManager.Tests.Integration.Vehicles.Endpoints.GetVehicle;

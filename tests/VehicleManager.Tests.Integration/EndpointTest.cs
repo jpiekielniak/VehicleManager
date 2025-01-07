@@ -1,8 +1,8 @@
+using VehicleManager.Application.Common.Interfaces.Auth;
+using VehicleManager.Core.Common.Security;
 using VehicleManager.Core.Users.Entities;
 using VehicleManager.Core.Vehicles.Entities;
 using VehicleManager.Infrastructure.EF;
-using VehicleManager.Shared.Auth;
-using VehicleManager.Shared.Hash;
 
 namespace VehicleManager.Tests.Integration;
 

@@ -1,8 +1,7 @@
+using VehicleManager.Api.Common.Endpoints;
 using VehicleManager.Application;
 using VehicleManager.Core;
 using VehicleManager.Infrastructure;
-using VehicleManager.Shared;
-using VehicleManager.Shared.Endpoints;
 
 namespace VehicleManager.Api;
 
@@ -18,7 +17,6 @@ internal static class Extensions
         services.AddApplication(configuration);
         services.AddCore();
         services.AddInfrastructure(configuration);
-        services.AddShared(configuration);
 
         return services;
     }

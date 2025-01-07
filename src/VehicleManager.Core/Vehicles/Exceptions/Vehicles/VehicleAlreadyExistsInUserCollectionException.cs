@@ -1,5 +1,6 @@
-using VehicleManager.Shared.Exceptions;
+using VehicleManager.Core.Common.Exceptions;
 
 namespace VehicleManager.Core.Vehicles.Exceptions.Vehicles;
 
-public class VehicleAlreadyExistsInUserCollectionException() : VehicleManagerException("Vehicle already exists in user collection");
+public class VehicleAlreadyExistsInUserCollectionException()
+    : VehicleManagerException("Vehicle already exists in user collection");

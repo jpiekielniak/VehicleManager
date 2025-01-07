@@ -1,9 +1,9 @@
+using VehicleManager.Application.Common.Interfaces.Context;
 using VehicleManager.Application.Users.Queries.GetCurrentLoggedUserDetails;
 using VehicleManager.Application.Users.Queries.GetCurrentLoggedUserDetails.DTO;
 using VehicleManager.Core.Users.Exceptions.Users;
 using VehicleManager.Core.Users.Repositories;
 using VehicleManager.Infrastructure.EF.Users.Queries.GetCurrentLoggedUserDetails;
-using VehicleManager.Shared.Auth.Context;
 using VehicleManager.Tests.Unit.Users.Factories;
 
 namespace VehicleManager.Tests.Unit.Users.Handlers.Queries.GetCurrentLoggedUserDetails;

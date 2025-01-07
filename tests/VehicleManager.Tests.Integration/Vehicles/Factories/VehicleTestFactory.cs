@@ -1,8 +1,6 @@
 using VehicleManager.Application.Vehicles.Commands.AddInsurance;
 using VehicleManager.Application.Vehicles.Commands.ChangeVehicleInformation;
 using VehicleManager.Application.Vehicles.Commands.CreateVehicle;
-using VehicleManager.Application.Vehicles.Commands.DeleteInsurance;
-using VehicleManager.Application.Vehicles.Commands.DeleteVehicle;
 using VehicleManager.Core.Users.Entities;
 using VehicleManager.Core.Users.Entities.Builders;
 using VehicleManager.Core.Users.Entities.Enums;
@@ -53,7 +51,7 @@ internal class VehicleTestFactory
             .WithImage(image)
             .Build();
     }
-    
+
     private Image CreateImage(Guid vehicleId = default)
         => Image.Create(
             vehicleId == default ? Guid.NewGuid() : vehicleId,
@@ -120,7 +118,7 @@ internal class VehicleTestFactory
             .WithValidTo(_faker.Date.Future())
             .WithVehicle(vehicle)
             .Build();
-    
+
     public List<Insurance> CreateInsurances(Vehicle vehicle, int numberOfInsurances)
     {
         var insurances = new List<Insurance>();

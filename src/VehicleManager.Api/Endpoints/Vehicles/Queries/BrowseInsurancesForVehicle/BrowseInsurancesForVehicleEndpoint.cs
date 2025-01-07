@@ -1,7 +1,7 @@
+using VehicleManager.Api.Common.Endpoints;
 using VehicleManager.Application.Vehicles.Queries.BrowseInsurancesForVehicle;
 using VehicleManager.Application.Vehicles.Queries.BrowseInsurancesForVehicle.DTO;
-using VehicleManager.Shared.Endpoints;
-using VehicleManager.Shared.Pagination;
+using VehicleManager.Core.Common.Pagination;
 
 namespace VehicleManager.Api.Endpoints.Vehicles.Queries.BrowseInsurancesForVehicle;
 

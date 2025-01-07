@@ -1,6 +1,5 @@
-using Microsoft.Extensions.Configuration;
+using VehicleManager.Application.Common.Behaviors.Validation;
 using VehicleManager.Application.Integrations.BlobStorage;
-using VehicleManager.Shared.Validation;
 
 [assembly: InternalsVisibleTo("VehicleManager.Api")]
 
@@ -17,7 +16,6 @@ internal static class Extensions
         services.AddValidators(Assembly.GetExecutingAssembly());
 
         services.AddBlobStorage(configuration);
-
 
         return services;
     }

@@ -29,5 +29,5 @@ internal sealed class UserRepository(VehicleManagerDbContext dbContext) : IUserR
         => await Task.FromResult(_users
             .AsNoTracking()
             .AsQueryable()
-            );
+        );
 }

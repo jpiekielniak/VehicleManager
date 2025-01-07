@@ -1,10 +1,10 @@
+using VehicleManager.Application.Common.Interfaces.Context;
 using VehicleManager.Application.Vehicles.Queries.GetVehicle;
 using VehicleManager.Application.Vehicles.Queries.GetVehicle.DTO;
 using VehicleManager.Core.Users.Exceptions.Users;
 using VehicleManager.Core.Users.Repositories;
 using VehicleManager.Core.Vehicles.Exceptions.Vehicles;
 using VehicleManager.Core.Vehicles.Repositories;
-using VehicleManager.Shared.Auth.Context;
 
 namespace VehicleManager.Infrastructure.EF.Vehicles.Queries.GetVehicle;
 
@@ -30,7 +30,7 @@ internal sealed class GetVehicleQueryHandler(
         }
 
         var vehicle = await vehicleRepository.GetAsync(query.VehicleId, cancellationToken)
-            ?? throw new VehicleNotFoundException(query.VehicleId);
+                      ?? throw new VehicleNotFoundException(query.VehicleId);
 
         return vehicle.AsDetailsDto();
     }

@@ -1,3 +1,4 @@
+using VehicleManager.Application.Common.Interfaces.Context;
 using VehicleManager.Application.Vehicles.Queries.GetVehicle;
 using VehicleManager.Application.Vehicles.Queries.GetVehicle.DTO;
 using VehicleManager.Core.Users.Entities;
@@ -5,7 +6,6 @@ using VehicleManager.Core.Users.Exceptions.Users;
 using VehicleManager.Core.Users.Repositories;
 using VehicleManager.Core.Vehicles.Repositories;
 using VehicleManager.Infrastructure.EF.Vehicles.Queries.GetVehicle;
-using VehicleManager.Shared.Auth.Context;
 using VehicleManager.Tests.Unit.Vehicles.Factories;
 
 namespace VehicleManager.Tests.Unit.Vehicles.Handlers.Queries.GetVehicle;

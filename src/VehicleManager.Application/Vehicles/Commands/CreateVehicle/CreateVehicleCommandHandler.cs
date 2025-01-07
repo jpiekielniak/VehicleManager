@@ -1,10 +1,10 @@
+using VehicleManager.Application.Common.Interfaces.Context;
 using VehicleManager.Core.Users.Exceptions.Users;
 using VehicleManager.Core.Users.Repositories;
 using VehicleManager.Core.Vehicles.Builders;
 using VehicleManager.Core.Vehicles.Entities;
 using VehicleManager.Core.Vehicles.Exceptions.Vehicles;
 using VehicleManager.Core.Vehicles.Repositories;
-using VehicleManager.Shared.Auth.Context;
 
 namespace VehicleManager.Application.Vehicles.Commands.CreateVehicle;
 
@@ -29,8 +29,8 @@ internal sealed class CreateVehicleCommandHandler(
             v => (v.VIN == command.Vin || v.LicensePlate == command.LicensePlate)
                  && v.UserId == currentLoggedInUserId,
             cancellationToken);
-        
-        if(vehicleExistsInUserCollection)
+
+        if (vehicleExistsInUserCollection)
         {
             throw new VehicleAlreadyExistsInUserCollectionException();
         }

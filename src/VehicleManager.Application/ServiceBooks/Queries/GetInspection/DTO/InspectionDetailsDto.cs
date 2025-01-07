@@ -1,4 +1,3 @@
-
 namespace VehicleManager.Application.ServiceBooks.Queries.GetInspection.DTO;
 
 public record InspectionDetailsDto(

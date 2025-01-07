@@ -11,10 +11,10 @@ internal sealed class DeleteInspectionCommandHandler(
     {
         var serviceBook = await serviceBookRepository.GetAsync(command.ServiceBookId, cancellationToken)
                           ?? throw new ServiceBookNotFoundException(command.ServiceBookId);
-        
+
         var inspection = serviceBook.Inspections.FirstOrDefault(i => i.Id == command.InspectionId)
                          ?? throw new InspectionNotFoundException(command.InspectionId);
-        
+
         serviceBook.RemoveInspection(inspection);
         await serviceBookRepository.SaveChangesAsync(cancellationToken);
     }

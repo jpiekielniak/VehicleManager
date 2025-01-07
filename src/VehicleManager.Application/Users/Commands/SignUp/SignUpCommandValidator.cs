@@ -29,6 +29,5 @@ internal sealed class SignUpCommandValidator
                 return !userExists;
             })
             .WithMessage("Email already exists");
-       
     }
 }

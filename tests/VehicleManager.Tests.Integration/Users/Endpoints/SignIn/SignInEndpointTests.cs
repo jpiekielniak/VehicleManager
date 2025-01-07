@@ -1,6 +1,6 @@
 using VehicleManager.Api.Endpoints.Users;
 using VehicleManager.Application.Users.Commands.SignIn;
-using VehicleManager.Shared.Middlewares.Exceptions;
+using VehicleManager.Infrastructure.Common.Middlewares.Exceptions.Models;
 using VehicleManager.Tests.Integration.Users.Factories;
 
 namespace VehicleManager.Tests.Integration.Users.Endpoints.SignIn;
@@ -17,7 +17,7 @@ public class SignInEndpointTests : UserEndpointTest
 
         await DbContext.Users.AddAsync(user);
         await DbContext.SaveChangesAsync();
-        
+
         //act
         var response = await Client.PostAsJsonAsync(UserEndpoints.SignIn, command);
 

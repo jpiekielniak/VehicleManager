@@ -28,7 +28,7 @@ public class DeleteServiceCommandHandlerTests
         await _serviceBookRepository.Received(1).GetAsync(command.ServiceBookId, Arg.Any<CancellationToken>());
         await _serviceBookRepository.DidNotReceive().SaveChangesAsync(Arg.Any<CancellationToken>());
     }
-    
+
     [Fact]
     public async Task given_invalid_service_id_should_throw_service_not_found_exception()
     {
@@ -48,7 +48,7 @@ public class DeleteServiceCommandHandlerTests
         await _serviceBookRepository.Received(1).GetAsync(command.ServiceBookId, Arg.Any<CancellationToken>());
         await _serviceBookRepository.DidNotReceive().SaveChangesAsync(Arg.Any<CancellationToken>());
     }
-    
+
     [Fact]
     public async Task given_valid_service_book_id_and_service_id_should_remove_service()
     {

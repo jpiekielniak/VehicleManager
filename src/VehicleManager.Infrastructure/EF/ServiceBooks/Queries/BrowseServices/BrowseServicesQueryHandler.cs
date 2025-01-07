@@ -1,8 +1,8 @@
 using VehicleManager.Application.ServiceBooks.Queries.BrowseServices;
 using VehicleManager.Application.ServiceBooks.Queries.BrowseServices.DTO;
+using VehicleManager.Core.Common.Pagination;
 using VehicleManager.Core.Vehicles.Exceptions.ServiceBooks;
 using VehicleManager.Core.Vehicles.Repositories;
-using VehicleManager.Shared.Pagination;
 
 namespace VehicleManager.Infrastructure.EF.ServiceBooks.Queries.BrowseServices;
 

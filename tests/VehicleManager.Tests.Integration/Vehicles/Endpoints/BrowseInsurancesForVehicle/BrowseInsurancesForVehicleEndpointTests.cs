@@ -10,26 +10,28 @@ public class BrowseInsurancesForVehicleEndpointTests : VehicleEndpointTest
     [Fact]
     public async Task browse_insurances_for_vehicle_without_authentication_should_return_401_status_code()
     {
-      //Act
-      var response = await Client.GetAsync(VehicleEndpoints.Insurances.Replace("{vehicleId:guid}", Guid.NewGuid().ToString()));
-      
-      //Assert
+        //Act
+        var response =
+            await Client.GetAsync(VehicleEndpoints.Insurances.Replace("{vehicleId:guid}", Guid.NewGuid().ToString()));
+
+        //Assert
         response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
     }
-    
+
     [Fact]
     public async Task browse_insurances_for_vehicle_with_non_existing_vehicle_should_return_400_status_code()
     {
         //Arrange
         Authorize(Guid.NewGuid(), Role.User.ToString());
-        
+
         //Act
-        var response = await Client.GetAsync(VehicleEndpoints.Insurances.Replace("{vehicleId:guid}", Guid.NewGuid().ToString()));
-        
+        var response =
+            await Client.GetAsync(VehicleEndpoints.Insurances.Replace("{vehicleId:guid}", Guid.NewGuid().ToString()));
+
         //Assert
         response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
     }
-    
+
     [Fact]
     public async Task browse_insurances_for_vehicle_should_return_200_status_code()
     {
@@ -40,10 +42,11 @@ public class BrowseInsurancesForVehicleEndpointTests : VehicleEndpointTest
         AddInsuranceRange(vehicle, insurances);
         await SeedDataAsync(user, vehicle);
         Authorize(user.Id, user.Role.ToString());
-        
+
 
         // Act
-        var response = await Client.GetAsync($"{VehicleEndpoints.Insurances.Replace("{vehicleId:guid}", vehicle.Id.ToString())}");
+        var response =
+            await Client.GetAsync($"{VehicleEndpoints.Insurances.Replace("{vehicleId:guid}", vehicle.Id.ToString())}");
 
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.OK);

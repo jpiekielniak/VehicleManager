@@ -1,6 +1,6 @@
+using VehicleManager.Api.Common.Endpoints;
 using VehicleManager.Application.Vehicles.Queries.GetInsuranceDetailsForVehicle;
 using VehicleManager.Application.Vehicles.Queries.GetInsuranceDetailsForVehicle.DTO;
-using VehicleManager.Shared.Endpoints;
 
 namespace VehicleManager.Api.Endpoints.Vehicles.Queries.GetInsuranceDetailsForVehicle;
 

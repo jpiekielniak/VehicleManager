@@ -1,7 +1,7 @@
 using VehicleManager.Application.Users.Commands.SignUp;
+using VehicleManager.Core.Common.Security;
 using VehicleManager.Core.Users.Entities;
 using VehicleManager.Core.Users.Repositories;
-using VehicleManager.Shared.Hash;
 using VehicleManager.Tests.Unit.Users.Factories;
 
 namespace VehicleManager.Tests.Unit.Users.Handlers.Commands.SignUp;

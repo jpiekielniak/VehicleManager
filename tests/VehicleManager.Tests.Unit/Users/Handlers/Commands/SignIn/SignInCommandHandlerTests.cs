@@ -1,9 +1,9 @@
+using VehicleManager.Application.Common.Interfaces.Auth;
 using VehicleManager.Application.Users.Commands.SignIn;
+using VehicleManager.Core.Common.Security;
 using VehicleManager.Core.Users.Entities;
 using VehicleManager.Core.Users.Exceptions.Users;
 using VehicleManager.Core.Users.Repositories;
-using VehicleManager.Shared.Auth;
-using VehicleManager.Shared.Hash;
 using VehicleManager.Tests.Unit.Users.Factories;
 
 namespace VehicleManager.Tests.Unit.Users.Handlers.Commands.SignIn;
@@ -12,7 +12,7 @@ public class SignInCommandHandlerTests
 {
     private async Task<SignInResponse> Act(SignInCommand command)
         => await _handler.Handle(command, CancellationToken.None);
-    
+
     [Fact]
     public async Task given_non_existing_user_should_throw_user_not_found_exception()
     {

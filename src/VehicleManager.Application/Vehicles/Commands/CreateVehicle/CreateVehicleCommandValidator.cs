@@ -1,4 +1,3 @@
-
 namespace VehicleManager.Application.Vehicles.Commands.CreateVehicle;
 
 internal sealed class CreateVehicleCommandValidator : AbstractValidator<CreateVehicleCommand>
@@ -23,7 +22,7 @@ internal sealed class CreateVehicleCommandValidator : AbstractValidator<CreateVe
         RuleFor(x => x.Vin)
             .NotEmpty()
             .MaximumLength(17);
-            
+
 
         RuleFor(x => x.EngineCapacity)
             .InclusiveBetween(0, 10000);

@@ -1,5 +1,5 @@
 using VehicleManager.Api.Endpoints.Users;
-using VehicleManager.Shared.Middlewares.Exceptions;
+using VehicleManager.Infrastructure.Common.Middlewares.Exceptions.Models;
 using VehicleManager.Tests.Integration.Users.Factories;
 
 namespace VehicleManager.Tests.Integration.Users.Endpoints.SignUp;

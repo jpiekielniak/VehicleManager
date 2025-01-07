@@ -1,6 +1,6 @@
+using VehicleManager.Api.Common.Endpoints;
+using VehicleManager.Core.Common.Helpers;
 using VehicleManager.Core.Vehicles.Entities.Enums;
-using VehicleManager.Shared.Endpoints;
-using VehicleManager.Shared.EnumHelper;
 
 namespace VehicleManager.Api.Endpoints.Enums.GetInspectionTypes;
 

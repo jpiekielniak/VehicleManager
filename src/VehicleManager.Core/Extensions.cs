@@ -1,4 +1,3 @@
-
 [assembly: InternalsVisibleTo("VehicleManager.Api")]
 
 namespace VehicleManager.Core;

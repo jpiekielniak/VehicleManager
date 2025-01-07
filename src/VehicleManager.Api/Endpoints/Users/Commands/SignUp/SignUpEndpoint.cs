@@ -1,6 +1,6 @@
+using VehicleManager.Api.Common.Endpoints;
 using VehicleManager.Application.Users.Commands.SignUp;
-using VehicleManager.Shared.Endpoints;
-using VehicleManager.Shared.Middlewares.Exceptions;
+using VehicleManager.Infrastructure.Common.Middlewares.Exceptions.Models;
 
 namespace VehicleManager.Api.Endpoints.Users.Commands.SignUp;
 

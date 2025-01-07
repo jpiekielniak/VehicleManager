@@ -20,11 +20,11 @@ internal sealed class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
 
         builder.Property(v => v.Year)
             .IsRequired();
-        
+
         builder.Property(v => v.LicensePlate)
             .IsRequired()
             .HasMaxLength(9);
-        
+
         builder.Property(v => v.VIN)
             .IsRequired()
             .HasMaxLength(17);
@@ -55,7 +55,7 @@ internal sealed class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
             .WithOne(insurance => insurance.Vehicle)
             .HasForeignKey(vehicle => vehicle.VehicleId)
             .OnDelete(DeleteBehavior.Cascade);
-        
+
         builder
             .HasOne(vehicle => vehicle.Image)
             .WithOne(image => image.Vehicle)

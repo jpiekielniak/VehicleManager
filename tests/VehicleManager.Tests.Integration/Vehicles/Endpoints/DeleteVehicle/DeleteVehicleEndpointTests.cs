@@ -1,5 +1,5 @@
 using VehicleManager.Api.Endpoints.Vehicles;
-using VehicleManager.Shared.Middlewares.Exceptions;
+using VehicleManager.Infrastructure.Common.Middlewares.Exceptions.Models;
 using VehicleManager.Tests.Integration.Vehicles.Factories;
 
 namespace VehicleManager.Tests.Integration.Vehicles.Endpoints.DeleteVehicle;

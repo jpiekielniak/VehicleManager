@@ -1,5 +1,5 @@
 using VehicleManager.Application.ServiceBooks.Queries.BrowseInspections.DTO;
-using VehicleManager.Shared.Pagination;
+using VehicleManager.Core.Common.Pagination;
 
 namespace VehicleManager.Application.ServiceBooks.Queries.BrowseInspections;
 

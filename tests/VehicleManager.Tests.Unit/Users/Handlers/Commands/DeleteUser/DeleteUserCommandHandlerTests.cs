@@ -1,8 +1,8 @@
+using VehicleManager.Application.Common.Interfaces.Context;
 using VehicleManager.Application.Users.Commands.DeleteUser;
 using VehicleManager.Core.Users.Entities;
 using VehicleManager.Core.Users.Exceptions.Users;
 using VehicleManager.Core.Users.Repositories;
-using VehicleManager.Shared.Auth.Context;
 using VehicleManager.Tests.Unit.Users.Factories;
 
 namespace VehicleManager.Tests.Unit.Users.Handlers.Commands.DeleteUser;
@@ -24,7 +24,7 @@ public class DeleteUserCommandHandlerTests
         // Assert
         exception.ShouldNotBeNull();
         exception.ShouldBeOfType<UserNotFoundException>();
-        await userRepository
+        await _userRepository
             .DidNotReceive()
             .DeleteAsync(Arg.Any<User>(), Arg.Any<CancellationToken>());
     }
@@ -35,10 +35,10 @@ public class DeleteUserCommandHandlerTests
         // Arrange
         var command = _factory.CreateDeleteUserCommand();
         var user = _factory.CreateUser();
-        userRepository
+        _userRepository
             .GetAsync(command.UserId, Arg.Any<CancellationToken>())
             .Returns(user);
-        context.Id
+        _context.Id
             .Returns(Guid.NewGuid());
 
         // Act
@@ -47,7 +47,7 @@ public class DeleteUserCommandHandlerTests
         // Assert
         exception.ShouldNotBeNull();
         exception.ShouldBeOfType<ActionNotAllowedException>();
-        await userRepository
+        await _userRepository
             .DidNotReceive()
             .DeleteAsync(Arg.Any<User>(), Arg.Any<CancellationToken>());
     }
@@ -58,38 +58,38 @@ public class DeleteUserCommandHandlerTests
         // Arrange
         var command = _factory.CreateDeleteUserCommand();
         var user = _factory.CreateUser();
-        userRepository
+        _userRepository
             .GetAsync(command.UserId, Arg.Any<CancellationToken>())
             .Returns(user);
-        context.Id
+        _context.Id
             .Returns(user.Id);
 
         // Act
         await Act(command);
 
         // Assert
-        await userRepository
+        await _userRepository
             .Received(1)
             .DeleteAsync(user, Arg.Any<CancellationToken>());
-        await userRepository
+        await _userRepository
             .Received(1)
             .SaveChangesAsync(Arg.Any<CancellationToken>());
     }
 
 
-    private readonly IContext context;
-    private readonly IUserRepository userRepository;
+    private readonly IContext _context;
+    private readonly IUserRepository _userRepository;
     private readonly IRequestHandler<DeleteUserCommand> _handler;
     private readonly UserTestFactory _factory = new();
 
     public DeleteUserCommandHandlerTests()
     {
-        context = Substitute.For<IContext>();
-        userRepository = Substitute.For<IUserRepository>();
+        _context = Substitute.For<IContext>();
+        _userRepository = Substitute.For<IUserRepository>();
 
         _handler = new DeleteUserCommandHandler(
-            context,
-            userRepository
+            _context,
+            _userRepository
         );
     }
 }

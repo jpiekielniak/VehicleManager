@@ -1,13 +1,16 @@
+using VehicleManager.Core.Common.Security;
 using VehicleManager.Core.Users.Repositories;
 using VehicleManager.Core.Vehicles.Repositories;
-using VehicleManager.Infrastructure.BackgroundJobs;
+using VehicleManager.Infrastructure.Common.Authentication;
+using VehicleManager.Infrastructure.Common.BackgroundJobs;
+using VehicleManager.Infrastructure.Common.Emails;
+using VehicleManager.Infrastructure.Common.Security;
+using VehicleManager.Infrastructure.Common.Sieve;
 using VehicleManager.Infrastructure.EF;
 using VehicleManager.Infrastructure.EF.Initializer;
 using VehicleManager.Infrastructure.EF.ServiceBooks.Repositories;
 using VehicleManager.Infrastructure.EF.Users.Repositories;
 using VehicleManager.Infrastructure.EF.Vehicles.Repositories;
-using VehicleManager.Infrastructure.Emails;
-using VehicleManager.Infrastructure.Sieve;
 
 [assembly: InternalsVisibleTo("VehicleManager.Api")]
 [assembly: InternalsVisibleTo("VehicleManager.Tests.Integration")]
@@ -39,12 +42,14 @@ internal static class Extensions
         services.AddScoped<IInspectionRepository, InspectionRepository>();
         services.AddScoped<IServiceRepository, ServiceRepository>();
         services.AddScoped<IImageRepository, ImageRepository>();
-        
+        services.AddScoped<IPasswordHasher, PasswordHasher>();
+
         services.AddScoped<ISieveProcessor, ApplicationSieveProcessor>();
         services.AddHostedService<MigrationInitializer>();
 
-        services.AddEmailService(configuration);
-        services.AddInsuranceCheckerBackgroundJob(configuration);
+        services.AddEmail(configuration);
+        services.AddAuth(configuration);
+        services.AddBackgroundJobs(configuration);
 
         return services;
     }

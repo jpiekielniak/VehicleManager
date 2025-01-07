@@ -27,16 +27,17 @@ public class GetInspectionQueryHandlerTests
         // Assert
         exception.ShouldNotBeNull();
         exception.ShouldBeOfType<ServiceBookNotFoundException>();
-        await _serviceBookRepository.Received(1).GetAsync(query.ServiceBookId, Arg.Any<CancellationToken>(), Arg.Any<bool>());
+        await _serviceBookRepository.Received(1)
+            .GetAsync(query.ServiceBookId, Arg.Any<CancellationToken>(), Arg.Any<bool>());
     }
 
     [Fact]
     public async Task given_invalid_inspection_id_should_throw_inspection_not_found_exception()
     {
         // Arrange
-        
+
         var query = _factory.GetInspectionQuery();
-        
+
 
         _serviceBookRepository.GetAsync(query.ServiceBookId, Arg.Any<CancellationToken>(), true)
             .Returns(_factory.CreateServiceBook());
@@ -47,7 +48,8 @@ public class GetInspectionQueryHandlerTests
         // Assert
         exception.ShouldNotBeNull();
         exception.ShouldBeOfType<InspectionNotFoundException>();
-        await _serviceBookRepository.Received(1).GetAsync(query.ServiceBookId, Arg.Any<CancellationToken>(), Arg.Any<bool>());
+        await _serviceBookRepository.Received(1)
+            .GetAsync(query.ServiceBookId, Arg.Any<CancellationToken>(), Arg.Any<bool>());
     }
 
     [Fact]
@@ -69,7 +71,8 @@ public class GetInspectionQueryHandlerTests
         result.ShouldNotBeNull();
         result.ShouldBeOfType<InspectionDetailsDto>();
         result.Id.ShouldBe(inspection.Id);
-        await _serviceBookRepository.Received(1).GetAsync(query.ServiceBookId, Arg.Any<CancellationToken>(), Arg.Any<bool>());
+        await _serviceBookRepository.Received(1)
+            .GetAsync(query.ServiceBookId, Arg.Any<CancellationToken>(), Arg.Any<bool>());
     }
 
     private readonly IServiceBookRepository _serviceBookRepository;

@@ -1,8 +1,8 @@
+using VehicleManager.Api.Common.Endpoints;
 using VehicleManager.Application.ServiceBooks.Queries.BrowseInspections.DTO;
 using VehicleManager.Application.ServiceBooks.Queries.BrowseServices;
-using VehicleManager.Shared.Endpoints;
-using VehicleManager.Shared.Middlewares.Exceptions;
-using VehicleManager.Shared.Pagination;
+using VehicleManager.Core.Common.Pagination;
+using VehicleManager.Infrastructure.Common.Middlewares.Exceptions.Models;
 
 namespace VehicleManager.Api.Endpoints.ServiceBooks.Queries.BrowseServices;
 

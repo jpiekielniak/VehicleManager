@@ -4,9 +4,8 @@ namespace VehicleManager.Core.Users.Entities.Builders;
 
 public sealed class UserBuilder(User user)
 {
-
     public User Build() => user;
-    
+
     public UserBuilder() : this(User.Create())
     {
     }

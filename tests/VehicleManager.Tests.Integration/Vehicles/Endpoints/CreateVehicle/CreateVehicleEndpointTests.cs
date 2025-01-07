@@ -1,6 +1,6 @@
 using VehicleManager.Api.Endpoints.Vehicles;
 using VehicleManager.Core.Users.Entities.Enums;
-using VehicleManager.Shared.Middlewares.Exceptions;
+using VehicleManager.Infrastructure.Common.Middlewares.Exceptions.Models;
 using VehicleManager.Tests.Integration.Vehicles.Factories;
 
 namespace VehicleManager.Tests.Integration.Vehicles.Endpoints.CreateVehicle;
@@ -13,7 +13,7 @@ public class CreateVehicleEndpointTests : VehicleEndpointTest
         //arrange
         var command = _factory.CreateVehicleCommand();
         Authorize(Guid.NewGuid(), Role.User.ToString());
-        
+
         //act
         var response = await Client.PostAsJsonAsync(VehicleEndpoints.BasePath, command);
 

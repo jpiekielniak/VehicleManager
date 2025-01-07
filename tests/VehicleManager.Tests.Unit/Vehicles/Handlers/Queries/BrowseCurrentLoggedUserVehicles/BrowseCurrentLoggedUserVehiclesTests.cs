@@ -1,11 +1,11 @@
+using VehicleManager.Application.Common.Interfaces.Context;
 using VehicleManager.Application.Vehicles.Queries.BrowseCurrentLoggedUserVehicles;
 using VehicleManager.Application.Vehicles.Queries.BrowseCurrentLoggedUserVehicles.DTO;
+using VehicleManager.Core.Common.Pagination;
 using VehicleManager.Core.Users.Exceptions.Users;
 using VehicleManager.Core.Users.Repositories;
 using VehicleManager.Core.Vehicles.Repositories;
 using VehicleManager.Infrastructure.EF.Vehicles.Queries.BrowseCurrentLoggedUserVehicles;
-using VehicleManager.Shared.Auth.Context;
-using VehicleManager.Shared.Pagination;
 
 namespace VehicleManager.Tests.Unit.Vehicles.Handlers.Queries.BrowseCurrentLoggedUserVehicles;
 

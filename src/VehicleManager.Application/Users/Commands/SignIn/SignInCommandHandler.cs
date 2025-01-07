@@ -1,7 +1,7 @@
+using VehicleManager.Application.Common.Interfaces.Auth;
+using VehicleManager.Core.Common.Security;
 using VehicleManager.Core.Users.Exceptions.Users;
 using VehicleManager.Core.Users.Repositories;
-using VehicleManager.Shared.Auth;
-using VehicleManager.Shared.Hash;
 
 namespace VehicleManager.Application.Users.Commands.SignIn;
 

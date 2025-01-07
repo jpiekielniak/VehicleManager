@@ -5,6 +5,7 @@ namespace VehicleManager.Tests.Unit.Vehicles.Entities.Builders.TestData.Valid;
 internal class VehicleBuilderValidTestData : TheoryData<VehicleBuilderParams>
 {
     private readonly Faker _faker = new();
+
     public VehicleBuilderValidTestData()
     {
         Add(new VehicleBuilderParams
@@ -49,7 +50,7 @@ internal class VehicleBuilderValidTestData : TheoryData<VehicleBuilderParams>
             VehicleType = VehicleType.Motorcycle
         });
     }
-    
+
     private string GenerateLicensePlate()
         => _faker.Random.String2(3, "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
            + _faker.Random.String2(5, "0123456789");

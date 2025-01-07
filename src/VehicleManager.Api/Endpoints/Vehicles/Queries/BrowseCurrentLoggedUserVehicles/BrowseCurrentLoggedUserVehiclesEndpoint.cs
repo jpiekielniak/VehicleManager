@@ -1,7 +1,7 @@
+using VehicleManager.Api.Common.Endpoints;
 using VehicleManager.Application.Vehicles.Queries.BrowseCurrentLoggedUserVehicles;
 using VehicleManager.Application.Vehicles.Queries.BrowseCurrentLoggedUserVehicles.DTO;
-using VehicleManager.Shared.Endpoints;
-using VehicleManager.Shared.Pagination;
+using VehicleManager.Core.Common.Pagination;
 
 namespace VehicleManager.Api.Endpoints.Vehicles.Queries.BrowseCurrentLoggedUserVehicles;
 
@@ -25,6 +25,5 @@ internal sealed class BrowseCurrentLoggedUserVehiclesEndpoint : IEndpointDefinit
             })
             .WithTags(VehicleEndpoints.Vehicles)
             .Produces<PaginationResult<VehicleDto>>(StatusCodes.Status200OK);
-
     }
 }

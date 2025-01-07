@@ -1,3 +1,4 @@
+using VehicleManager.Application.Common.Models;
 using VehicleManager.Application.Users.Commands.CompleteUserData;
 using VehicleManager.Application.Users.Commands.DeleteUser;
 using VehicleManager.Application.Users.Commands.SignIn;
@@ -5,7 +6,6 @@ using VehicleManager.Application.Users.Commands.SignUp;
 using VehicleManager.Core.Users.Entities;
 using VehicleManager.Core.Users.Entities.Builders;
 using VehicleManager.Core.Users.Entities.Enums;
-using VehicleManager.Shared.Auth;
 using VehicleManager.Tests.Unit.Users.Helpers;
 
 namespace VehicleManager.Tests.Unit.Users.Factories;

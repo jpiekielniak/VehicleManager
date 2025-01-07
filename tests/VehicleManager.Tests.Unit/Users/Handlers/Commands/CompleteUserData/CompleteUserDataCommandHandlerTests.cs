@@ -1,7 +1,7 @@
+using VehicleManager.Application.Common.Interfaces.Context;
 using VehicleManager.Application.Users.Commands.CompleteUserData;
 using VehicleManager.Core.Users.Exceptions.Users;
 using VehicleManager.Core.Users.Repositories;
-using VehicleManager.Shared.Auth.Context;
 using VehicleManager.Tests.Unit.Users.Factories;
 
 namespace VehicleManager.Tests.Unit.Users.Handlers.Commands.CompleteUserData;

@@ -1,5 +1,5 @@
 using System.IdentityModel.Tokens.Jwt;
-using VehicleManager.Shared.Auth;
+using VehicleManager.Application.Common.Models;
 
 namespace VehicleManager.Tests.Unit.Users.Helpers;
 

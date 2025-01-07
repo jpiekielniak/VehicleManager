@@ -1,4 +1,3 @@
-
 namespace VehicleManager.Application.Vehicles.Commands.ChangeVehicleInformation;
 
 internal sealed class ChangeVehicleInformationCommandValidator
