@@ -42,6 +42,7 @@ internal static class Extensions
         services.AddScoped<IInspectionRepository, InspectionRepository>();
         services.AddScoped<IServiceRepository, ServiceRepository>();
         services.AddScoped<IImageRepository, ImageRepository>();
+        services.AddScoped<IInsuranceRepository, InsuranceRepository>();
         services.AddScoped<IPasswordHasher, PasswordHasher>();
 
         services.AddScoped<ISieveProcessor, ApplicationSieveProcessor>();

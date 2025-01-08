@@ -1,7 +1,6 @@
 using VehicleManager.Application.Emails.Interfaces;
-using VehicleManager.Core.Vehicles.Entities;
+using VehicleManager.Core.Vehicles.Entities;using VehicleManager.Core.Vehicles.Repositories;
 using VehicleManager.Infrastructure.Common.BackgroundJobs.InsuranceChecker.Options;
-using VehicleManager.Infrastructure.EF;
 
 namespace VehicleManager.Infrastructure.Common.BackgroundJobs.InsuranceChecker.Services;
 
@@ -24,11 +23,11 @@ public sealed class InsuranceCheckerBackgroundService(
     private async Task CheckInsurancesAsync(CancellationToken cancellationToken)
     {
         using var scope = serviceProvider.CreateScope();
-        var dbContext = scope.ServiceProvider.GetRequiredService<VehicleManagerDbContext>();
         var emailService = scope.ServiceProvider.GetRequiredService<IEmailService>();
-    
-        var expiringInsurances = await GetExpiringInsurancesAsync(dbContext, cancellationToken);
-    
+        var insuranceRepository = scope.ServiceProvider.GetRequiredService<IInsuranceRepository>();
+
+        var expiringInsurances = await GetExpiringInsurancesAsync(insuranceRepository, cancellationToken);
+
         foreach (var insurance in expiringInsurances)
         {
             await SendExpirationNotificationAsync(
@@ -36,23 +35,26 @@ public sealed class InsuranceCheckerBackgroundService(
                 emailService,
                 cancellationToken
             );
+
+            await UpdateInsuranceReminderSentAsync(insurance, insuranceRepository, cancellationToken);
         }
     }
 
-
-    private async Task<List<Insurance>> GetExpiringInsurancesAsync(
-        VehicleManagerDbContext dbContext,
+    private async Task UpdateInsuranceReminderSentAsync(Insurance insurance, IInsuranceRepository insuranceRepository,
         CancellationToken cancellationToken)
     {
-        var today = DateTimeOffset.UtcNow.Date;
+        insurance.setReminderSent(true);
+        await insuranceRepository.UpdateAsync(insurance, cancellationToken);
+    }
 
-        return await dbContext.Insurances
-            .Include(i => i.Vehicle)
-            .ThenInclude(i => i.User)
-            .Where(i =>
-                (i.ValidTo.Date - today).TotalDays <= _options.DaysBeforeExpiration &&
-                (i.ValidTo.Date - today).TotalDays >= 0)
-            .ToListAsync(cancellationToken);
+    private async Task<List<Insurance>> GetExpiringInsurancesAsync(
+        IInsuranceRepository insuranceRepository,
+        CancellationToken cancellationToken)
+    {
+        var policiesReadyForReminder = await insuranceRepository
+            .GetExpiringInsurancesAsync(cancellationToken);
+
+        return policiesReadyForReminder;
     }
 
     private static async Task SendExpirationNotificationAsync(

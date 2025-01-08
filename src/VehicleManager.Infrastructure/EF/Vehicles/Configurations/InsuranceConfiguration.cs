@@ -24,6 +24,9 @@ internal sealed class InsuranceConfiguration : IEntityTypeConfiguration<Insuranc
 
         builder.Property(i => i.ValidTo)
             .IsRequired();
+        
+        builder.Property(i => i.ReminderSent)
+            .IsRequired();
 
         builder.ToTable(TableName);
     }
