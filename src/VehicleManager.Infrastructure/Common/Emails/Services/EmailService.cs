@@ -1,28 +1,17 @@
-using System.Net.Mail;
 using VehicleManager.Application.Emails.Interfaces;
+using VehicleManager.Infrastructure.Common.Emails.Exceptions;
 using VehicleManager.Infrastructure.Common.Emails.Options;
 
 namespace VehicleManager.Infrastructure.Common.Emails.Services;
 
-public sealed class EmailService : IEmailService, IDisposable
+public sealed class EmailService(IOptions<EmailOptions> emailOptions) : IEmailService
 {
-    private readonly EmailOptions _emailOptions;
-    private readonly IDictionary<string, string> _emailTemplates;
-    private readonly SmtpClient _smtpClient;
+    private readonly EmailOptions _emailOptions = emailOptions.Value;
+    private readonly IDictionary<string, string> _emailTemplates = LoadAllEmailTemplates();
 
     private const string InsuranceExpirationTemplateName = "InsuranceExpiration.html";
+    private const string GeneralNotificationTemplateName = "GeneralNotification.html";
     private const string InsuranceExpirationSubject = "Wygasa termin ubezpieczenia";
-
-    public EmailService(
-        IOptions<EmailOptions> emailOptions)
-    {
-        _emailOptions = emailOptions.Value;
-        _smtpClient = CreateSmtpClient();
-        _emailTemplates = new Dictionary<string, string>
-        {
-            [InsuranceExpirationTemplateName] = LoadEmailTemplate(InsuranceExpirationTemplateName)
-        };
-    }
 
     public async Task SendInsuranceExpirationEmailAsync(
         string email,
@@ -32,72 +21,94 @@ public sealed class EmailService : IEmailService, IDisposable
         string provider,
         CancellationToken cancellationToken)
     {
-        var message = CreateInsuranceExpirationMessage(
+        var templateData = new Dictionary<string, string>
+        {
+            ["vehicleInfo"] = vehicleInfo,
+            ["expirationDate"] = expirationDate.ToString("dd.MM.yyyy"),
+            ["policyNumber"] = policyNumber,
+            ["provider"] = provider
+        };
+
+        var message = await CreateEmailMessageAsync(
             email,
-            vehicleInfo,
-            expirationDate,
-            policyNumber,
-            provider);
+            InsuranceExpirationSubject,
+            InsuranceExpirationTemplateName,
+            templateData);
 
         await SendEmailAsync(message, cancellationToken);
     }
 
-    private MailMessage CreateInsuranceExpirationMessage(
-        string email,
-        string vehicleInfo,
-        DateTimeOffset expirationDate,
-        string policyNumber,
-        string provider)
+    public async Task SendEmailToUsersAsync(
+        string title,
+        string content,
+        IEnumerable<string> emails,
+        CancellationToken cancellationToken)
     {
-        var emailBody = BuildEmailBody(
-            vehicleInfo,
-            expirationDate,
-            policyNumber,
-            provider
-        );
-
-        return new MailMessage
+        var templateData = new Dictionary<string, string>
         {
-            From = new MailAddress(_emailOptions.Username),
-            Subject = InsuranceExpirationSubject,
-            Body = emailBody,
-            IsBodyHtml = true,
-            To = { new MailAddress(email) }
-        };
-    }
-
-    private string BuildEmailBody(
-        string vehicleInfo,
-        DateTimeOffset expirationDate,
-        string policyNumber,
-        string provider)
-    {
-        var template = _emailTemplates[InsuranceExpirationTemplateName];
-        var replacements = new Dictionary<string, string>
-        {
-            ["{{vehicleInfo}}"] = vehicleInfo,
-            ["{{expirationDate}}"] = expirationDate.ToString("dd.MM.yyyy"),
-            ["{{policyNumber}}"] = policyNumber,
-            ["{{provider}}"] = provider
+            ["title"] = title,
+            ["content"] = content
         };
 
-        return replacements.Aggregate(
-            template,
-            (current, replacement) =>
-                current.Replace(replacement.Key, replacement.Value));
+        var sendTasks = emails.Select(async email =>
+        {
+            var message = await CreateEmailMessageAsync(
+                email,
+                title,
+                GeneralNotificationTemplateName,
+                templateData
+            );
+
+            await SendEmailAsync(message, cancellationToken);
+        }).ToArray();
+
+        await Task.WhenAll(sendTasks);
     }
 
     private async Task SendEmailAsync(MailMessage message, CancellationToken cancellationToken)
     {
         try
         {
-            await _smtpClient.SendMailAsync(message, cancellationToken);
+            using var smtpClient = CreateSmtpClient();
+            await smtpClient.SendMailAsync(message, cancellationToken);
         }
         finally
         {
             message.Dispose();
         }
     }
+
+
+    private async Task<MailMessage> CreateEmailMessageAsync(
+        string recipientEmail,
+        string subject,
+        string templateName,
+        IDictionary<string, string> templateData)
+    {
+        var emailBody = await BuildEmailBodyAsync(templateName, templateData);
+
+        return new MailMessage
+        {
+            From = new MailAddress(_emailOptions.Username),
+            Subject = subject,
+            Body = emailBody,
+            IsBodyHtml = true,
+            To = { new MailAddress(recipientEmail) }
+        };
+    }
+
+    private Task<string> BuildEmailBodyAsync(
+        string templateName,
+        IDictionary<string, string> replacements)
+    {
+        var template = _emailTemplates[templateName];
+
+        return Task.FromResult(replacements.Aggregate(
+            template,
+            (current, replacement) =>
+                current.Replace($"{{{{{replacement.Key}}}}}", replacement.Value)));
+    }
+
 
     private SmtpClient CreateSmtpClient()
     {
@@ -108,22 +119,26 @@ public sealed class EmailService : IEmailService, IDisposable
         };
     }
 
+    private static IDictionary<string, string> LoadAllEmailTemplates()
+    {
+        return new Dictionary<string, string>
+        {
+            [InsuranceExpirationTemplateName] = LoadEmailTemplate(InsuranceExpirationTemplateName),
+            [GeneralNotificationTemplateName] = LoadEmailTemplate(GeneralNotificationTemplateName)
+        };
+    }
+
     private static string LoadEmailTemplate(string templateName)
     {
         var assembly = Assembly.GetExecutingAssembly();
         var resourcePath = assembly.GetManifestResourceNames()
                                .FirstOrDefault(x => x.EndsWith(templateName))
-                           ?? throw new InvalidOperationException($"Could not find email template: {templateName}");
+                           ?? throw new EmailTemplateNotFoundException(templateName);
 
         using var stream = assembly.GetManifestResourceStream(resourcePath)
-                           ?? throw new InvalidOperationException($"Could not load email template: {templateName}");
+                           ?? throw new EmailTemplateNotFoundException(templateName);
 
         using var reader = new StreamReader(stream);
         return reader.ReadToEnd();
-    }
-
-    public void Dispose()
-    {
-        _smtpClient.Dispose();
     }
 }

@@ -19,3 +19,5 @@ global using Microsoft.AspNetCore.Authentication.JwtBearer;
 global using System.Net;
 global using Microsoft.AspNetCore.Builder;
 global using FluentValidation;
+global using Microsoft.AspNetCore.Authorization;
+global using System.Net.Mail;

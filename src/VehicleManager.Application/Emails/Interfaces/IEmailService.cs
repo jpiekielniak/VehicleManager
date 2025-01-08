@@ -10,4 +10,11 @@ public interface IEmailService
         string provider,
         CancellationToken cancellationToken
     );
+    
+    Task SendEmailToUsersAsync(
+        string title,
+        string content,
+        IEnumerable<string> emails,
+        CancellationToken cancellationToken
+    );
 }

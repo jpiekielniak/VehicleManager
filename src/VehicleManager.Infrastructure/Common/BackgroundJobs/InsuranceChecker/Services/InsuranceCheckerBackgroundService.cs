@@ -16,7 +16,7 @@ public sealed class InsuranceCheckerBackgroundService(
     {
         while (!stoppingToken.IsCancellationRequested)
         {
-            // await CheckInsurancesAsync(stoppingToken);
+            await CheckInsurancesAsync(stoppingToken);
             await Task.Delay(TimeSpan.FromDays(1), stoppingToken);
         }
     }
@@ -26,9 +26,9 @@ public sealed class InsuranceCheckerBackgroundService(
         using var scope = serviceProvider.CreateScope();
         var dbContext = scope.ServiceProvider.GetRequiredService<VehicleManagerDbContext>();
         var emailService = scope.ServiceProvider.GetRequiredService<IEmailService>();
-
+    
         var expiringInsurances = await GetExpiringInsurancesAsync(dbContext, cancellationToken);
-
+    
         foreach (var insurance in expiringInsurances)
         {
             await SendExpirationNotificationAsync(
@@ -38,6 +38,7 @@ public sealed class InsuranceCheckerBackgroundService(
             );
         }
     }
+
 
     private async Task<List<Insurance>> GetExpiringInsurancesAsync(
         VehicleManagerDbContext dbContext,

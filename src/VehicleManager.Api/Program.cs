@@ -2,6 +2,7 @@ using VehicleManager.Api;
 using VehicleManager.Api.Configuration.Cors;
 using VehicleManager.Api.Configuration.FormFile;
 using VehicleManager.Api.Configuration.Swagger;
+using VehicleManager.Infrastructure.Common.Authentication.Policies;
 using VehicleManager.Infrastructure.Common.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddSwagger()
     .AddCorsPolicy()
-    .AddAuthorization()
+    .AddAuthorization(options => { options.AddAuthorizationPolicies(); })
     .AddEndpointsApiExplorer()
     .AddFormFileConfiguration()
     .AddJsonMultipartFormDataSupport(JsonSerializerChoice.Newtonsoft)
