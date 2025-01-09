@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using VehicleManager.Infrastructure.EF;
@@ -11,9 +12,11 @@ using VehicleManager.Infrastructure.EF;
 namespace VehicleManager.Infrastructure.EF.Migrations
 {
     [DbContext(typeof(VehicleManagerDbContext))]
-    partial class VehicleManagerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250109155702_AddNullableImageIdToVehicle")]
+    partial class AddNullableImageIdToVehicle
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

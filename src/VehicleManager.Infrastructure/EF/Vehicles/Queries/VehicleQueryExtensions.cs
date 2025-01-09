@@ -22,7 +22,7 @@ public static class VehicleQueryExtensions
             vehicle.VehicleType.GetDisplay(),
             vehicle.CreatedAt,
             vehicle.ServiceBookId,
-            vehicle.Image.BlobUrl
+            vehicle.Image?.BlobUrl
         );
 
     public static VehicleDto AsDto(this Vehicle vehicle)
@@ -31,6 +31,6 @@ public static class VehicleQueryExtensions
             vehicle.Brand,
             vehicle.Model,
             vehicle.LicensePlate,
-            vehicle.Image.BlobUrl
+            vehicle.Image?.BlobUrl
         );
 }

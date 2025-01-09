@@ -1,4 +1,3 @@
-using Microsoft.Extensions.Configuration;
 using VehicleManager.Application.Integrations.BlobStorage.Options;
 using VehicleManager.Application.Integrations.BlobStorage.Services;
 
