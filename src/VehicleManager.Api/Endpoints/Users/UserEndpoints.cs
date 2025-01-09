@@ -8,4 +8,6 @@ public static class UserEndpoints
     public static string BasePath => $"{RootPath.BasePath}/{Users.ToLowerInvariant()}";
     public static string CompleteUserData => $"{BasePath}/{{userId:guid}}/complete";
     public static string UserById => $"{BasePath}/{{userId:guid}}";
+    public static string ForgotPassword => $"{BasePath}/forgot-password";
+    public static string ResetPassword => $"{BasePath}/reset-password/{{token}}";
 }

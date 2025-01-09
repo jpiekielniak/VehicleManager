@@ -30,4 +30,10 @@ internal sealed class UserRepository(VehicleManagerDbContext dbContext) : IUserR
             .AsNoTracking()
             .AsQueryable()
         );
+
+    public Task UpdateAsync(User user, CancellationToken cancellationToken)
+    {
+        _users.Update(user);
+        return Task.CompletedTask;
+    }
 }

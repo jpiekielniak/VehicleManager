@@ -11,7 +11,9 @@ public sealed class EmailService(IOptions<EmailOptions> emailOptions) : IEmailSe
 
     private const string InsuranceExpirationTemplateName = "InsuranceExpiration.html";
     private const string GeneralNotificationTemplateName = "GeneralNotification.html";
+    private const string ResetPasswordRequestTemplateName = "ResetPasswordRequest.html";
     private const string InsuranceExpirationSubject = "Wygasa termin ubezpieczenia";
+    private const string ResetPasswordSubject = "Reset hasła";
 
     public async Task SendInsuranceExpirationEmailAsync(
         string email,
@@ -33,7 +35,8 @@ public sealed class EmailService(IOptions<EmailOptions> emailOptions) : IEmailSe
             email,
             InsuranceExpirationSubject,
             InsuranceExpirationTemplateName,
-            templateData);
+            templateData
+        );
 
         await SendEmailAsync(message, cancellationToken);
     }
@@ -63,6 +66,31 @@ public sealed class EmailService(IOptions<EmailOptions> emailOptions) : IEmailSe
         }).ToArray();
 
         await Task.WhenAll(sendTasks);
+    }
+
+    public async Task SendPasswordResetEmailAsync(string email, string token, CancellationToken cancellationToken)
+    {
+        var message = await CreatePasswordResetMessage(email, token);
+        await SendEmailAsync(message, cancellationToken);
+    }
+
+    private async Task<MailMessage> CreatePasswordResetMessage(string email, string token)
+    {
+        var resetLink = $"{_emailOptions.BaseUrl}/api/v1/users/reset-password/{Uri.EscapeDataString(token)}";
+        var templateData = new Dictionary<string, string>
+        {
+            ["resetLink"] = resetLink,
+            ["currentYear"] = DateTime.Now.Year.ToString()
+        };
+
+        var message = await CreateEmailMessageAsync(
+            email,
+            ResetPasswordSubject,
+            ResetPasswordRequestTemplateName,
+            templateData
+        );
+
+        return message;
     }
 
     private async Task SendEmailAsync(MailMessage message, CancellationToken cancellationToken)
@@ -124,7 +152,8 @@ public sealed class EmailService(IOptions<EmailOptions> emailOptions) : IEmailSe
         return new Dictionary<string, string>
         {
             [InsuranceExpirationTemplateName] = LoadEmailTemplate(InsuranceExpirationTemplateName),
-            [GeneralNotificationTemplateName] = LoadEmailTemplate(GeneralNotificationTemplateName)
+            [GeneralNotificationTemplateName] = LoadEmailTemplate(GeneralNotificationTemplateName),
+            [ResetPasswordRequestTemplateName] = LoadEmailTemplate(ResetPasswordRequestTemplateName)
         };
     }
 
