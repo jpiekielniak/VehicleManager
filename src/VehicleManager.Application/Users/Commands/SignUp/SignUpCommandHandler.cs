@@ -1,3 +1,4 @@
+using VehicleManager.Application.Users.Commands.SignUp.Events;
 using VehicleManager.Core.Common.Security;
 using VehicleManager.Core.Users.Entities.Builders;
 using VehicleManager.Core.Users.Entities.Enums;
@@ -7,7 +8,8 @@ namespace VehicleManager.Application.Users.Commands.SignUp;
 
 internal sealed class SignUpCommandHandler(
     IUserRepository userRepository,
-    IPasswordHasher passwordHasher
+    IPasswordHasher passwordHasher,
+    IMediator mediator
 ) : IRequestHandler<SignUpCommand>
 {
     public async Task Handle(SignUpCommand command,
@@ -23,5 +25,7 @@ internal sealed class SignUpCommandHandler(
 
         await userRepository.AddAsync(user, cancellationToken);
         await userRepository.SaveChangesAsync(cancellationToken);
+        
+        _ = mediator.Publish(new UserSignedUpNotification(user.Email), cancellationToken);
     }
 }

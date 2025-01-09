@@ -12,8 +12,10 @@ public sealed class EmailService(IOptions<EmailOptions> emailOptions) : IEmailSe
     private const string InsuranceExpirationTemplateName = "InsuranceExpiration.html";
     private const string GeneralNotificationTemplateName = "GeneralNotification.html";
     private const string ResetPasswordRequestTemplateName = "ResetPasswordRequest.html";
+    private const string WelcomeEmailTemplateName = "WelcomeEmail.html";
     private const string InsuranceExpirationSubject = "Wygasa termin ubezpieczenia";
     private const string ResetPasswordSubject = "Reset hasła";
+    private const string WelcomeEmailSubject = "Witamy w Menadżerze pojazdów!";
 
     public async Task SendInsuranceExpirationEmailAsync(
         string email,
@@ -71,6 +73,23 @@ public sealed class EmailService(IOptions<EmailOptions> emailOptions) : IEmailSe
     public async Task SendPasswordResetEmailAsync(string email, string token, CancellationToken cancellationToken)
     {
         var message = await CreatePasswordResetMessage(email, token);
+        await SendEmailAsync(message, cancellationToken);
+    }
+
+    public async Task SendWelcomeEmailNotificationAsync(string email, CancellationToken cancellationToken)
+    {
+        var templateData = new Dictionary<string, string>
+        {
+            ["currentYear"] = DateTime.Now.Year.ToString()
+        };
+        
+        var message = await CreateEmailMessageAsync(
+            email,
+            WelcomeEmailSubject,
+            WelcomeEmailTemplateName,
+            templateData
+        );
+        
         await SendEmailAsync(message, cancellationToken);
     }
 
@@ -153,7 +172,8 @@ public sealed class EmailService(IOptions<EmailOptions> emailOptions) : IEmailSe
         {
             [InsuranceExpirationTemplateName] = LoadEmailTemplate(InsuranceExpirationTemplateName),
             [GeneralNotificationTemplateName] = LoadEmailTemplate(GeneralNotificationTemplateName),
-            [ResetPasswordRequestTemplateName] = LoadEmailTemplate(ResetPasswordRequestTemplateName)
+            [ResetPasswordRequestTemplateName] = LoadEmailTemplate(ResetPasswordRequestTemplateName),
+            [WelcomeEmailTemplateName] = LoadEmailTemplate(WelcomeEmailTemplateName)
         };
     }
 

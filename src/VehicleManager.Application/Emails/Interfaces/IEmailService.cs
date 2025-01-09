@@ -23,4 +23,9 @@ public interface IEmailService
         string token,
         CancellationToken cancellationToken
     );
+
+    Task SendWelcomeEmailNotificationAsync(
+        string email,
+        CancellationToken cancellationToken
+    );
 }

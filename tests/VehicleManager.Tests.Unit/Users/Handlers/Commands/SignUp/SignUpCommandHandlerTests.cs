@@ -35,10 +35,12 @@ public class SignUpCommandHandlerTests
     {
         _userRepository = Substitute.For<IUserRepository>();
         _passwordHasher = Substitute.For<IPasswordHasher>();
+        var mediator = Substitute.For<IMediator>();
 
         _handler = new SignUpCommandHandler(
             _userRepository,
-            _passwordHasher
+            _passwordHasher,
+            mediator
         );
     }
 }
