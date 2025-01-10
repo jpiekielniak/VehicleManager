@@ -1,10 +1,11 @@
 using VehicleManager.Application.Emails.Interfaces;
-using VehicleManager.Core.Vehicles.Entities;using VehicleManager.Core.Vehicles.Repositories;
+using VehicleManager.Core.Vehicles.Entities;
+using VehicleManager.Core.Vehicles.Repositories;
 using VehicleManager.Infrastructure.Common.BackgroundJobs.InsuranceChecker.Options;
 
 namespace VehicleManager.Infrastructure.Common.BackgroundJobs.InsuranceChecker.Services;
 
-public sealed class InsuranceCheckerBackgroundService(
+internal sealed class InsuranceCheckerBackgroundService(
     IServiceProvider serviceProvider,
     IOptions<InsuranceCheckerOptions> options
 ) : BackgroundService

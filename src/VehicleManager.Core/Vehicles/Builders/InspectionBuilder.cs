@@ -3,22 +3,24 @@ using VehicleManager.Core.Vehicles.Entities.Enums;
 
 namespace VehicleManager.Core.Vehicles.Builders;
 
-public class InspectionBuilder
+public class InspectionBuilder(Inspection inspection)
 {
-    private readonly Inspection _inspection = Inspection.Create();
+    public InspectionBuilder() : this(Inspection.Create())
+    {
+    }
 
-    public Inspection Build() => _inspection;
+    public Inspection Build() => inspection;
 
     public InspectionBuilder WithScheduledDate(DateTimeOffset scheduledDate)
     {
         ArgumentNullException.ThrowIfNull(scheduledDate);
-        _inspection.ScheduledDate = scheduledDate;
+        inspection.ScheduledDate = scheduledDate;
         return this;
     }
 
     public InspectionBuilder WithPerformDate(DateTimeOffset? performDate)
     {
-        _inspection.PerformDate = performDate;
+        inspection.PerformDate = performDate;
         return this;
     }
 
@@ -29,21 +31,27 @@ public class InspectionBuilder
             throw new InvalidEnumArgumentException("InspectionType is invalid");
         }
 
-        _inspection.InspectionType = inspectionType;
+        inspection.InspectionType = inspectionType;
         return this;
     }
 
     public InspectionBuilder WithServiceBook(ServiceBook serviceBook)
     {
-        _inspection.ServiceBook = serviceBook;
-        _inspection.ServiceBookId = serviceBook.Id;
+        inspection.ServiceBook = serviceBook;
+        inspection.ServiceBookId = serviceBook.Id;
         return this;
     }
 
     public InspectionBuilder WithTitle(string title)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(title);
-        _inspection.Title = title;
+        inspection.Title = title;
+        return this;
+    }
+
+    public InspectionBuilder WithReminderSent(bool reminderSent)
+    {
+        inspection.ReminderSent = reminderSent;
         return this;
     }
 }

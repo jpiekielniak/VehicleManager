@@ -12,4 +12,27 @@ internal sealed class InspectionRepository(VehicleManagerDbContext dbContext) : 
         => await Task.FromResult(_inspections
             .AsNoTracking()
             .Where(i => i.ServiceBookId == serviceBookId));
+
+    public async Task<List<Inspection>> GetExpiringInspectionsAsync(CancellationToken cancellationToken)
+    {
+        const int daysBeforeExpiration = 7;
+        var today = DateTime.UtcNow.Date;
+
+        return await _inspections
+            .AsNoTracking()
+            .Include(i => i.ServiceBook)
+            .ThenInclude(i => i.Vehicle)
+            .ThenInclude(i => i.User)
+            .Where(i =>
+                i.PerformDate.Value.AddYears(1) >= today &&
+                i.PerformDate.Value.AddYears(1) <= today.AddDays(daysBeforeExpiration)
+            )
+            .ToListAsync(cancellationToken);
+    }
+
+    public async Task UpdateAsync(Inspection inspection, CancellationToken cancellationToken)
+    {
+        _inspections.Update(inspection);
+        await dbContext.SaveChangesAsync(cancellationToken);
+    }
 }

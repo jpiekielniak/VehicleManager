@@ -13,9 +13,11 @@ public sealed class EmailService(IOptions<EmailOptions> emailOptions) : IEmailSe
     private const string GeneralNotificationTemplateName = "GeneralNotification.html";
     private const string ResetPasswordRequestTemplateName = "ResetPasswordRequest.html";
     private const string WelcomeEmailTemplateName = "WelcomeEmail.html";
+    private const string InspectionExpirationTemplateName = "InspectionExpiration.html";
     private const string InsuranceExpirationSubject = "Wygasa termin ubezpieczenia";
     private const string ResetPasswordSubject = "Reset hasła";
     private const string WelcomeEmailSubject = "Witamy w Menadżerze pojazdów!";
+    private const string InspectionExpirationSubject = "Wygasa termin przeglądu";
 
     public async Task SendInsuranceExpirationEmailAsync(
         string email,
@@ -82,16 +84,42 @@ public sealed class EmailService(IOptions<EmailOptions> emailOptions) : IEmailSe
         {
             ["currentYear"] = DateTime.Now.Year.ToString()
         };
-        
+
         var message = await CreateEmailMessageAsync(
             email,
             WelcomeEmailSubject,
             WelcomeEmailTemplateName,
             templateData
         );
-        
+
         await SendEmailAsync(message, cancellationToken);
     }
+
+    public async Task SendInspectionExpirationEmailAsync(string email, string vehicleInfo,
+        DateTimeOffset? expirationDate,
+        string inspectionType, CancellationToken cancellationToken)
+    {
+        var daysRemaining = (expirationDate?.Date - DateTime.UtcNow.Date)?.Days ?? 0;
+
+        var templateData = new Dictionary<string, string>
+        {
+            ["vehicleInfo"] = vehicleInfo,
+            ["expirationDate"] = expirationDate?.ToString("dd.MM.yyyy"),
+            ["inspectionType"] = inspectionType,
+            ["daysRemaining"] = daysRemaining.ToString(),
+            ["currentYear"] = DateTime.Now.Year.ToString()
+        };
+
+        var message = await CreateEmailMessageAsync(
+            email,
+            InspectionExpirationSubject,
+            InspectionExpirationTemplateName,
+            templateData
+        );
+
+        await SendEmailAsync(message, cancellationToken);
+    }
+
 
     private async Task<MailMessage> CreatePasswordResetMessage(string email, string token)
     {
@@ -173,7 +201,8 @@ public sealed class EmailService(IOptions<EmailOptions> emailOptions) : IEmailSe
             [InsuranceExpirationTemplateName] = LoadEmailTemplate(InsuranceExpirationTemplateName),
             [GeneralNotificationTemplateName] = LoadEmailTemplate(GeneralNotificationTemplateName),
             [ResetPasswordRequestTemplateName] = LoadEmailTemplate(ResetPasswordRequestTemplateName),
-            [WelcomeEmailTemplateName] = LoadEmailTemplate(WelcomeEmailTemplateName)
+            [WelcomeEmailTemplateName] = LoadEmailTemplate(WelcomeEmailTemplateName),
+            [InspectionExpirationTemplateName] = LoadEmailTemplate(InspectionExpirationTemplateName)
         };
     }
 

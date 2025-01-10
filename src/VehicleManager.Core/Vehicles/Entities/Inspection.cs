@@ -11,6 +11,7 @@ public sealed class Inspection
     public DateTimeOffset ScheduledDate { get; set; }
     public DateTimeOffset? PerformDate { get; set; }
     public InspectionType InspectionType { get; set; }
+    public bool ReminderSent { get; set; } = false;
 
     private Inspection()
     {

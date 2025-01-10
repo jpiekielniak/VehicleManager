@@ -1,3 +1,4 @@
+using VehicleManager.Infrastructure.Common.BackgroundJobs.InspectionChecker.Services;
 using VehicleManager.Infrastructure.Common.BackgroundJobs.InsuranceChecker.Options;
 using VehicleManager.Infrastructure.Common.BackgroundJobs.InsuranceChecker.Services;
 
@@ -12,6 +13,7 @@ public static class BackgroundJobExtensions
         );
 
         services.AddHostedService<InsuranceCheckerBackgroundService>();
+        services.AddHostedService<InspectionCheckerBackgroundService>();
 
         return services;
     }

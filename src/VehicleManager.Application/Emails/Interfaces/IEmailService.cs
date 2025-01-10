@@ -28,4 +28,10 @@ public interface IEmailService
         string email,
         CancellationToken cancellationToken
     );
+
+    Task SendInspectionExpirationEmailAsync(string email,
+        string vehicleInfo,
+        DateTimeOffset? expirationDate,
+        string inspectionType,
+        CancellationToken cancellationToken);
 }

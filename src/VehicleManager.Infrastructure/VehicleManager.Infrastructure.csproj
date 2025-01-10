@@ -32,6 +32,7 @@
         <EmbeddedResource Include="Common\Emails\Templates\ResetPasswordForm.html" />
         <EmbeddedResource Include="Common\Emails\Templates\ResetPasswordRequest.html"/>
         <EmbeddedResource Include="Common\Emails\Templates\WelcomeEmail.html"/>
+        <EmbeddedResource Include="Common\Emails\Templates\InspectionExpiration.html"/>
     </ItemGroup>
 
 </Project>
