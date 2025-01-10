@@ -8,12 +8,11 @@ internal sealed class DeleteUserEndpoint : IEndpointDefinition
 {
     public void DefineEndpoint(IEndpointRouteBuilder endpoint)
     {
-        endpoint.MapDelete(UserEndpoints.UserById, async (
-                [FromRoute(Name = "userId")] Guid userId,
+        endpoint.MapDelete(UserEndpoints.BasePath, async (
                 [FromServices] IMediator mediator,
                 CancellationToken cancellationToken) =>
             {
-                var command = new DeleteUserCommand(userId);
+                var command = new DeleteUserCommand();
                 await mediator.Send(command, cancellationToken);
                 return Results.NoContent();
             })

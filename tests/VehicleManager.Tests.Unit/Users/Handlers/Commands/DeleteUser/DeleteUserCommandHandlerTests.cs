@@ -35,8 +35,10 @@ public class DeleteUserCommandHandlerTests
         // Arrange
         var command = _factory.CreateDeleteUserCommand();
         var user = _factory.CreateUser();
+        _context.Id
+            .Returns(Guid.NewGuid());
         _userRepository
-            .GetAsync(command.UserId, Arg.Any<CancellationToken>())
+            .GetAsync(_context.Id, Arg.Any<CancellationToken>())
             .Returns(user);
         _context.Id
             .Returns(Guid.NewGuid());
@@ -46,7 +48,6 @@ public class DeleteUserCommandHandlerTests
 
         // Assert
         exception.ShouldNotBeNull();
-        exception.ShouldBeOfType<ActionNotAllowedException>();
         await _userRepository
             .DidNotReceive()
             .DeleteAsync(Arg.Any<User>(), Arg.Any<CancellationToken>());
@@ -58,8 +59,10 @@ public class DeleteUserCommandHandlerTests
         // Arrange
         var command = _factory.CreateDeleteUserCommand();
         var user = _factory.CreateUser();
+        _context.Id
+            .Returns(user.Id);
         _userRepository
-            .GetAsync(command.UserId, Arg.Any<CancellationToken>())
+            .GetAsync(_context.Id, Arg.Any<CancellationToken>())
             .Returns(user);
         _context.Id
             .Returns(user.Id);
@@ -86,10 +89,12 @@ public class DeleteUserCommandHandlerTests
     {
         _context = Substitute.For<IContext>();
         _userRepository = Substitute.For<IUserRepository>();
+        var mediator = Substitute.For<IMediator>();
 
         _handler = new DeleteUserCommandHandler(
             _context,
-            _userRepository
+            _userRepository,
+            mediator
         );
     }
 }

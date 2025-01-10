@@ -36,6 +36,7 @@
         <EmbeddedResource Include="Common\Emails\Templates\ResetPasswordRequest.html"/>
         <EmbeddedResource Include="Common\Emails\Templates\WelcomeEmail.html"/>
         <EmbeddedResource Include="Common\Emails\Templates\InspectionExpiration.html"/>
+        <EmbeddedResource Include="Common\Emails\Templates\UserDeleted.html"/>
     </ItemGroup>
 
 </Project>

@@ -38,8 +38,8 @@ internal class UserTestFactory
     internal JsonWebToken CreateToken(Guid userId, string role)
         => JwtHelper.CreateToken(userId.ToString(), role);
 
-    public DeleteUserCommand CreateDeleteUserCommand(Guid? userId = default)
-        => new(userId ?? Guid.NewGuid());
+    public DeleteUserCommand CreateDeleteUserCommand()
+        => new();
 
     public CompleteUserDataCommand CreateCompleteUserDataCommand(Guid? userId = default)
         => new(

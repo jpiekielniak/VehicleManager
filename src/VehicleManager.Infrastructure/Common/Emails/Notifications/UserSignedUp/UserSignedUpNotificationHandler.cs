@@ -1,9 +1,9 @@
 using VehicleManager.Application.Emails.Interfaces;
 using VehicleManager.Application.Users.Commands.SignUp.Events;
 
-namespace VehicleManager.Infrastructure.Common.Emails.Notifications.SendWelcomeEmailNotification;
+namespace VehicleManager.Infrastructure.Common.Emails.Notifications.UserSignedUp;
 
-internal sealed class SendWelcomeEmailNotificationHandler(IEmailService emailService)
+internal sealed class UserSignedUpNotificationHandler(IEmailService emailService)
     : INotificationHandler<UserSignedUpNotification>
 {
     public async Task Handle(UserSignedUpNotification notification, CancellationToken cancellationToken)

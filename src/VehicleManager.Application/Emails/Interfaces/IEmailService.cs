@@ -34,4 +34,6 @@ public interface IEmailService
         DateTimeOffset? expirationDate,
         string inspectionType,
         CancellationToken cancellationToken);
+
+    Task SendUserDeletedEmailAsync(string email, CancellationToken cancellationToken);
 }
