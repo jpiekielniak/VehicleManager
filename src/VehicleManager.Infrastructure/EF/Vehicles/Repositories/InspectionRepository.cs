@@ -24,6 +24,7 @@ internal sealed class InspectionRepository(VehicleManagerDbContext dbContext) : 
             .ThenInclude(i => i.Vehicle)
             .ThenInclude(i => i.User)
             .Where(i =>
+                !i.ReminderSent &&
                 i.PerformDate.Value.AddYears(1) >= today &&
                 i.PerformDate.Value.AddYears(1) <= today.AddDays(daysBeforeExpiration)
             )

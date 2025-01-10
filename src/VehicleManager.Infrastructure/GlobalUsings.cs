@@ -21,3 +21,6 @@ global using Microsoft.AspNetCore.Builder;
 global using FluentValidation;
 global using Microsoft.AspNetCore.Authorization;
 global using System.Net.Mail;
+global using Quartz;
+global using Quartz.Simpl;
+global using Quartz.Spi;

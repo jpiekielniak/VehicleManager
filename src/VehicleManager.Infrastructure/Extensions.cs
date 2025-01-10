@@ -2,8 +2,8 @@ using VehicleManager.Core.Common.Security;
 using VehicleManager.Core.Users.Repositories;
 using VehicleManager.Core.Vehicles.Repositories;
 using VehicleManager.Infrastructure.Common.Authentication;
-using VehicleManager.Infrastructure.Common.BackgroundJobs;
 using VehicleManager.Infrastructure.Common.Emails;
+using VehicleManager.Infrastructure.Common.QuartzJobs;
 using VehicleManager.Infrastructure.Common.Security;
 using VehicleManager.Infrastructure.Common.Sieve;
 using VehicleManager.Infrastructure.EF;
@@ -50,7 +50,7 @@ internal static class Extensions
 
         services.AddEmail(configuration);
         services.AddAuth(configuration);
-        services.AddBackgroundJobs(configuration);
+        services.AddQuartzJobs(configuration);
 
         return services;
     }
