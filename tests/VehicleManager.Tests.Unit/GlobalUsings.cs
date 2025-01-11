@@ -10,3 +10,4 @@ global using Bogus;
 global using Sieve.Services;
 global using Sieve.Models;
 global using Microsoft.AspNetCore.Http;
+global using Microsoft.Extensions.Options;
