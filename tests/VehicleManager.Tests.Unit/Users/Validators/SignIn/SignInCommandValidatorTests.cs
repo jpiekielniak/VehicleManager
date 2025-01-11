@@ -23,7 +23,7 @@ public class SignInCommandValidatorTests
     public void validate_sign_in_command_with_invalid_email_should_return_error()
     {
         //arrange
-        var command = new SignInCommand("example.com", "password");
+        var command = _factory.CreateSignInCommandWithInvalidEmail();
 
         //act
         var result = _validator.Validate(command);
@@ -38,7 +38,7 @@ public class SignInCommandValidatorTests
     public void validate_sign_in_command_with_invalid_password_should_return_error()
     {
         //arrange
-        var command = new SignInCommand("car.management@test.com", "");
+        var command = _factory.CreateSignInCommandWithInvalidPassword();
 
         //act
         var result = _validator.Validate(command);

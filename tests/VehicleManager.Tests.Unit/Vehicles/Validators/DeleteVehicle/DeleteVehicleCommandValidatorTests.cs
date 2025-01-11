@@ -31,9 +31,10 @@ public class DeleteVehicleCommandValidatorTests
         // Assert
         result.IsValid.ShouldBeFalse();
         result.ShouldHaveValidationErrorFor(x => x.VehicleId)
-            .WithErrorMessage("VehicleId is required");
+            .WithErrorMessage(VehicleIdIsRequired);
     }
 
+    private const string VehicleIdIsRequired = "VehicleId is required";
     private readonly IValidator<DeleteVehicleCommand> _validator = new DeleteVehicleCommandValidator();
     private readonly VehicleTestFactory _factory = new();
 }

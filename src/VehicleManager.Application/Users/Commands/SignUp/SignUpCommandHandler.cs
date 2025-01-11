@@ -1,4 +1,4 @@
-using VehicleManager.Application.Users.Commands.SignUp.Events;
+using VehicleManager.Application.Users.Commands.SignUp.Notifications;
 using VehicleManager.Core.Common.Security;
 using VehicleManager.Core.Users.Entities.Builders;
 using VehicleManager.Core.Users.Entities.Enums;

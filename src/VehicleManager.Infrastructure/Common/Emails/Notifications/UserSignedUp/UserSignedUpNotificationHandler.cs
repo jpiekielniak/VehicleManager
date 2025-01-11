@@ -1,5 +1,5 @@
 using VehicleManager.Application.Emails.Interfaces;
-using VehicleManager.Application.Users.Commands.SignUp.Events;
+using VehicleManager.Application.Users.Commands.SignUp.Notifications;
 
 namespace VehicleManager.Infrastructure.Common.Emails.Notifications.UserSignedUp;
 

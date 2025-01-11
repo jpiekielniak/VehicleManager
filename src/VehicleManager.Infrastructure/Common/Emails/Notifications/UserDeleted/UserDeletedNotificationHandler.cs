@@ -1,5 +1,5 @@
 using VehicleManager.Application.Emails.Interfaces;
-using VehicleManager.Application.Users.Commands.DeleteUser.Events;
+using VehicleManager.Application.Users.Commands.DeleteUser.Notifications;
 
 namespace VehicleManager.Infrastructure.Common.Emails.Notifications.UserDeleted;
 

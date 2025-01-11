@@ -1,5 +1,5 @@
 using VehicleManager.Application.Common.Interfaces.Context;
-using VehicleManager.Application.Users.Commands.DeleteUser.Events;
+using VehicleManager.Application.Users.Commands.DeleteUser.Notifications;
 using VehicleManager.Core.Users.Exceptions.Users;
 using VehicleManager.Core.Users.Repositories;
 

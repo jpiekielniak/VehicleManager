@@ -1,4 +1,4 @@
-namespace VehicleManager.Tests.Unit.Common.Emails.Factories;
+namespace VehicleManager.Tests.Unit.Common.Emails.Factories.Models;
 
 public record InspectionExpirationEmailRequest(
     string Email,

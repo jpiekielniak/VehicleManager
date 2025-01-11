@@ -50,4 +50,10 @@ internal class UserTestFactory
         {
             UserId = userId ?? Guid.NewGuid()
         };
+
+    public SignInCommand CreateSignInCommandWithInvalidPassword()
+    => new(_faker.Internet.Email(), string.Empty);
+    
+    public SignInCommand CreateSignInCommandWithInvalidEmail()
+    => new(string.Empty, _faker.Internet.Password());
 }

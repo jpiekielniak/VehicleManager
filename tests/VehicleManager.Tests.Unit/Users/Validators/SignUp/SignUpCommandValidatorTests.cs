@@ -36,9 +36,10 @@ public class SignUpCommandValidatorTests
         //assert
         result.IsValid.ShouldBeFalse();
         result.ShouldHaveValidationErrorFor(x => x.Email)
-            .WithErrorMessage("Email already exists");
+            .WithErrorMessage(EmailAlreadyExists);
     }
 
+    private const string EmailAlreadyExists = "Email already exists";
     private readonly SignUpCommandValidator _validator;
     private readonly IUserRepository _userRepository;
     private readonly UserTestFactory _factory = new();

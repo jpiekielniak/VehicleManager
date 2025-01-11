@@ -1,7 +1,7 @@
 using VehicleManager.Application.Emails.Interfaces;
 using VehicleManager.Tests.Unit.Common.Emails.Factories;
 
-namespace VehicleManager.Tests.Unit.Common.Emails;
+namespace VehicleManager.Tests.Unit.Common.Emails.Services;
 
 public class EmailServiceTests
 {

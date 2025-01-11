@@ -1,6 +1,7 @@
 using VehicleManager.Core.Common.Helpers;
 using VehicleManager.Core.Vehicles.Entities.Enums;
 using VehicleManager.Infrastructure.Common.Emails.Options;
+using VehicleManager.Tests.Unit.Common.Emails.Factories.Models;
 
 namespace VehicleManager.Tests.Unit.Common.Emails.Factories;
 

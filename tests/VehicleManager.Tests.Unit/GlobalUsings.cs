@@ -11,3 +11,6 @@ global using Sieve.Services;
 global using Sieve.Models;
 global using Microsoft.AspNetCore.Http;
 global using Microsoft.Extensions.Options;
+global using System.Text;
+global using Microsoft.Azure.Storage.Blob;
+global using Azure.Storage.Blobs;
