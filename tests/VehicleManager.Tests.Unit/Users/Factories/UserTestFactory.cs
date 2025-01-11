@@ -1,3 +1,4 @@
+using VehicleManager.Application.Admin.Commands.DeleteUserForAdmin;
 using VehicleManager.Application.Common.Models;
 using VehicleManager.Application.Users.Commands.CompleteUserData;
 using VehicleManager.Application.Users.Commands.DeleteUser;
@@ -50,4 +51,7 @@ internal class UserTestFactory
         {
             UserId = userId ?? Guid.NewGuid()
         };
+
+    public DeleteUserForAdminCommand CreateDeleteUserForAdminCommand()
+        => new(Guid.NewGuid());
 }
