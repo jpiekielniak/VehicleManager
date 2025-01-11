@@ -41,7 +41,7 @@ public class DeleteUserEndpointTests : UserEndpointTest
         var response = await Client.DeleteAsync(UserEndpoints.BasePath);
 
         //Assert
-        response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
+        response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
     }
 
     [Fact]

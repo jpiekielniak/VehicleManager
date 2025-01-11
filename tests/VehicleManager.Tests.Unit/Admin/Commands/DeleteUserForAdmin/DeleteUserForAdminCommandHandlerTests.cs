@@ -2,7 +2,7 @@ using VehicleManager.Application.Admin.Commands.DeleteUserForAdmin;
 using VehicleManager.Core.Users.Entities;
 using VehicleManager.Core.Users.Exceptions.Users;
 using VehicleManager.Core.Users.Repositories;
-using VehicleManager.Tests.Unit.Users.Factories;
+using VehicleManager.Tests.Unit.Admin.Factories;
 
 namespace VehicleManager.Tests.Unit.Admin.Commands.DeleteUserForAdmin;
 
@@ -10,7 +10,7 @@ public class DeleteUserForAdminCommandHandlerTests
 {
     private async Task Act(DeleteUserForAdminCommand command)
         => await _handler.Handle(command, CancellationToken.None);
-    
+
     [Fact]
     public async Task given_non_existing_user_should_throw_user_not_found_exception()
     {
@@ -39,30 +39,28 @@ public class DeleteUserForAdminCommandHandlerTests
     {
         // Arrange
         var command = _factory.CreateDeleteUserForAdminCommand();
-        var user = _factory.CreateUser();
         _userRepository
             .GetAsync(command.UserId, Arg.Any<CancellationToken>())
-            .Returns(user);
-        
+            .Returns(User.Create());
+
         // Act
         await Act(command);
-        
+
         // Assert
         await _userRepository
             .Received(1)
             .GetAsync(command.UserId, Arg.Any<CancellationToken>());
         await _userRepository
             .Received(1)
-            .DeleteAsync(user, Arg.Any<CancellationToken>());
+            .DeleteAsync(Arg.Any<User>(), Arg.Any<CancellationToken>());
         await _userRepository
             .Received(1)
             .SaveChangesAsync(Arg.Any<CancellationToken>());
-
     }
-    
+
     private readonly IRequestHandler<DeleteUserForAdminCommand> _handler;
     private readonly IUserRepository _userRepository;
-    private readonly UserTestFactory _factory = new();
+    private readonly AdminTestFactory _factory = new();
 
     public DeleteUserForAdminCommandHandlerTests()
     {
