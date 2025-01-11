@@ -10,8 +10,7 @@ public class DeleteUserEndpointTests : UserEndpointTest
     public async Task delete_user_without_authentication_should_return_401_status_code()
     {
         //Act
-        var response =
-            await Client.DeleteAsync(UserEndpoints.UserById.Replace("{userId:guid}", Guid.NewGuid().ToString()));
+        var response = await Client.DeleteAsync(UserEndpoints.BasePath);
 
         //Assert
         response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
@@ -24,15 +23,14 @@ public class DeleteUserEndpointTests : UserEndpointTest
         Authorize(Guid.NewGuid(), Role.User.ToString());
 
         //Act
-        var response =
-            await Client.DeleteAsync(UserEndpoints.UserById.Replace("{userId:guid}", Guid.NewGuid().ToString()));
+        var response = await Client.DeleteAsync(UserEndpoints.BasePath);
 
         //Assert
         response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
     }
 
     [Fact]
-    public async Task delete_user_with_different_context_id_should_return_400_status_code()
+    public async Task delete_user_with_different_context_id_should_return_404_status_code()
     {
         //Arrange
         var user = _factory.CreateUser();
@@ -40,10 +38,10 @@ public class DeleteUserEndpointTests : UserEndpointTest
         Authorize(Guid.NewGuid(), Role.User.ToString());
 
         //Act
-        var response = await Client.DeleteAsync(UserEndpoints.UserById.Replace("{userId:guid}", user.Id.ToString()));
+        var response = await Client.DeleteAsync(UserEndpoints.BasePath);
 
         //Assert
-        response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
+        response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
     }
 
     [Fact]
@@ -55,7 +53,7 @@ public class DeleteUserEndpointTests : UserEndpointTest
         Authorize(user.Id, Role.User.ToString());
 
         //Act
-        var response = await Client.DeleteAsync(UserEndpoints.UserById.Replace("{userId:guid}", user.Id.ToString()));
+        var response = await Client.DeleteAsync(UserEndpoints.BasePath);
 
         //Assert
         response.StatusCode.ShouldBe(HttpStatusCode.NoContent);

@@ -17,4 +17,10 @@ internal sealed class ImageRepository(VehicleManagerDbContext dbContext) : IImag
 
     public async Task SaveChangesAsync(CancellationToken cancellationToken)
         => await dbContext.SaveChangesAsync(cancellationToken);
+
+    public Task DeleteAsync(Image image, CancellationToken cancellationToken)
+    {
+        _images.Remove(image);
+        return Task.CompletedTask;
+    }
 }

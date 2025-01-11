@@ -7,4 +7,5 @@ public interface IImageRepository
     Task AddAsync(Image image, CancellationToken cancellationToken);
     Task GetAsync(Guid imageId, CancellationToken cancellationToken);
     Task SaveChangesAsync(CancellationToken cancellationToken);
+    Task DeleteAsync(Image image, CancellationToken cancellationToken);
 }

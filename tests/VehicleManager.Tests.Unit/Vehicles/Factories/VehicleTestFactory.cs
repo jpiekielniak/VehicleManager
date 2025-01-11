@@ -1,4 +1,5 @@
 using VehicleManager.Application.Vehicles.Commands.AddInsurance;
+using VehicleManager.Application.Vehicles.Commands.AddVehicleImage;
 using VehicleManager.Application.Vehicles.Commands.ChangeVehicleInformation;
 using VehicleManager.Application.Vehicles.Commands.CreateVehicle;
 using VehicleManager.Application.Vehicles.Commands.DeleteInsurance;
@@ -7,6 +8,7 @@ using VehicleManager.Application.Vehicles.Queries.GetInsuranceDetailsForVehicle;
 using VehicleManager.Core.Vehicles.Builders;
 using VehicleManager.Core.Vehicles.Entities;
 using VehicleManager.Core.Vehicles.Entities.Enums;
+using VehicleManager.Tests.Unit.Vehicles.Helpers;
 
 namespace VehicleManager.Tests.Unit.Vehicles.Factories;
 
@@ -43,8 +45,7 @@ internal class VehicleTestFactory
         );
 
     public Vehicle CreateVehicle(Guid userId = default)
-    {
-        var vehicle = new VehicleBuilder()
+        => new VehicleBuilder()
             .WithBrand(_faker.Vehicle.Manufacturer())
             .WithModel(_faker.Vehicle.Model())
             .WithYear(_faker.Date.Random.Int(1980, 2024))
@@ -58,13 +59,6 @@ internal class VehicleTestFactory
             .WithServiceBook(Core.Vehicles.Entities.ServiceBook.Create())
             .WithOwner(userId == default ? Guid.NewGuid() : userId)
             .Build();
-
-        var image = CreateImage(vehicle.Id);
-
-        return new VehicleBuilder(vehicle)
-            .WithImage(image)
-            .Build();
-    }
 
 
     public DeleteVehicleCommand DeleteVehicleCommand() => new(Guid.NewGuid());
@@ -107,10 +101,16 @@ internal class VehicleTestFactory
             insuranceId == default ? Guid.NewGuid() : insuranceId
         );
 
-    private Image CreateImage(Guid vehicleId = default)
+    public Image CreateImage(Guid vehicleId = default)
         => Image.Create(
             vehicleId == default ? Guid.NewGuid() : vehicleId,
             _faker.Image.PlaceholderUrl(100, 100),
             _faker.Lorem.Sentence()
+        );
+
+    public AddVehicleImageCommand CreateAddVehicleImageCommand(Guid vehicleId = default)
+        => new(
+            vehicleId == default ? Guid.NewGuid() : vehicleId,
+            FormFileHelper.FormFileFaker().Generate()
         );
 }
