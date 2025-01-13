@@ -78,10 +78,10 @@ internal class VehicleTestFactory
             VehicleId = vehicleId == default ? Guid.NewGuid() : vehicleId
         };
 
-    public DeleteInsuranceCommand CreateDeleteInsuranceCommand(Guid vehicleId = default, Guid insuranceId = default)
+    public DeleteInsuranceCommand CreateDeleteInsuranceCommand(Guid? vehicleId = null, Guid? insuranceId = null)
         => new(
-            vehicleId == default ? Guid.NewGuid() : vehicleId,
-            insuranceId == default ? Guid.NewGuid() : insuranceId
+            vehicleId ?? Guid.NewGuid(),
+            insuranceId ?? Guid.NewGuid()
         );
 
     public Insurance CreateInsurance(Vehicle vehicle)
@@ -139,4 +139,7 @@ internal class VehicleTestFactory
         {
             VehicleId = Guid.NewGuid()
         };
+
+    public DeleteVehicleCommand CreateDeleteVehicleCommand(Guid? vehicleId)
+        => new(Guid.NewGuid());
 }
