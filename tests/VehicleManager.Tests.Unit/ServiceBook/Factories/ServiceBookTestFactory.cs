@@ -22,9 +22,9 @@ internal class ServiceBookTestFactory
             _faker.Date.Past(),
             _faker.Random.Enum<InspectionType>()
         )
-    {
-        ServiceBookId = Guid.NewGuid()
-    };
+        {
+            ServiceBookId = Guid.NewGuid()
+        };
 
     public Core.Vehicles.Entities.ServiceBook CreateServiceBook()
         => Core.Vehicles.Entities.ServiceBook.Create();
@@ -40,11 +40,11 @@ internal class ServiceBookTestFactory
             ServiceBookId = serviceBookId
         };
 
-    public DeleteInspectionCommand CreateDeleteInspectionCommand(Guid serviceBookId = default,
-        Guid inspectionId = default)
+    public DeleteInspectionCommand CreateDeleteInspectionCommand(Guid? serviceBookId = null,
+        Guid? inspectionId = null)
         => new(
-            serviceBookId == Guid.Empty ? Guid.NewGuid() : serviceBookId,
-            inspectionId == Guid.Empty ? Guid.NewGuid() : inspectionId
+            serviceBookId ?? Guid.NewGuid(),
+            inspectionId ?? Guid.NewGuid()
         );
 
     public Inspection CreateInspection()
@@ -55,10 +55,10 @@ internal class ServiceBookTestFactory
             .WithScheduledDate(_faker.Date.Past())
             .Build();
 
-    public DeleteServiceCommand CreateDeleteServiceCommand(Guid serviceBookId = default, Guid serviceId = default)
+    public DeleteServiceCommand CreateDeleteServiceCommand(Guid? serviceBookId = null, Guid? serviceId = null)
         => new(
-            serviceBookId == Guid.Empty ? Guid.NewGuid() : serviceBookId,
-            serviceId == Guid.Empty ? Guid.NewGuid() : serviceId
+            serviceBookId ?? Guid.NewGuid(),
+            serviceId ?? Guid.NewGuid()
         );
 
     public Service CreateService()
