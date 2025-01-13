@@ -16,7 +16,7 @@ public class SendEmailToUsersCommandValidatorTests
         "The length of content must be 1500 characters or fewer.";
 
     [Fact]
-    public async Task Validate_WithValidData_ShouldNotHaveErrors()
+    public async Task given_valid_command_when_validating_then_should_not_have_errors()
     {
         // Arrange
         var command = _factory.CreateSendEmailToUsersCommand();
@@ -31,7 +31,7 @@ public class SendEmailToUsersCommandValidatorTests
     [Theory]
     [InlineData("")]
     [InlineData(null)]
-    public async Task Validate_WithEmptyTitle_ShouldHaveError(string title)
+    public async Task given_empty_title_when_validating_then_should_have_required_error(string title)
     {
         // Arrange
         var command = _factory.CreateSendEmailToUsersCommand() with { Title = title };
@@ -45,7 +45,7 @@ public class SendEmailToUsersCommandValidatorTests
     }
 
     [Fact]
-    public async Task Validate_WithTitleExceeding100Characters_ShouldHaveError()
+    public async Task given_title_101_characters_when_max_100_then_should_have_max_length_error()
     {
         // Arrange
         var titleExceedingMaxLength = new string('x', 101);
@@ -62,7 +62,7 @@ public class SendEmailToUsersCommandValidatorTests
     [Theory]
     [InlineData("")]
     [InlineData(null)]
-    public async Task Validate_WithEmptyContent_ShouldHaveError(string content)
+    public async Task given_empty_content_when_validating_then_should_have_required_error(string content)
     {
         // Arrange
         var command = _factory.CreateSendEmailToUsersCommand() with { Content = content };
@@ -76,7 +76,7 @@ public class SendEmailToUsersCommandValidatorTests
     }
 
     [Fact]
-    public async Task Validate_WithContentExceeding1500Characters_ShouldHaveError()
+    public async Task given_content_1501_characters_when_max_1500_then_should_have_max_length_error()
     {
         // Arrange
         var contentExceedingMaxLength = new string('x', 1501);
