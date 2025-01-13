@@ -8,8 +8,8 @@ internal class AdminTestFactory
 {
     private readonly Faker _faker = new();
 
-    public DeleteUserForAdminCommand CreateDeleteUserForAdminCommand()
-        => new(Guid.NewGuid());
+    public DeleteUserForAdminCommand CreateDeleteUserForAdminCommand(Guid? userId = null)
+        => new(userId ?? Guid.NewGuid());
 
     public SendEmailToUsersCommand CreateSendEmailToUsersCommand()
     => new(_faker.Lorem.Sentence(), _faker.Lorem.Paragraph());
