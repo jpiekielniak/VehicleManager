@@ -15,7 +15,7 @@ public class AddInsuranceCommandHandlerTests
     public async Task given_invalid_vehicle_id_should_throw_vehicle_not_found_exception()
     {
         // Arrange
-        var command = _factory.CreateAddInsuranceCommand();
+        var command = _factory.CreateAddInsuranceCommand(Guid.NewGuid());
         _vehicleRepository.GetAsync(command.VehicleId, Arg.Any<CancellationToken>())
             .ReturnsNull();
 

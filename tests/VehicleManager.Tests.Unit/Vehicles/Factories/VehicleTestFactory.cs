@@ -57,7 +57,7 @@ internal class VehicleTestFactory
             .WithGearboxType(_faker.PickRandom<GearboxType>())
             .WithVehicleType(_faker.PickRandom<VehicleType>())
             .WithServiceBook(Core.Vehicles.Entities.ServiceBook.Create())
-            .WithOwner(userId == default ? Guid.NewGuid() : userId)
+            .WithOwner(userId == Guid.Empty ? Guid.NewGuid() : userId)
             .Build();
 
 
@@ -67,7 +67,7 @@ internal class VehicleTestFactory
         => _faker.Random.String2(3, "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
            + _faker.Random.String2(5, "0123456789");
 
-    public AddInsuranceCommand CreateAddInsuranceCommand(Guid vehicleId = default)
+    public AddInsuranceCommand CreateAddInsuranceCommand(Guid? vehicleId = null)
         => new(
             _faker.Lorem.Sentence(),
             _faker.Company.CompanyName(),
@@ -75,7 +75,7 @@ internal class VehicleTestFactory
             _faker.Date.Recent(),
             _faker.Date.Future())
         {
-            VehicleId = vehicleId == default ? Guid.NewGuid() : vehicleId
+            VehicleId = vehicleId ?? Guid.NewGuid()
         };
 
     public DeleteInsuranceCommand CreateDeleteInsuranceCommand(Guid? vehicleId = null, Guid? insuranceId = null)
@@ -97,20 +97,20 @@ internal class VehicleTestFactory
     public GetInsuranceDetailsForVehicleQuery CreateGetInsuranceDetailsForVehicleQuery(Guid vehicleId = default,
         Guid insuranceId = default)
         => new(
-            vehicleId == default ? Guid.NewGuid() : vehicleId,
-            insuranceId == default ? Guid.NewGuid() : insuranceId
+            vehicleId == Guid.Empty ? Guid.NewGuid() : vehicleId,
+            insuranceId == Guid.Empty ? Guid.NewGuid() : insuranceId
         );
 
     public Image CreateImage(Guid vehicleId = default)
         => Image.Create(
-            vehicleId == default ? Guid.NewGuid() : vehicleId,
+            vehicleId == Guid.Empty ? Guid.NewGuid() : vehicleId,
             _faker.Image.PlaceholderUrl(100, 100),
             _faker.Lorem.Sentence()
         );
 
-    public AddVehicleImageCommand CreateAddVehicleImageCommand(Guid vehicleId = default)
+    public AddVehicleImageCommand CreateAddVehicleImageCommand(Guid vehicleId)
         => new(
-            vehicleId == default ? Guid.NewGuid() : vehicleId,
+            vehicleId == Guid.Empty ? Guid.NewGuid() : vehicleId,
             FormFileHelper.FormFileFaker().Generate()
         );
 
@@ -141,5 +141,5 @@ internal class VehicleTestFactory
         };
 
     public DeleteVehicleCommand CreateDeleteVehicleCommand(Guid? vehicleId)
-        => new(Guid.NewGuid());
+        => new(vehicleId ?? Guid.NewGuid());
 }

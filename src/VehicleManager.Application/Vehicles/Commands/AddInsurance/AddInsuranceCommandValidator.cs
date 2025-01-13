@@ -5,8 +5,8 @@ internal sealed class AddInsuranceCommandValidator : AbstractValidator<AddInsura
     public AddInsuranceCommandValidator()
     {
         RuleFor(x => x.VehicleId)
-            .NotNull().WithMessage("VehicleId is required")
-            .NotEqual(Guid.Empty).WithMessage("VehicleId is required");
+            .Must(vehicleId => vehicleId != Guid.Empty)
+            .WithMessage("VehicleId is required");
 
         RuleFor(x => x.Title)
             .NotNull().WithMessage("Title is required")
@@ -25,7 +25,7 @@ internal sealed class AddInsuranceCommandValidator : AbstractValidator<AddInsura
 
         RuleFor(x => x.ValidFrom)
             .NotNull().WithMessage("ValidFrom is required")
-            .LessThan(DateTime.Now).WithMessage("ValidFrom must be in the past");
+            .LessThan(DateTimeOffset.UtcNow).WithMessage("ValidFrom must be in the past");
 
         RuleFor(x => x.ValidTo)
             .NotNull().WithMessage("ValidTo is required")
