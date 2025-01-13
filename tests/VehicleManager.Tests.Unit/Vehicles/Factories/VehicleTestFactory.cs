@@ -122,4 +122,21 @@ internal class VehicleTestFactory
 
     public AddVehicleImageCommand CreateAddVehicleImageCommandWithInvalidImage()
         => new(Guid.NewGuid(), null);
+
+    public ChangeVehicleInformationCommand CreateChangeVehicleInformationCommand()
+        => new(
+            _faker.Vehicle.Manufacturer(),
+            _faker.Vehicle.Model(),
+            _faker.Date.Random.Int(1980, DateTimeOffset.Now.Year),
+            GenerateLicensePlate(),
+            _faker.Vehicle.Vin(),
+            _faker.Random.Int(900, 5400),
+            _faker.Random.Int(60, 300),
+            _faker.PickRandom<FuelType>(),
+            _faker.PickRandom<GearboxType>(),
+            _faker.PickRandom<VehicleType>()
+        )
+        {
+            VehicleId = Guid.NewGuid()
+        };
 }
