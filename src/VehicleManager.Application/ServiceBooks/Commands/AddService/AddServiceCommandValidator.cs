@@ -17,11 +17,17 @@ internal sealed class AddServiceCommandValidator : AbstractValidator<AddServiceC
             .NotNull().WithMessage("Title is required");
 
         RuleFor(x => x.Costs)
-            .NotEmpty().WithMessage("Costs is required")
-            .NotNull().WithMessage("Costs is required")
-            .Must(x => x.All(c => c.Amount > 0)).WithMessage("Costs must have a positive amount");
+            .NotEmpty().WithMessage("Costs is required");
 
-        RuleFor(x => x.Costs)
-            .Must(x => x.All(c => c.Title != null)).WithMessage("Costs must have a title");
+        When(x => x.Costs is not null, () =>
+        {
+            RuleFor(x => x.Costs)
+                .Must(x => x.All(c => c.Amount > 0))
+                .WithMessage("Costs must have a positive amount");
+
+            RuleFor(x => x.Costs)
+                .Must(x => x.All(c => c.Title != null))
+                .WithMessage("Costs must have a title");
+        });
     }
 }

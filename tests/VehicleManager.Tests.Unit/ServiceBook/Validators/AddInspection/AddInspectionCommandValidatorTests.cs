@@ -14,7 +14,7 @@ public class AddInspectionCommandValidatorTests
     public async Task given_valid_command_when_validating_then_should_not_have_errors()
     {
         // Arrange
-        var command = _factory.CreateAddInspectionCommand() with { ServiceBookId = Guid.NewGuid() };
+        var command = _factory.CreateAddInspectionCommand();
 
         // Act
         var result = await _validator.TestValidateAsync(command);

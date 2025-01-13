@@ -21,7 +21,10 @@ internal class ServiceBookTestFactory
             _faker.Date.Past(),
             _faker.Date.Past(),
             _faker.Random.Enum<InspectionType>()
-        );
+        )
+    {
+        ServiceBookId = Guid.NewGuid()
+    };
 
     public Core.Vehicles.Entities.ServiceBook CreateServiceBook()
         => Core.Vehicles.Entities.ServiceBook.Create();
@@ -40,8 +43,8 @@ internal class ServiceBookTestFactory
     public DeleteInspectionCommand CreateDeleteInspectionCommand(Guid serviceBookId = default,
         Guid inspectionId = default)
         => new(
-            serviceBookId == default ? Guid.NewGuid() : serviceBookId,
-            inspectionId == default ? Guid.NewGuid() : inspectionId
+            serviceBookId == Guid.Empty ? Guid.NewGuid() : serviceBookId,
+            inspectionId == Guid.Empty ? Guid.NewGuid() : inspectionId
         );
 
     public Inspection CreateInspection()
@@ -54,8 +57,8 @@ internal class ServiceBookTestFactory
 
     public DeleteServiceCommand CreateDeleteServiceCommand(Guid serviceBookId = default, Guid serviceId = default)
         => new(
-            serviceBookId == default ? Guid.NewGuid() : serviceBookId,
-            serviceId == default ? Guid.NewGuid() : serviceId
+            serviceBookId == Guid.Empty ? Guid.NewGuid() : serviceBookId,
+            serviceId == Guid.Empty ? Guid.NewGuid() : serviceId
         );
 
     public Service CreateService()
@@ -67,13 +70,72 @@ internal class ServiceBookTestFactory
 
     public GetServiceQuery GetServiceQuery(Guid serviceBookId = default, Guid serviceId = default)
         => new(
-            serviceBookId == default ? Guid.NewGuid() : serviceBookId,
-            serviceId == default ? Guid.NewGuid() : serviceId
+            serviceBookId == Guid.Empty ? Guid.NewGuid() : serviceBookId,
+            serviceId == Guid.Empty ? Guid.NewGuid() : serviceId
         );
 
     public GetInspectionQuery GetInspectionQuery(Guid serviceBookId = default, Guid inspectionId = default)
         => new(
-            serviceBookId == default ? Guid.NewGuid() : serviceBookId,
-            inspectionId == default ? Guid.NewGuid() : inspectionId
+            serviceBookId == Guid.Empty ? Guid.NewGuid() : serviceBookId,
+            inspectionId == Guid.Empty ? Guid.NewGuid() : inspectionId
         );
+
+    private List<CostDto> CreateValidCosts(int count = 2)
+        => Enumerable.Range(0, count)
+            .Select(_ => new CostDto(_faker.Lorem.Word(), _faker.Random.Decimal(1, 1000)))
+            .ToList();
+
+    public List<CostDto> CreateCostsWithNegativeAmount()
+        =>
+        [
+            new(_faker.Lorem.Word(), _faker.Random.Decimal(1, 1000)),
+            new(_faker.Lorem.Word(), -_faker.Random.Decimal(1, 1000))
+        ];
+
+    public List<CostDto> CreateCostsWithZeroAmount()
+        =>
+        [
+            new(_faker.Lorem.Word(), _faker.Random.Decimal(1, 1000)),
+            new(_faker.Lorem.Word(), 0)
+        ];
+
+    public List<CostDto> CreateCostsWithNullTitle()
+        =>
+        [
+            new(_faker.Lorem.Word(), _faker.Random.Decimal(1, 1000)),
+            new(null!, _faker.Random.Decimal(1, 1000))
+        ];
+
+    public AddServiceCommand CreateAddServiceCommand()
+        => new(
+            _faker.Lorem.Paragraph(),
+            _faker.Lorem.Paragraph(),
+            _faker.Date.Past(),
+            CreateValidCosts()
+        )
+        {
+            ServiceBookId = Guid.NewGuid()
+        };
+
+    public AddServiceCommand CreateAddServiceCommandWithEmptyCosts()
+        => new(
+            _faker.Lorem.Word(),
+            _faker.Lorem.Paragraph(),
+            _faker.Date.Past(),
+            []
+        )
+        {
+            ServiceBookId = Guid.NewGuid()
+        };
+
+    public AddServiceCommand CreateAddServiceCommandWithNullCosts()
+        => new(
+            _faker.Lorem.Word(),
+            _faker.Lorem.Paragraph(),
+            _faker.Date.Past(),
+            null!
+        )
+        {
+            ServiceBookId = Guid.NewGuid()
+        };
 }
