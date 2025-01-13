@@ -12,10 +12,6 @@ internal sealed class AddInspectionCommandValidator : AbstractValidator<AddInspe
             .NotEmpty().WithMessage("ScheduledDate is required")
             .NotNull().WithMessage("ScheduledDate is required");
 
-        RuleFor(x => x.PerformDate)
-            .NotEmpty().WithMessage("PerformDate is required")
-            .NotNull().WithMessage("PerformDate is required");
-
         RuleFor(x => x.InspectionType)
             .IsInEnum().WithMessage("InspectionType is invalid");
     }
