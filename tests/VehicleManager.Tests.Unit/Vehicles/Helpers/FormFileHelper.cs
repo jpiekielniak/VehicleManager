@@ -1,5 +1,3 @@
-using System.Text;
-
 namespace VehicleManager.Tests.Unit.Vehicles.Helpers;
 
 public static class FormFileHelper
@@ -14,7 +12,7 @@ public static class FormFileHelper
                 content: f.Lorem.Paragraph()
             ));
     }
-    
+
     private static IFormFile CreateMockFormFile(
         string fileName,
         string contentType,

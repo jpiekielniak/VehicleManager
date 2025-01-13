@@ -8,7 +8,9 @@ internal sealed class AddVehicleImageCommandValidator : AbstractValidator<AddVeh
     public AddVehicleImageCommandValidator()
     {
         RuleFor(x => x.VehicleId)
-            .NotEmpty();
+            .NotEmpty()
+            .NotNull()
+            .NotEqual(Guid.Empty);
 
         RuleFor(x => x.Image)
             .NotNull()

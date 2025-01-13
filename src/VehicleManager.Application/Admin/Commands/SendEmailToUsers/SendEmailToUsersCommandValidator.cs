@@ -6,10 +6,14 @@ internal sealed class SendEmailToUsersCommandValidator : AbstractValidator<SendE
     {
         RuleFor(x => x.Title)
             .NotEmpty()
-            .MaximumLength(100);
+            .WithMessage("The title must not be empty.")
+            .MaximumLength(100)
+            .WithMessage("The length of title must be 100 characters or fewer.");
 
         RuleFor(x => x.Content)
             .NotEmpty()
-            .MaximumLength(1500);
+            .WithMessage("Content must not be empty.")
+            .MaximumLength(1500)
+            .WithMessage("The length of content must be 1500 characters or fewer.");
     }
 }

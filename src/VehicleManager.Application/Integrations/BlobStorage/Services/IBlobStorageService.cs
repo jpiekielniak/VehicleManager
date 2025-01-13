@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Http;
-
 namespace VehicleManager.Application.Integrations.BlobStorage.Services;
 
 public interface IBlobStorageService

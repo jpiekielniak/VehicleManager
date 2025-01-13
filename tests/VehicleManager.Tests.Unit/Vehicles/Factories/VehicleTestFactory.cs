@@ -113,4 +113,13 @@ internal class VehicleTestFactory
             vehicleId == default ? Guid.NewGuid() : vehicleId,
             FormFileHelper.FormFileFaker().Generate()
         );
+
+    public AddVehicleImageCommand CreateAddVehicleImageCommand()
+        => new(Guid.NewGuid(), FormFileHelper.FormFileFaker().Generate());
+
+    public AddVehicleImageCommand CreateAddVehicleImageCommandWithInvalidVehicleId()
+        => new(Guid.Empty, FormFileHelper.FormFileFaker().Generate());
+
+    public AddVehicleImageCommand CreateAddVehicleImageCommandWithInvalidImage()
+        => new(Guid.NewGuid(), null);
 }
