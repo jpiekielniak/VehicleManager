@@ -61,7 +61,8 @@ public sealed class EmailService(IOptions<EmailOptions> emailOptions) : IEmailSe
         var templateData = new Dictionary<string, string>
         {
             ["title"] = title,
-            ["content"] = content
+            ["content"] = content,
+            ["currentYear"] = DateTime.Now.Year.ToString()
         };
 
         var sendTasks = emails.Select(async email =>

@@ -14,7 +14,7 @@
         }
 
         .email-container {
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 auto;
             background-color: #ffffff;
             border-radius: 8px;
@@ -49,31 +49,38 @@
         }
 
         .insurance-details {
-            background-color: #ffffff;
-            border: 1px solid #e0e0e0;
+            background-color: #f8f9fa;
             border-radius: 8px;
-            padding: 20px;
-            margin: 20px 0;
+            padding: 25px;
+            margin: 25px 0;
         }
 
         .insurance-details table {
             width: 100%;
-            border-collapse: collapse;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+        }
+
+        .insurance-details tr {
+            background-color: #ffffff;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
 
         .insurance-details td {
-            padding: 10px 0;
-            border-bottom: 1px solid #eeeeee;
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
         }
 
         .insurance-details td:first-child {
-            color: #666666;
+            color: #6c757d;
+            font-weight: 500;
             width: 40%;
         }
 
         .insurance-details td:last-child {
-            font-weight: 500;
-            color: #333333;
+            color: var(--text-dark);
+            font-weight: 600;
         }
 
         .footer {
@@ -146,12 +153,12 @@
 
         <p>
             Z poważaniem,<br>
-            Jakub Piekielniak
+            Zespół Menadżera pojazdów
         </p>
     </div>
 
     <div class="footer">
-        © 2024 Menadżer pojazdów. Wszystkie prawa zastrzeżone.
+        © {{currentYear}} Menadżer pojazdów. Wszystkie prawa zastrzeżone.
     </div>
 </div>
 </body>
