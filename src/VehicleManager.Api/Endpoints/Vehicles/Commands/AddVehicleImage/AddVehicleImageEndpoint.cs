@@ -8,7 +8,7 @@ internal sealed class AddVehicleImageEndpoint : IEndpointDefinition
 {
     public void DefineEndpoint(IEndpointRouteBuilder endpoint)
     {
-        endpoint.MapPost(VehicleEndpoints.AddImageToVehicle, async (
+        endpoint.MapPost(VehicleEndpoints.VehicleImage, async (
                 [FromForm] IFormFile file,
                 [FromRoute] Guid vehicleId,
                 [FromServices] IMediator mediator,

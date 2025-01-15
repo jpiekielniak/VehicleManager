@@ -35,6 +35,6 @@ internal sealed class AddVehicleImageCommandHandler(
         await imageRepository.AddAsync(image, cancellationToken);
         await imageRepository.SaveChangesAsync(cancellationToken);
 
-        return new AddVehicleImageResponse(image.Id);
+        return new AddVehicleImageResponse(image.BlobUrl);
     }
 }

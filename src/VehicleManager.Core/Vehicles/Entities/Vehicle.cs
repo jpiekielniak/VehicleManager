@@ -39,4 +39,13 @@ public sealed class Vehicle
     public void AddInsurance(Insurance insurance) => _insurances.Add(insurance);
 
     public void RemoveInsurance(Insurance insurance) => _insurances.Remove(insurance);
+
+    public void RemoveImage()
+    {
+        if (Image is null)
+            return;
+
+        Image = null;
+        ImageId = null;
+    }
 }
