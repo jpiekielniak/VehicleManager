@@ -74,7 +74,7 @@ public class AddVehicleImageCommandHandlerTests
         // Assert
         await _blobStorageService.Received(1).DeleteImageAsync(Arg.Any<string>(), Arg.Any<CancellationToken>());
         await _imageRepository.Received(1).DeleteAsync(Arg.Any<Image>(), Arg.Any<CancellationToken>());
-        await _imageRepository.Received(2).SaveChangesAsync(Arg.Any<CancellationToken>());
+        await _imageRepository.Received(1).SaveChangesAsync(Arg.Any<CancellationToken>());
     }
 
 

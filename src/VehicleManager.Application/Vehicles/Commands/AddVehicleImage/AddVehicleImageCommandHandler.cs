@@ -21,7 +21,6 @@ internal sealed class AddVehicleImageCommandHandler(
         {
             await blobStorageService.DeleteImageAsync(vehicle.Image.BlobUrl, cancellationToken);
             await imageRepository.DeleteAsync(vehicle.Image, cancellationToken);
-            await imageRepository.SaveChangesAsync(cancellationToken);
         }
 
         var blobUrl = await blobStorageService.UploadImageAsync(command.Image, cancellationToken);
