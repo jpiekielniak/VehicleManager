@@ -13,7 +13,7 @@ internal sealed class GetServiceQueryHandler(
         CancellationToken cancellationToken)
     {
         var serviceBook = await serviceBookRepository
-                              .GetAsync(query.ServiceBookId, cancellationToken, true)
+                              .GetAsync(query.ServiceBookId, cancellationToken, asNoTracking: true)
                           ?? throw new ServiceBookNotFoundException(query.ServiceBookId);
 
         var service = serviceBook.Services

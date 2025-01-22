@@ -9,3 +9,4 @@ global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.DependencyInjection;
 global using Bogus;
 global using System.Net.Http.Headers;
+global using SecurityDriven;

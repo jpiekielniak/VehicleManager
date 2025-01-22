@@ -41,8 +41,8 @@ internal class VehicleTestFactory
             .WithFuelType(_faker.PickRandom<FuelType>())
             .WithGearboxType(_faker.PickRandom<GearboxType>())
             .WithVehicleType(_faker.PickRandom<VehicleType>())
-            .WithServiceBook(Core.Vehicles.Entities.ServiceBook.Create())
-            .WithOwner(userId == default ? Guid.NewGuid() : userId)
+            .WithServiceBook(ServiceBook.Create())
+            .WithOwner(userId == Guid.Empty ? FastGuid.NewGuid() : userId)
             .Build();
 
         var image = CreateImage(vehicle.Id);
@@ -54,7 +54,7 @@ internal class VehicleTestFactory
 
     private Image CreateImage(Guid vehicleId = default)
         => Image.Create(
-            vehicleId == default ? Guid.NewGuid() : vehicleId,
+            vehicleId == Guid.Empty ? FastGuid.NewGuid() : vehicleId,
             _faker.Image.PlaceholderUrl(100, 100),
             _faker.Lorem.Sentence()
         );
@@ -106,7 +106,7 @@ internal class VehicleTestFactory
             _faker.Date.Recent(),
             _faker.Date.Future())
         {
-            VehicleId = vehicleId == default ? Guid.NewGuid() : vehicleId
+            VehicleId = vehicleId == Guid.Empty ? FastGuid.NewGuid()  : vehicleId
         };
 
     public Insurance CreateInsurance(Vehicle vehicle)

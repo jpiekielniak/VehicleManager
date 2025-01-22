@@ -25,7 +25,7 @@ internal sealed class AddInsuranceCommandValidator : AbstractValidator<AddInsura
 
         RuleFor(x => x.ValidFrom)
             .NotNull().WithMessage("ValidFrom is required")
-            .LessThan(DateTimeOffset.UtcNow).WithMessage("ValidFrom must be in the past");
+            .LessThan(x => x.ValidTo).WithMessage("ValidFrom must be less than ValidTo");
 
         RuleFor(x => x.ValidTo)
             .NotNull().WithMessage("ValidTo is required")

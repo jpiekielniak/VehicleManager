@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Configuration;
+using SecurityDriven;
 using VehicleManager.Infrastructure.EF;
 
 namespace VehicleManager.Tests.Integration;
@@ -24,7 +25,7 @@ public class VehicleManagerTestFactory : WebApplicationFactory<Api.Program>
             }
 
             var connectionString = _configuration.GetConnectionString(ConnectionStringSection);
-            var dbName = $"vehicle_manager_test_{Guid.NewGuid()}";
+            var dbName = $"vehicle_manager_test_{FastGuid.NewGuid()}";
             services.AddDbContext<VehicleManagerDbContext>(options =>
             {
                 options.UseNpgsql(connectionString?.Replace("vehicle_manager_test", dbName))

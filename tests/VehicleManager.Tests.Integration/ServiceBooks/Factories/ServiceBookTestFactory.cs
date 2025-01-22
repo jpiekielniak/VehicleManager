@@ -25,7 +25,7 @@ internal class ServiceBookTestFactory
             ]
         )
         {
-            ServiceBookId = serviceBookId ?? Guid.NewGuid()
+            ServiceBookId = serviceBookId ?? FastGuid.NewGuid()
         };
 
     public Vehicle CreateVehicle(Guid userId = default)
@@ -40,7 +40,7 @@ internal class ServiceBookTestFactory
             .WithFuelType(_faker.PickRandom<FuelType>())
             .WithGearboxType(_faker.PickRandom<GearboxType>())
             .WithVehicleType(_faker.PickRandom<VehicleType>())
-            .WithOwner(userId == default ? Guid.NewGuid() : userId)
+            .WithOwner(userId == Guid.Empty ? FastGuid.NewGuid() : userId)
             .WithServiceBook(ServiceBook.Create())
             .Build();
 
@@ -59,7 +59,7 @@ internal class ServiceBookTestFactory
             _faker.PickRandom<InspectionType>()
         )
         {
-            ServiceBookId = serviceBookId ?? Guid.NewGuid()
+            ServiceBookId = serviceBookId ?? FastGuid.NewGuid()
         };
 
     public Inspection CreateInspection(ServiceBook serviceBook)

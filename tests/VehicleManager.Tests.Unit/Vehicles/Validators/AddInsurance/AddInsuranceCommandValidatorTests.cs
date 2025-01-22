@@ -140,21 +140,7 @@ public class AddInsuranceCommandValidatorTests
         result.ShouldHaveValidationErrorFor(x => x.PolicyNumber)
             .WithErrorMessage(PolicyNumberMaxLength);
     }
-
-    [Fact]
-    public async Task given_valid_from_in_future_when_validating_then_should_have_validation_error()
-    {
-        // Arrange
-        var command = _factory.CreateAddInsuranceCommand(Guid.NewGuid());
-        command = command with { ValidFrom = DateTimeOffset.Now.AddDays(1) };
-
-        // Act
-        var result = await _validator.TestValidateAsync(command);
-
-        // Assert
-        result.ShouldHaveValidationErrorFor(x => x.ValidFrom)
-            .WithErrorMessage(ValidFromPast);
-    }
+    
 
     [Fact]
     public async Task given_valid_to_less_than_valid_from_when_validating_then_should_have_validation_error()

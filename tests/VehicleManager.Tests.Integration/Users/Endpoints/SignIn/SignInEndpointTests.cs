@@ -14,10 +14,8 @@ public class SignInEndpointTests : UserEndpointTest
         var command = _factory.CreateSignInCommand();
         var hashedPassword = PasswordHasher.HashPassword(command.Password);
         var user = _factory.CreateUser(command.Email, hashedPassword);
-
-        await DbContext.Users.AddAsync(user);
-        await DbContext.SaveChangesAsync();
-
+        await SeedDataAsync(user);
+        
         //act
         var response = await Client.PostAsJsonAsync(UserEndpoints.SignIn, command);
 

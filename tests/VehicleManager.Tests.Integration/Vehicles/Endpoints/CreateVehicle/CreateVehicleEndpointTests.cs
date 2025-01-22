@@ -42,9 +42,7 @@ public class CreateVehicleEndpointTests : VehicleEndpointTest
         //arrange
         var command = _factory.CreateVehicleCommand();
         var user = _factory.CreateUser();
-
-        await DbContext.Users.AddAsync(user);
-        await DbContext.SaveChangesAsync();
+        await SeedDataAsync(user);
         Authorize(user.Id, user.Role.ToString());
 
         //act

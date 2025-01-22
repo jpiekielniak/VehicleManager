@@ -37,6 +37,6 @@ internal class UserTestFactory
             _faker.Phone.PhoneNumber()
         )
         {
-            UserId = userId ?? Guid.NewGuid()
+            UserId = userId ?? FastGuid.NewGuid()
         };
 }
